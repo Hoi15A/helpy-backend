@@ -19,7 +19,7 @@ public class User {
     private Permission permission;
 
     public User() {
-
+        //needed for JPA
     }
 
     public User(UserBuilder builder) {
