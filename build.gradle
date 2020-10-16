@@ -28,6 +28,7 @@ dependencies {
     implementation 'com.h2database:h2:1.4.200'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.3.4.RELEASE'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
