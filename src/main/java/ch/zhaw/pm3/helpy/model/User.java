@@ -157,6 +157,11 @@ public class User {
             user.permission = permission;
             return this;
         }
+
+        public User build() {
+            return user;
+        }
+
     }
 
 }
