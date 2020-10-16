@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.model;
+package ch.zhaw.pm3.helpy.constant;
 
 public enum JobStatus {
     OPEN,

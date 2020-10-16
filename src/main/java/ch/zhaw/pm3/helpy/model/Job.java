@@ -1,5 +1,7 @@
 package ch.zhaw.pm3.helpy.model;
 
+import ch.zhaw.pm3.helpy.constant.JobStatus;
+
 import java.time.LocalDate;
 
 public class Job {

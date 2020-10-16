@@ -1,5 +1,8 @@
 package ch.zhaw.pm3.helpy.model;
 
+import ch.zhaw.pm3.helpy.constant.Permission;
+import ch.zhaw.pm3.helpy.constant.UserStatus;
+
 import java.time.LocalDate;
 
 public class User {
