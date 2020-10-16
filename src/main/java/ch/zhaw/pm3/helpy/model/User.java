@@ -18,6 +18,24 @@ public class User {
     private UserStatus status;
     private Permission permission;
 
+    public User() {
+
+    }
+
+    public User(UserBuilder builder) {
+        User user = builder.build();
+        firstname = user.firstname;
+        lastname = user.lastname;
+        email = user.email;
+        sex = user.sex;
+        plz = user.plz;
+        birthdate = user.birthdate;
+        password = user.password;
+        biographie = user.biographie;
+        status = user.status;
+        permission = user.permission;
+    }
+
     public String getFirstname() {
         return firstname;
     }
