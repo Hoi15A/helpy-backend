@@ -99,7 +99,7 @@ public class User {
     }
 
     public static class UserBuilder {
-        User user = new User();
+        User user;
 
         public UserBuilder() {
             user = new User();
