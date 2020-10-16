@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,6 +44,34 @@ public class JobController {
         return ResponseEntity.badRequest().body(jobs);
     }
 
+    @GetMapping("category/{category}")
+    public ResponseEntity<List<String>> getJobsByCategory(@PathVariable("cateogry") final String category) {
+        //todo
+        return ResponseEntity.ok(new ArrayList<>());
+    }
 
+    @GetMapping("category/{categories}")
+    public ResponseEntity<List<String>> getJobsByCategories(@PathVariable("categories") final String categories) {
+        //todo
+        return ResponseEntity.ok(new ArrayList<>());
+    }
+
+    @GetMapping("tag/{tag}")
+    public ResponseEntity<List<String>> getJobsByTag(@PathVariable("tag") final String tag) {
+        //todo
+        return ResponseEntity.ok(new ArrayList<>());
+    }
+
+    @GetMapping("tag/{tags}")
+    public ResponseEntity<List<String>> getJobsByTags(@PathVariable("tags") final String tags) {
+        //todo
+        return ResponseEntity.ok(new ArrayList<>());
+    }
+
+    @GetMapping("date/{date}")
+    public ResponseEntity<List<String>> getJobsByDate(@PathVariable("date") final Date date) {
+        //todo
+        return ResponseEntity.ok(new ArrayList<>());
+    }
 
 }
