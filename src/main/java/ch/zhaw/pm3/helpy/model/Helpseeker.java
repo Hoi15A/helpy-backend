@@ -1,10 +1,16 @@
 package ch.zhaw.pm3.helpy.model;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
 public class Helpseeker extends User {
+    @OneToMany
     private List<Job> tasks;
-    private List<String> tags;
+    @ManyToMany
+    private List<Tag> tags;
 
     public Helpseeker() {
         //needed for JPA
@@ -22,11 +28,11 @@ public class Helpseeker extends User {
         this.tasks = tasks;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }

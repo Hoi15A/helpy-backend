@@ -1,7 +1,13 @@
 package ch.zhaw.pm3.helpy.model;
 
-public class Tag extends Category{
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Tag extends Category{
+    public Tag() {
+        //needed for JPA
+    }
     public Tag(String name) {
         super(name);
     }

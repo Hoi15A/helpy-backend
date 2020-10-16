@@ -2,19 +2,26 @@ package ch.zhaw.pm3.helpy.model;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 public class Job {
 
+    @Id
     private long id;
     private String title;
     private String description;
+    @ManyToOne
     private Helpseeker author;
     private LocalDate created;
     private JobStatus status;
+    @OneToOne
     private Helper matchedHelper;
+    @ManyToMany
     private List<Category> categories;
+    @ManyToMany
     private List<Tag> tags;
 
     public Job() {}

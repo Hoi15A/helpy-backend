@@ -3,13 +3,17 @@ package ch.zhaw.pm3.helpy.model;
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Entity
 public class User {
 
+    @Id
+    private String email;
     private String firstname;
     private String lastname;
-    private String email;
     private char sex;
     private int plz;
     private LocalDate birthdate;

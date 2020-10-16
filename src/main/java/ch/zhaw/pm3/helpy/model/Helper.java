@@ -1,12 +1,18 @@
 package ch.zhaw.pm3.helpy.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Helper extends User {
+    @ElementCollection
     private List<Integer> ratings;
+    @OneToMany
     private List<Job> completedJobs;
+    @ManyToMany
     private List<Category> categories;
-    private List<String> tags;
+    @ManyToMany
+    private List<Tag> tags;
 
     public Helper() {
         //needed for JPA
@@ -40,11 +46,11 @@ public class Helper extends User {
         this.categories = categories;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }

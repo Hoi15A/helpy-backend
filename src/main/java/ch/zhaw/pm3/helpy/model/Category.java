@@ -1,14 +1,22 @@
 package ch.zhaw.pm3.helpy.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class Category {
 
-    private final String name;
-    private final List<Category> listOfRelated;
+    @Id
+    private String name;
+    @ManyToMany
+    private List<Category> listOfRelated;
     private String description;
+
+    public Category() {
+        //needed for JPA
+    }
 
     public Category(String name) {
         Objects.requireNonNull(name);
@@ -21,8 +29,16 @@ public class Category {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public List<Category> getListOfRelated() {
         return listOfRelated;
+    }
+
+    public void setListOfRelated(List<Category> listOfRelated) {
+        this.listOfRelated = listOfRelated;
     }
 
     public String getDescription() {
@@ -43,8 +59,4 @@ public class Category {
         Objects.requireNonNull(category);
         return listOfRelated.remove(category);
     }
-
-
-
-
 }
