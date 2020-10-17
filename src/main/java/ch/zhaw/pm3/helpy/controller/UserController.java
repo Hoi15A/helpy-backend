@@ -1,60 +1,69 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.model.User;
+import ch.zhaw.pm3.helpy.repository.UserRepository;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/user")
 public class UserController {
 
+    private final Gson gson = new Gson();
+
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("{username}")
-    public ResponseEntity<String> getUser(@PathVariable("username") final String username) {
-        //todo
-        return ResponseEntity.ok("user");
+    public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
+        User user = userRepository.findUserByName(username);
+        return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
     }
 
-    @PostMapping("add")
-    public ResponseEntity<String> addUser(@RequestBody String body) {
-        //todo
-        return ResponseEntity.noContent().build();
+    @PostMapping(value = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> addUser(@RequestBody String body) {
+        User user = gson.fromJson(body, User.class);
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("remove/{username}")
-    public ResponseEntity<String> removeUser(@PathVariable("username") final String username) {
-        //todo
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<User> removeUser(@PathVariable("username") final String username) {
+        User user = userRepository.findUserByName(username);
+        if (user == null) { return ResponseEntity.notFound().build(); }
+        userRepository.delete(user);
+        return ResponseEntity.ok(user);
     }
 
-    @PutMapping("update/{username}")
-    public ResponseEntity<String> updateUser(@PathVariable("username") final String username) {
+    @PutMapping("update")
+    public ResponseEntity<User> updateUser(@RequestBody final String username) {
         //todo
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("city/{city}")
-    public ResponseEntity<List<String>> getByCity(@PathVariable("city") final String city) {
-        //todo
-        return ResponseEntity.ok(new ArrayList<>());
+    @GetMapping("plz/{plz}")
+    public ResponseEntity<List<User>> getByPlz(@PathVariable("plz") final int plz) {
+        return ResponseEntity.ok(userRepository.findUsersByPlz(plz));
     }
 
     @GetMapping("status/{status}")
-    public ResponseEntity<List<String>> getByStatus(@PathVariable("status") final String status) {
-        //todo
-        return ResponseEntity.ok(new ArrayList<>());
+    public ResponseEntity<List<User>> getByStatus(@PathVariable("status") final String status) {
+        return ResponseEntity.ok(userRepository.findUsersByStatus(status));
     }
 
     @GetMapping("age/{age}")
     public ResponseEntity<List<String>> getByAge(@PathVariable("age") final int age) {
         //todo
-        return ResponseEntity.ok(new ArrayList<>());
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("rating/{rating}")
-    public ResponseEntity<List<String>> getByRating(@PathVariable("rating") final String rating) {
-        //todo
-        return ResponseEntity.ok(new ArrayList<>());
+    public ResponseEntity<List<User>> getByRating(@PathVariable("rating") final int rating) {
+        return ResponseEntity.ok(userRepository.findUsersByRating(rating));
     }
 }
