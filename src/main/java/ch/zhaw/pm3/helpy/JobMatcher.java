@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ public class JobMatcher {
     private final Job job;
 
     public JobMatcher(@NotNull Job job) {
-        this.job = job;
+        this.job = Objects.requireNonNull(job, "Job object missing!");
     }
 
     private List<Helper> getHelperNearHelpseeker() {
