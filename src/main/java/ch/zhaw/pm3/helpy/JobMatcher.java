@@ -25,13 +25,20 @@ import java.util.stream.Collectors;
  */
 public class JobMatcher {
 
+    private final Job job;
     @Autowired
     private UserRepository userRepository;
 
-    private final Job job;
-
     public JobMatcher(@NotNull Job job) {
         this.job = Objects.requireNonNull(job, "Job object missing!");
+    }
+
+    /**
+     * Returns a list of available and compatible helpers, sorted by a compatibility score.
+     * @return List<Helper>
+     */
+    public List<Helper> getPotentialHelper() {
+        return sortByCompatibility(match(getHelperNearHelpseeker()));
     }
 
     private List<Helper> getHelperNearHelpseeker() {
@@ -82,16 +89,6 @@ public class JobMatcher {
         return ratings.stream().reduce(0, Integer::sum);
     }
 
-    private static class ListScoreCalculator<T> {
-
-        int calc(List<T> l1, List<T> l2) {
-            List<T> commonList = new ArrayList<>(l1);
-            commonList.retainAll(l2);
-            return commonList.size();
-        }
-
-    }
-
     private int calculateCompletedJobsScore(List<Job> jobs) {
         return jobs.stream()
                 .mapToInt(mapJobToScore())
@@ -110,12 +107,14 @@ public class JobMatcher {
         };
     }
 
-    /**
-     * Returns a list of available and compatible helpers, sorted by a compatibility score.
-     * @return List<Helper>
-     */
-    public List<Helper> getPotentialHelper() {
-        return sortByCompatibility(match(getHelperNearHelpseeker()));
+    private static class ListScoreCalculator<T> {
+
+        int calc(List<T> l1, List<T> l2) {
+            List<T> commonList = new ArrayList<>(l1);
+            commonList.retainAll(l2);
+            return commonList.size();
+        }
+
     }
 
 }
