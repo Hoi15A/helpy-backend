@@ -117,6 +117,10 @@ public class JobMatcher {
         };
     }
 
+    /**
+     * Returns a list of available and compatible helpers, sorted by a compatibility score.
+     * @return List<Helper>
+     */
     public List<Helper> getPotentialHelper() {
         return sortByCompatibility(match(getHelperNearHelpseeker()));
     }
