@@ -85,9 +85,7 @@ public class JobMatcher {
     }
 
     private long sumRatings(List<Integer> ratings) {
-        return ratings.stream()
-                .reduce(Integer::sum)
-                .get();
+        return ratings.stream().reduce(0, Integer::sum);
     }
 
     private static class ListScoreCalculator<T> {
@@ -103,8 +101,7 @@ public class JobMatcher {
     private long calculateCompletedJobsScore(List<Job> jobs) {
         return jobs.stream()
                 .mapToLong(mapJobToScore())
-                .reduce(Long::sum)
-                .getAsLong();
+                .reduce(0, Long::sum);
     }
 
     private ToLongFunction<Job> mapJobToScore() {
