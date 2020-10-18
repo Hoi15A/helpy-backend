@@ -1,8 +1,10 @@
 package ch.zhaw.pm3.helpy;
 
 import ch.zhaw.pm3.helpy.constant.UserStatus;
+import ch.zhaw.pm3.helpy.model.Category;
 import ch.zhaw.pm3.helpy.model.Helper;
 import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.Tag;
 import ch.zhaw.pm3.helpy.model.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import com.sun.istack.NotNull;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.function.ToLongFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -63,10 +67,48 @@ public class JobMatcher {
          * How to calculate compatibility score:
          * - amount of matching categories
          * - amount of matching tags
-         * - amount of completed jobs
+         * - amount of completed jobs (in at least one of the categories + tags)
          * - amount of ratings / mean value
          */
-        return potentialHelper;
+        Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
+            ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
+            ListScoreCalculator<Tag> tagScoreCalculator = new ListScoreCalculator<>();
+            int categoriesScore    = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
+            int tagsScore          = tagScoreCalculator.calc(job.getTags(), h1.getTags())                  - tagScoreCalculator.calc(job.getTags(), h2.getTags());
+            long completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs())                    - calculateCompletedJobsScore(h2.getCompletedJobs());
+
+            return (int) (categoriesScore + tagsScore + completedJobScore);
+        };
+        return potentialHelper.stream()
+                              .sorted(sortingByCompatibility)
+                              .collect(Collectors.toList());
+    }
+    
+    private static class ListScoreCalculator<T> {
+        int calc(List<T> l1, List<T> l2) {
+            List<T> commonList = new ArrayList<>(l1);
+            commonList.retainAll(l2);
+            return commonList.size();
+        }
+    }
+
+    private long calculateCompletedJobsScore(List<Job> jobs) {
+        return jobs.stream()
+                    .mapToLong(mapJobToScore())
+                    .reduce(Long::sum)
+                    .getAsLong();
+    }
+
+    private ToLongFunction<Job> mapJobToScore() {
+        return toMappingJob -> {
+            List<Category> commonCategories = new ArrayList<>(toMappingJob.getCategories());
+            commonCategories.retainAll(toMappingJob.getCategories());
+
+            List<Tag> commonTags = new ArrayList<>(toMappingJob.getTags());
+            commonTags.retainAll(toMappingJob.getTags());
+
+            return (long) (commonCategories.size() + commonTags.size());
+        };
     }
 
     public List<Helper> getPotentialHelper() {
