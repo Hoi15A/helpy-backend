@@ -64,12 +64,15 @@ public class JobMatcher {
 
     private List<Helper> sortByCompatibility(List<Helper> potentialHelper) {
         Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
+            // categories
             ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
+            int categoriesScore = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
+            // tags
             ListScoreCalculator<Tag> tagScoreCalculator = new ListScoreCalculator<>();
-            int categoriesScore    = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
-            int tagsScore          = tagScoreCalculator.calc(job.getTags(), h1.getTags())                  - tagScoreCalculator.calc(job.getTags(), h2.getTags());
-            long completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs())                    - calculateCompletedJobsScore(h2.getCompletedJobs());
-
+            int tagsScore = tagScoreCalculator.calc(job.getTags(), h1.getTags()) - tagScoreCalculator.calc(job.getTags(), h2.getTags());
+            // completed jobs
+            long completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs()) - calculateCompletedJobsScore(h2.getCompletedJobs());
+            // ratings
             int h1RatingsCount = h1.getRatings().size();
             int h2RatingsCount = h2.getRatings().size();
             long ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
