@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy;
 
+import ch.zhaw.pm3.helpy.constant.UserStatus;
 import ch.zhaw.pm3.helpy.model.Helper;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.User;
@@ -8,6 +9,7 @@ import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,7 +55,10 @@ public class JobMatcher {
     }
 
     private List<Helper> match(List<Helper> potentialHelper) {
-        return potentialHelper;
+        return potentialHelper.stream()
+                .filter(helper -> helper.getStatus() == UserStatus.ACTIVE)
+                .filter(helper -> !Collections.disjoint(helper.getCategories(), job.getCategories())) // at least 1 category in common
+                .collect(Collectors.toList());
     }
 
     private List<Helper> sortByCompatibility(List<Helper> potentialHelper) {
