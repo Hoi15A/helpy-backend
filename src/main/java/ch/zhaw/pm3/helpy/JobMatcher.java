@@ -59,6 +59,13 @@ public class JobMatcher {
     }
 
     private List<Helper> sortByCompatibility(List<Helper> potentialHelper) {
+        /*
+         * How to calculate compatibility score:
+         * - amount of matching categories
+         * - amount of matching tags
+         * - amount of completed jobs
+         * - amount of ratings / mean value
+         */
         return potentialHelper;
     }
 
