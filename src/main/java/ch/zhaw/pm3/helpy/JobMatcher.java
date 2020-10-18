@@ -78,8 +78,8 @@ public class JobMatcher {
             return normalize(totalScore);
         };
         return potentialHelper.stream()
-                              .sorted(sortingByCompatibility)
-                              .collect(Collectors.toList());
+                .sorted(sortingByCompatibility)
+                .collect(Collectors.toList());
     }
 
     private int normalize(long score) {
@@ -89,23 +89,25 @@ public class JobMatcher {
 
     private long sumRatings(List<Integer> ratings) {
         return ratings.stream()
-                      .reduce(Integer::sum)
-                      .get();
+                .reduce(Integer::sum)
+                .get();
     }
-    
+
     private static class ListScoreCalculator<T> {
+
         int calc(List<T> l1, List<T> l2) {
             List<T> commonList = new ArrayList<>(l1);
             commonList.retainAll(l2);
             return commonList.size();
         }
+
     }
 
     private long calculateCompletedJobsScore(List<Job> jobs) {
         return jobs.stream()
-                    .mapToLong(mapJobToScore())
-                    .reduce(Long::sum)
-                    .getAsLong();
+                .mapToLong(mapJobToScore())
+                .reduce(Long::sum)
+                .getAsLong();
     }
 
     private ToLongFunction<Job> mapJobToScore() {
