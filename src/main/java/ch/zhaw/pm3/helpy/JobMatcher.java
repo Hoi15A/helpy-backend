@@ -32,12 +32,9 @@ public class JobMatcher {
     private UserRepository userRepository;
 
     private final Job job;
-    private List<Helper> potentialHelper;
-
 
     public JobMatcher(@NotNull Job job) {
         this.job = job;
-        potentialHelper = sortByCompatibility(match(getHelperNearHelpseeker()));
     }
 
     private List<Helper> getHelperNearHelpseeker() {
@@ -66,7 +63,7 @@ public class JobMatcher {
     }
 
     public List<Helper> getPotentialHelper() {
-        return new ArrayList<>();
+        return sortByCompatibility(match(getHelperNearHelpseeker()));
     }
 
 }
