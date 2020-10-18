@@ -63,13 +63,6 @@ public class JobMatcher {
     }
 
     private List<Helper> sortByCompatibility(List<Helper> potentialHelper) {
-        /*
-         * How to calculate compatibility score:
-         * - amount of matching categories
-         * - amount of matching tags
-         * - amount of completed jobs (in at least one of the categories + tags)
-         * - amount of ratings / mean value
-         */
         Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
             ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
             ListScoreCalculator<Tag> tagScoreCalculator = new ListScoreCalculator<>();
@@ -77,11 +70,27 @@ public class JobMatcher {
             int tagsScore          = tagScoreCalculator.calc(job.getTags(), h1.getTags())                  - tagScoreCalculator.calc(job.getTags(), h2.getTags());
             long completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs())                    - calculateCompletedJobsScore(h2.getCompletedJobs());
 
-            return (int) (categoriesScore + tagsScore + completedJobScore);
+            int h1RatingsCount = h1.getRatings().size();
+            int h2RatingsCount = h2.getRatings().size();
+            long ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
+
+            long totalScore = (categoriesScore + tagsScore + completedJobScore + ratingScore);
+            return normalize(totalScore);
         };
         return potentialHelper.stream()
                               .sorted(sortingByCompatibility)
                               .collect(Collectors.toList());
+    }
+
+    private int normalize(long score) {
+        if (score == 0) return 0;
+        return score > 0 ? 1 : -1;
+    }
+
+    private long sumRatings(List<Integer> ratings) {
+        return ratings.stream()
+                      .reduce(Integer::sum)
+                      .get();
     }
     
     private static class ListScoreCalculator<T> {
