@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.ToLongFunction;
+import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -65,26 +65,20 @@ public class JobMatcher {
             ListScoreCalculator<Tag> tagScoreCalculator = new ListScoreCalculator<>();
             int tagsScore = tagScoreCalculator.calc(job.getTags(), h1.getTags()) - tagScoreCalculator.calc(job.getTags(), h2.getTags());
             // completed jobs
-            long completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs()) - calculateCompletedJobsScore(h2.getCompletedJobs());
+            int completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs()) - calculateCompletedJobsScore(h2.getCompletedJobs());
             // ratings
             int h1RatingsCount = h1.getRatings().size();
             int h2RatingsCount = h2.getRatings().size();
-            long ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
+            int ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
 
-            long totalScore = (categoriesScore + tagsScore + completedJobScore + ratingScore);
-            return normalize(totalScore);
+            return (categoriesScore + tagsScore + completedJobScore + ratingScore);
         };
         return potentialHelper.stream()
                 .sorted(sortingByCompatibility)
                 .collect(Collectors.toList());
     }
 
-    private int normalize(long score) {
-        if (score == 0) return 0;
-        return score > 0 ? 1 : -1;
-    }
-
-    private long sumRatings(List<Integer> ratings) {
+    private int sumRatings(List<Integer> ratings) {
         return ratings.stream().reduce(0, Integer::sum);
     }
 
@@ -98,13 +92,13 @@ public class JobMatcher {
 
     }
 
-    private long calculateCompletedJobsScore(List<Job> jobs) {
+    private int calculateCompletedJobsScore(List<Job> jobs) {
         return jobs.stream()
-                .mapToLong(mapJobToScore())
-                .reduce(0, Long::sum);
+                .mapToInt(mapJobToScore())
+                .reduce(0, Integer::sum);
     }
 
-    private ToLongFunction<Job> mapJobToScore() {
+    private ToIntFunction<Job> mapJobToScore() {
         return toMappingJob -> {
             List<Category> commonCategories = new ArrayList<>(toMappingJob.getCategories());
             commonCategories.retainAll(toMappingJob.getCategories());
@@ -112,7 +106,7 @@ public class JobMatcher {
             List<Tag> commonTags = new ArrayList<>(toMappingJob.getTags());
             commonTags.retainAll(toMappingJob.getTags());
 
-            return (long) (commonCategories.size() + commonTags.size());
+            return commonCategories.size() + commonTags.size();
         };
     }
 
