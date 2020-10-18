@@ -67,10 +67,10 @@ public class JobMatcher {
         Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
             // categories
             ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
-            int categoriesScore = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
+            int categoryScore = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
             // tags
             ListScoreCalculator<Tag> tagScoreCalculator = new ListScoreCalculator<>();
-            int tagsScore = tagScoreCalculator.calc(job.getTags(), h1.getTags()) - tagScoreCalculator.calc(job.getTags(), h2.getTags());
+            int tagScore = tagScoreCalculator.calc(job.getTags(), h1.getTags()) - tagScoreCalculator.calc(job.getTags(), h2.getTags());
             // completed jobs
             int completedJobScore = calculateCompletedJobsScore(h1.getCompletedJobs()) - calculateCompletedJobsScore(h2.getCompletedJobs());
             // ratings
@@ -78,7 +78,7 @@ public class JobMatcher {
             int h2RatingsCount = h2.getRatings().size();
             int ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
 
-            return (categoriesScore + tagsScore + completedJobScore + ratingScore);
+            return (categoryScore + tagScore + completedJobScore + ratingScore);
         };
         return potentialHelper.stream()
                 .sorted(sortingByCompatibility)
