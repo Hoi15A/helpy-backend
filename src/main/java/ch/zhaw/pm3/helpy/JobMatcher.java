@@ -24,14 +24,6 @@ import java.util.stream.Collectors;
  */
 public class JobMatcher {
 
-    /*
-     * Steps:
-     * - add to matching job
-     * - load list of helper near helpseeker (first 2 digits from postcode)
-     * - run match algorithm (filter/sorter)
-     * - return potential helper
-     */
-
     @Autowired
     private UserRepository userRepository;
 
