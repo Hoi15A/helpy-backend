@@ -42,7 +42,8 @@ public class JobMatcher {
             users.addAll(userRepository.findUsersByPlz(plz));
         }
 
-        return users.stream().filter(Helper.class::isInstance)
+        return users.stream()
+                .filter(Helper.class::isInstance)
                 .map(Helper.class::cast)
                 .collect(Collectors.toList());
     }
