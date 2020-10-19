@@ -19,7 +19,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 /**
- * Provides an appropiate list of Helper.
+ * Provides an appropriate list of Helper.
  * @author meletlea
  * @version 18.10.2020
  */
