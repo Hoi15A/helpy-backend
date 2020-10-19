@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("api/job")
@@ -81,9 +79,9 @@ public class JobController {
     }
 
     @PostMapping("categories")
-    public ResponseEntity<List<Job>> getJobsByCategories(@RequestBody final String categories) {
+    public ResponseEntity<Set<Job>> getJobsByCategories(@RequestBody final String categories) {
         Category[] cats = gson.fromJson(categories, Category[].class);
-        List<Job> jobs = new ArrayList<>();
+        Set<Job> jobs = new HashSet<>();
         for (Category c : cats) {
             jobs.addAll(jobRepository.findJobsByCategory(c.getName()));
         }
@@ -96,9 +94,9 @@ public class JobController {
     }
 
     @PostMapping("tags")
-    public ResponseEntity<List<Job>> getJobsByTags(@RequestBody final String tags) {
+    public ResponseEntity<Set<Job>> getJobsByTags(@RequestBody final String tags) {
         Tag[] tagArray = gson.fromJson(tags, Tag[].class);
-        List<Job> jobs = new ArrayList<>();
+        Set<Job> jobs = new HashSet<>();
         for (Tag t : tagArray) {
             jobs.addAll(jobRepository.findJobsByTag(t.getName()));
         }
