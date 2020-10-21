@@ -14,7 +14,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     @Query(value = "select * from Job where created=?1", nativeQuery = true)
     List<Job> findJobsByDate(String date);
 
-    @Query(value = "select * from Job where author=?1", nativeQuery = true)
+    @Query(value = "select * from Job where author_email=?1", nativeQuery = true)
     List<Job> findJobsByAuthor(Helpseeker helpseeker);
 
     @Query(value = "select * from Job as j where exists (select 1 from JOB_CATEGORIES where CATEGORIES_NAME=?1 and j.id=JOB_ID)", nativeQuery = true)
