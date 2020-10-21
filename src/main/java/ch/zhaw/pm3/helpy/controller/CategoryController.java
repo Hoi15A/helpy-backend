@@ -54,8 +54,8 @@ public class CategoryController {
 
     @GetMapping("related/{category}")
     public ResponseEntity<List<Category>> getRelatedCategories(@PathVariable("category") final String category) {
-        List<Category> categories = categoryRepository.findRelatedCategories(category);
-        return categories.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(categories);
+        if (categoryRepository.findCategoryByName(category) == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(categoryRepository.findRelatedCategories(category));
     }
 }
 
