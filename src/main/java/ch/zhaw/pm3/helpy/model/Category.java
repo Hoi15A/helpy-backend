@@ -12,6 +12,7 @@ public class Category {
     private String name;
     @ManyToMany
     private List<Category> listOfRelated;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
 
     public Category() {
