@@ -19,7 +19,7 @@ public class CategoryController {
 
     @GetMapping("all")
     public ResponseEntity<List<Category>> getCategories() {
-        return ResponseEntity.badRequest().body(categoryRepository.findAll());
+        return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     @PostMapping("add")
