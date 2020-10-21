@@ -1,5 +1,7 @@
 package ch.zhaw.pm3.helpy.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -8,6 +10,7 @@ import java.util.List;
 @Entity
 public class Helpseeker extends User {
     @OneToMany
+    @JsonBackReference
     private List<Job> tasks;
     @ManyToMany
     private List<Tag> tags;

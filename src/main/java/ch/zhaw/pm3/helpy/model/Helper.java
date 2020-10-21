@@ -1,5 +1,7 @@
 package ch.zhaw.pm3.helpy.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class Helper extends User {
     @ElementCollection
     private List<Integer> ratings;
     @OneToMany
+    @JsonBackReference
     private List<Job> completedJobs;
     @ManyToMany
     private List<Category> categories;
