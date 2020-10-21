@@ -10,7 +10,7 @@ public class Category {
 
     @Id
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> listOfRelated;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
