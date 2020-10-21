@@ -12,6 +12,7 @@ public class Job {
     @Id
     private long id;
     private String title;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
     @ManyToOne
     private Helpseeker author;
