@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.model;
 
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +19,7 @@ public class User {
     private char sex;
     private int plz;
     private LocalDate birthdate;
+    @JsonIgnore
     private String password;
     @Column(columnDefinition = "LONGTEXT")
     private String biographie;
