@@ -3,6 +3,7 @@ package ch.zhaw.pm3.helpy.model;
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
@@ -18,6 +19,7 @@ public class User {
     private int plz;
     private LocalDate birthdate;
     private String password;
+    @Column(columnDefinition = "LONGTEXT")
     private String biographie;
     private UserStatus status;
     private Permission permission;
