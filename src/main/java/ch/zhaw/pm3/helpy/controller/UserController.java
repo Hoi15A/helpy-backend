@@ -1,5 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.model.Helper;
+import ch.zhaw.pm3.helpy.model.Helpseeker;
 import ch.zhaw.pm3.helpy.model.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import com.google.gson.Gson;
@@ -25,11 +27,31 @@ public class UserController {
         return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
     }
 
+    @GetMapping("all")
+    public ResponseEntity<List<User>> getAll() {
+        List<User> users = userRepository.findAll();
+        return ResponseEntity.ok(users);
+    }
+
     @PostMapping(value = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> addUser(@RequestBody String body) {
         User user = gson.fromJson(body, User.class);
         userRepository.save(user);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping(value = "addhelpseeker", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> addHelpseeker(@RequestBody String body) {
+        Helpseeker helpseeker = gson.fromJson(body, Helpseeker.class);
+        userRepository.save(helpseeker);
+        return ResponseEntity.ok(helpseeker);
+    }
+
+    @PostMapping(value = "addhelper", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> addHelper(@RequestBody String body) {
+        Helper helper = gson.fromJson(body, Helper.class);
+        userRepository.save(helper);
+        return ResponseEntity.ok(helper);
     }
 
     @DeleteMapping("remove/{username}")
