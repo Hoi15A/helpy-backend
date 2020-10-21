@@ -20,7 +20,7 @@ public class Job {
     private Helpseeker author;
     private LocalDate created;
     private JobStatus status;
-    @OneToOne
+    @ManyToOne
     @JsonManagedReference
     private Helper matchedHelper;
     @ManyToMany
