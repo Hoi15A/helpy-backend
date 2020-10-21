@@ -3,7 +3,6 @@ package ch.zhaw.pm3.helpy.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.List;
 
@@ -12,8 +11,6 @@ public class Helpseeker extends User {
     @OneToMany
     @JsonBackReference
     private List<Job> tasks;
-    @ManyToMany
-    private List<Tag> tags;
 
     public Helpseeker() {
         //needed for JPA
@@ -29,13 +26,5 @@ public class Helpseeker extends User {
 
     public void setTasks(List<Job> tasks) {
         this.tasks = tasks;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
     }
 }
