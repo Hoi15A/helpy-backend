@@ -1,3 +1,17 @@
+--
+-- custom test data
+--
+insert into Category (dtype, name) values ('Tag', 'Zürich');
+insert into Category (dtype, name) values ('Tag', 'Winterthur');
+insert into Category (dtype, name) values ('Tag', 'Abonnement');
+insert into Category (dtype, name) values ('Tag', 'Swisspass');
+insert into Category (dtype, name) values ('Tag', 'Kino');
+insert into Category (dtype, name) values ('Tag', 'Yoga');
+insert into Category (dtype, name) values ('Tag', 'Betreibung');
+
+--
+-- Mockaroo test data
+--
 insert into Category (dtype, name, description) values ('Tag', 'De-engineered', 'ante nulla justo aliquam quis turpis eget elit sodales');
 insert into Category (dtype, name, description) values ('Tag', 'conglomeration', 'facilisi cras non velit nec nisi vulputate');
 insert into Category (dtype, name, description) values ('Tag', 'content-based', 'dapibus duis at velit eu est congue elementum');

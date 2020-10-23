@@ -1,3 +1,16 @@
+--
+-- custom test data
+--
+insert into User_Tags (helper_email, tags_name) values ('leandro@email.com', 'Abonnement');
+insert into User_Tags (helper_email, tags_name) values ('leandro@email.com', 'Zürich');
+insert into User_Tags (helper_email, tags_name) values ('leandro@email.com', 'Winterthur');
+insert into User_Tags (helper_email, tags_name) values ('spidey@email.com', 'Yoga');
+insert into User_Tags (helper_email, tags_name) values ('spidey@email.com', 'Kino');
+insert into User_Tags (helper_email, tags_name) values ('spidey@email.com', 'Swisspass');
+
+--
+-- Mockaroo test data
+--
 insert into User_Tags (helper_email, tags_name) values ('rsoots2@tripod.com', 'Public-key');
 insert into User_Tags (helper_email, tags_name) values ('jculverhouse2e@ask.com', 'cohesive');
 insert into User_Tags (helper_email, tags_name) values ('mweldrake1k@uol.com.br', 'Public-key');

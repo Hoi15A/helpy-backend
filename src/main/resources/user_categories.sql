@@ -1,3 +1,21 @@
+--
+-- custom test data
+--
+insert into User_Categories (helper_email, categories_name) values ('leandro@email.com', 'ÖV');
+insert into User_Categories (helper_email, categories_name) values ('leandro@email.com', 'Administrativ');
+insert into User_Categories (helper_email, categories_name) values ('leandro@email.com', 'Sprache');
+insert into User_Categories (helper_email, categories_name) values ('leandro@email.com', 'Schule');
+insert into User_Categories (helper_email, categories_name) values ('captain@america.com', 'Behörden');
+insert into User_Categories (helper_email, categories_name) values ('captain@america.com', 'Sport');
+insert into User_Categories (helper_email, categories_name) values ('captain@america.com', 'Physisch');
+insert into User_Categories (helper_email, categories_name) values ('captain@america.com', 'Freizeit');
+insert into User_Categories (helper_email, categories_name) values ('spidey@email.com', 'Sport');
+insert into User_Categories (helper_email, categories_name) values ('spidey@email.com', 'Schule');
+insert into User_Categories (helper_email, categories_name) values ('iamironman@email.com', 'Geistig');
+
+--
+-- Mockaroo test data
+--
 insert into User_Categories (helper_email, categories_name) values ('rlavigne0@virginia.edu', 'Sprache');
 insert into User_Categories (helper_email, categories_name) values ('rsoots2@tripod.com', 'Physisch');
 insert into User_Categories (helper_email, categories_name) values ('nanton4@amazon.co.jp', 'Geistig');

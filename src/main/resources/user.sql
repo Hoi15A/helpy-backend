@@ -1,3 +1,19 @@
+--
+-- custom test data
+--
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'captain@america.com', 'bio', '2001-01-02', 'Steve', 'Rogers', 'm1y9zQYlz', 2, '8400', 'M', 2);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'spidey@email.com', 'bio', '1998-01-02', 'Peter', 'Parker', 'm1y9zQYlz', 2, '8403', 'M', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'iamironman@email.com', 'bio', '1999-01-02', 'Tony', 'Stark', 'm1y9zQYlz', 2, '8406', 'M', 1);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'leandro@email.com', 'bio', '1997-01-02', 'Leandro', 'Meleti', 'm1y9zQYlz', 2, '8408', 'M', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'hulk@email.com', 'bio', '2000-01-02', 'Bruce', 'Benner', 'm1y9zQYlz', 2, '8409', 'M', 0);
+
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'mj@email.com', 'bio', '1999-01-02', 'Mary Jane', 'Watson', 'm1y9zQYlz', 2, '8401', 'F', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'peggy@america.com', 'bio', '2001-01-02', 'Peggy', 'Carter', 'm1y9zQYlz', 2, '8404', 'F', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'pepper@potts.com', 'bio', '1998-01-02', 'Pepper', 'Potts', 'm1y9zQYlz', 2, '8405', 'F', 0);
+
+--
+-- Mockaroo test data
+--
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'rlavigne0@virginia.edu', 'Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl. Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum. Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. Maecenas pulvinar lobortis est. Phasellus sit amet erat. Nulla tempus.', '2004-01-26', 'Rem', 'La Vigne', 'm1y9zQYlz', 2, '6784', 'M', 1);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'clynett1@furl.net', 'Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis. Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.', '2005-01-07', 'Carmita', 'Lynett', '6b1unOm', 2, '5122', 'F', 1);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'rsoots2@tripod.com', 'Maecenas tristique, est et tempus semper, est quam pharetra magna, ac consequat metus sapien ut nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris viverra diam vitae quam. Suspendisse potenti. Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum.', '2007-06-07', 'Rana', 'Soots', 'tAeKgBW', 2, '0979', 'F', 0);

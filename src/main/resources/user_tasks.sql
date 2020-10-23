@@ -1,3 +1,15 @@
+--
+-- custom test data
+--
+insert into User_Tasks (helpseeker_email, tasks_id) values ('mj@email.com', 100);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('mj@email.com', 103);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('mj@email.com', 104);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('pepper@potts.com', 101);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('peggy@america.com', 102);
+
+--
+-- Mockaroo test data
+--
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ohesser5@salon.com', 1);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ohesser5@salon.com', 2);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('cmaccaig9@senate.gov', 3);

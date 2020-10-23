@@ -1,3 +1,16 @@
+--
+-- custom test data
+--
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (100, '2020-01-01', 'description', 0, 'titel', 'mj@email.com', null);
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (101, '2020-01-01', 'description2', 0, 'titel2', 'pepper@potts.com', null);
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (102, '2020-01-01', 'description3', 1, 'titel3', 'peggy@america.com', 'captain@america.com');
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (103, '2020-01-01', 'description4', 2, 'titel4', 'mj@email.com', 'leandro@email.com');
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (104, '2020-01-01', 'description5', 2, 'titel5', 'mj@email.com', 'spidey@email.com');
+
+--
+-- Mockaroo test data
+--
+
 insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (1, '2020-06-16', 'sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est', 0, 'nulla mollis molestie lorem', 'bhawthorne13@time.com', 'dgartland1m@ocn.ne.jp');
 insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (2, '2020-03-16', 'sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus', 2, 'adipiscing lorem vitae mattis', 'acomoletti2p@trellian.com', null);
 insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (3, '2020-08-18', 'ac lobortis vel dapibus at diam nam tristique tortor eu pede', 2, 'nec nisi', 'soleksiakb@smugmug.com', 'gvitall8@booking.com');
