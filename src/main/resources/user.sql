@@ -3,12 +3,13 @@
 --
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'captain@america.com', 'bio', '2001-01-02', 'Steve', 'Rogers', 'm1y9zQYlz', 2, '8400', 'M', 2);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'spidey@email.com', 'bio', '1998-01-02', 'Peter', 'Parker', 'm1y9zQYlz', 2, '8403', 'M', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'hawkeye@email.com', 'bio', '1998-01-02', 'Clint', 'Barton', 'm1y9zQYlz', 2, '8404', 'M', 0);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'iamironman@email.com', 'bio', '1999-01-02', 'Tony', 'Stark', 'm1y9zQYlz', 2, '8406', 'M', 1);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'leandro@email.com', 'bio', '1997-01-02', 'Leandro', 'Meleti', 'm1y9zQYlz', 2, '8408', 'M', 0);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helper', 'hulk@email.com', 'bio', '2000-01-02', 'Bruce', 'Benner', 'm1y9zQYlz', 2, '8409', 'M', 0);
 
-insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'mj@email.com', 'bio', '1999-01-02', 'Mary Jane', 'Watson', 'm1y9zQYlz', 2, '8401', 'F', 0);
-insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'peggy@america.com', 'bio', '2001-01-02', 'Peggy', 'Carter', 'm1y9zQYlz', 2, '8404', 'F', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'peggy@america.com', 'bio', '2001-01-02', 'Peggy', 'Carter', 'm1y9zQYlz', 2, '8401', 'F', 0);
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'mj@email.com', 'bio', '1999-01-02', 'Mary Jane', 'Watson', 'm1y9zQYlz', 2, '8406', 'F', 0);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'pepper@potts.com', 'bio', '1998-01-02', 'Pepper', 'Potts', 'm1y9zQYlz', 2, '8405', 'F', 0);
 
 --
