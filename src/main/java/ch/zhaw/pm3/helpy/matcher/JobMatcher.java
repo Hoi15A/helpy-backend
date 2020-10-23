@@ -76,8 +76,7 @@ public class JobMatcher {
             int h1RatingsCount = h1.getRatings().size();
             int h2RatingsCount = h2.getRatings().size();
             int ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
-
-            return (categoryScore + tagScore + completedJobScore + ratingScore);
+            return -(categoryScore + tagScore + completedJobScore + ratingScore);
         };
         return potentialHelper.stream()
                 .sorted(sortingByCompatibility)
