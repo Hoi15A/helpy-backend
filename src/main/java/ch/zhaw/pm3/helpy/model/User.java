@@ -135,44 +135,6 @@ public class User {
         this.permission = permission;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", sex=" + sex +
-                ", plz=" + plz +
-                ", birthdate=" + birthdate +
-                ", password='" + password + '\'' +
-                ", biographie='" + biographie + '\'' +
-                ", status=" + status +
-                ", permission=" + permission +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return sex == user.sex &&
-                plz == user.plz &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(firstname, user.firstname) &&
-                Objects.equals(lastname, user.lastname) &&
-                Objects.equals(birthdate, user.birthdate) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(biographie, user.biographie) &&
-                status == user.status &&
-                permission == user.permission;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(email, firstname, lastname, sex, plz, birthdate, password, biographie, status, permission);
-    }
-
     public static class UserBuilder {
         User user;
 

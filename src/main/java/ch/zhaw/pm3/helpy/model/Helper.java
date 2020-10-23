@@ -57,23 +57,4 @@ public class Helper extends User {
         this.tags = tags;
     }
 
-    @Override
-    public String toString() {
-        return "Helper{" +
-                "email='" + getEmail() + '\'' +
-                ", firstname='" + getFirstname() + '\'' +
-                ", lastname='" + getLastname() + '\'' +
-                ", sex=" + getSex() +
-                ", plz=" + getPlz() +
-                ", birthdate=" + getBirthdate() +
-                ", password='" + getPassword() + '\'' +
-                ", biographie='" + getBiographie() + '\'' +
-                ", status=" + getStatus() +
-                ", permission=" + getPermission() +
-                ", ratings=" + ratings +
-                ", categories=" + categories +
-                ", tags=" + tags +
-                '}';
-    }
-
 }
