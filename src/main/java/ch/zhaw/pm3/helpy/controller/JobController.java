@@ -1,9 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.model.Category;
-import ch.zhaw.pm3.helpy.model.Helpseeker;
-import ch.zhaw.pm3.helpy.model.Job;
-import ch.zhaw.pm3.helpy.model.Tag;
+import ch.zhaw.pm3.helpy.JobMatcher;
+import ch.zhaw.pm3.helpy.model.*;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
@@ -12,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -33,7 +30,7 @@ public class JobController {
         return ResponseEntity.ok(jobRepository.findAll());
     }
 
-    @PostMapping("add")
+    @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> createJob(@Valid @RequestBody final Job job) {
         jobRepository.save(job);
         return ResponseEntity.ok(job);
