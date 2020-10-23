@@ -54,7 +54,7 @@ public class TestCategoryController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(asJsonString(testCat))
-                .accept(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name")
                         .value(NONEXISTENT_CATEGORY_NAME));
@@ -76,7 +76,7 @@ public class TestCategoryController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
-                .accept(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name")
                         .value(EXISTING_CATEGORY_NAME_IN_USE));
@@ -88,7 +88,7 @@ public class TestCategoryController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
-                .accept(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
