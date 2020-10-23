@@ -8,9 +8,11 @@ import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.Media;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -45,7 +47,7 @@ public class JobController {
         return ResponseEntity.ok(job.get());
     }
 
-    @PutMapping("update")
+    @PutMapping(path = "update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> updateJob(@Valid @RequestBody final Job job) {
         if (jobRepository.findById(job.getId()).isEmpty()) return ResponseEntity.notFound().build();
         jobRepository.save(job);
