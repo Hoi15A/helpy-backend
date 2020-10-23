@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    @Query(value = "select * from Category as c where c.name=?1", nativeQuery = true)
+    @Query("select c from Category c where c.name=?1")
     Category findCategoryByName(String name);
 
-    @Query("select c.listOfRelated from Category as c where c.name=?1")
+    @Query("select c.listOfRelated from Category c where c.name=?1")
     List<Category> findRelatedCategories(String category);
 }

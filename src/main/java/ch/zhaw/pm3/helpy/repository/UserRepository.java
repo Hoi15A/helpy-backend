@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.repository;
 
+import ch.zhaw.pm3.helpy.model.Helper;
 import ch.zhaw.pm3.helpy.model.Helpseeker;
 import ch.zhaw.pm3.helpy.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,18 +9,18 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query(value = "select * from User where email=?1", nativeQuery = true)
+    @Query("select u from User u where u.email=?1")
     User findUserByName(String username);
 
-    @Query(value = "select * from User where plz=?1", nativeQuery = true)
+    @Query("select u from User u where u.plz=?1")
     List<User> findUsersByPlz(int plz);
 
-    @Query(value = "select * from User where status=?1", nativeQuery = true)
+    @Query("select u from User u where u.status=?1")
     List<User> findUsersByStatus(String status);
 
-    @Query(value = "select * from User where ratings=?1 and dtype='Helper'", nativeQuery = true)
-    List<User> findUsersByRating(int rating);
+    @Query("select h from Helper h where h.ratings=?1")
+    List<Helper> findUsersByRating(int rating);
 
-    @Query(value = "select * from User where email=?1 and dtype='Helpseeker'", nativeQuery = true)
+    @Query("select h from Helpseeker h where h.email=?1")
     Helpseeker findHelpseekerByName(String name);
 }
