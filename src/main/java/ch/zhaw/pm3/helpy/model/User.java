@@ -26,7 +26,6 @@ public class User {
     private int plz;
     @NotNull(message = "You have to enter your birthdate")
     private LocalDate birthdate;
-    @JsonIgnore
     @NotBlank(message = "You have to provide a password")
     @Size(message = "Your password has to between 8 and 32 characters", min = 8, max = 32)
     private String password;
