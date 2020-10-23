@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy;
+package ch.zhaw.pm3.helpy.matcher;
 
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 import ch.zhaw.pm3.helpy.model.Category;
@@ -7,14 +7,13 @@ import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.Tag;
 import ch.zhaw.pm3.helpy.model.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
-import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -23,15 +22,13 @@ import java.util.stream.Collectors;
  * @author meletlea
  * @version 18.10.2020
  */
+@Component
 public class JobMatcher {
 
-    private final Job job;
-    @Autowired
-    private UserRepository userRepository;
+    private Job job;
 
-    public JobMatcher(@NotNull Job job) {
-        this.job = Objects.requireNonNull(job, "Job object missing!");
-    }
+    @Autowired
+    UserRepository userRepository;
 
     /**
      * Returns a list of available and compatible helpers, sorted by a compatibility score.
@@ -117,4 +114,7 @@ public class JobMatcher {
 
     }
 
+    public void setJob(Job job) {
+        this.job = job;
+    }
 }
