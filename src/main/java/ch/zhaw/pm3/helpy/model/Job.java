@@ -1,7 +1,6 @@
 package ch.zhaw.pm3.helpy.model;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -20,7 +19,6 @@ public class Job {
     @NotBlank(message = "You have to enter a title")
     private String description;
     @ManyToOne
-    @JsonManagedReference
     @NotNull(message = "You have to provide an author")
     private Helpseeker author;
     @NotNull(message = "You have to provide a date")
@@ -28,7 +26,6 @@ public class Job {
     @NotNull(message = "You have to provide a status")
     private JobStatus status;
     @ManyToOne
-    @JsonManagedReference
     private Helper matchedHelper;
     @ManyToMany
     private List<Category> categories;
