@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.helpy.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,10 +10,12 @@ import java.util.Objects;
 public class Category {
 
     @Id
+    @NotBlank(message = "You have to provide a name for the category")
     private String name;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Category> listOfRelated;
     @Column(columnDefinition = "LONGTEXT")
+    @NotBlank(message = "You have to provide a description for the category")
     private String description;
 
     public Category() {
