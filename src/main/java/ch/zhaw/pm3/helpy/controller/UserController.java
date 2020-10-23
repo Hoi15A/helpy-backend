@@ -17,7 +17,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @GetMapping("{username}")
     public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
