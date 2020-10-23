@@ -53,12 +53,11 @@ public class TestJobController {
 
     @Test
     public void testCreateJob() throws Exception {
-        //todo FAILURE: HttpMediaTypeNotSupportedException
-        Job job = new Job("test", "test", new Helpseeker());
-        job.setId(51);
+        //todo FAILURE: MethodArgumentNotValidException -> Read Resource file with JSON Helpseeker String
+        String jsonJobString = ""; //read file here
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
-                .content(asJsonString(job))
+                .content(jsonJobString)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(51));
@@ -66,7 +65,7 @@ public class TestJobController {
 
     @Test
     public void testRemoveJob() throws Exception {
-        //todo: FAILURE: Referential integrity constraint violation
+        //todo: FAILURE: DataIntegrityViolationException
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{id}", EXISTING_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
@@ -85,14 +84,11 @@ public class TestJobController {
 
     @Test
     public void testUpdateJob() throws Exception {
-        //todo FAILURE: HttpMediaTypeNotSupportedException
-        User.UserBuilder builder = new User.UserBuilder();
-        Helpseeker author = new Helpseeker(builder);
-        Job job = new Job("test", "test", author);
-        job.setId(1);
+        //todo FAILURE: MethodArgumentNotValidException -> Read Resource file with JSON Helpseeker String
+        String jsonHelpseekerString = ""; //read file here
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
-                .content(asJsonString(job))
+                .content(jsonHelpseekerString)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id")
@@ -102,8 +98,10 @@ public class TestJobController {
     @Test
     public void testUpdateJobNotFound() throws Exception {
         //todo FAILURE: HttpMediaTypeNotSupportedException
+        String jsonHelpseekerString = ""; //read file here
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update", NONEXISTENT_JOB_ID)
+                .content(jsonHelpseekerString)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -120,7 +118,10 @@ public class TestJobController {
 
     @Test
     public void testGetJobByIdNotFound() throws Exception {
-        //todo
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .get(REQUEST_MAPPING + "/id/{id}" , NONEXISTENT_JOB_ID)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -160,10 +161,8 @@ public class TestJobController {
 
     @Test
     public void testGetJobsByTag() throws Exception {
-        fail("Tag not yet linked to Job in DB");
-        //todo
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "tag/{tag}", "cohesive")
+                .get(REQUEST_MAPPING + "/tag/{tag}", "cohesive")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
@@ -178,7 +177,7 @@ public class TestJobController {
     @Test
     public void testGetJobsByDate() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "date/{date}", "2020-06-16")
+                .get(REQUEST_MAPPING + "/date/{date}", "2020-01-01")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
