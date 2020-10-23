@@ -2,11 +2,11 @@ package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.model.Category;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,23 +15,19 @@ public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    private Gson gson = new Gson();
-
     @GetMapping("all")
     public ResponseEntity<List<Category>> getCategories() {
         return ResponseEntity.ok(categoryRepository.findAll());
     }
 
     @PostMapping("add")
-    public ResponseEntity<Category> createCategory(@RequestBody final String body) {
-        Category category = gson.fromJson(body, Category.class);
+    public ResponseEntity<Category> createCategory(@Valid @RequestBody final Category category) {
         categoryRepository.save(category);
         return ResponseEntity.ok(category);
     }
 
     @PutMapping("update")
-    public ResponseEntity<Category> updateCategory(@RequestBody final String body) {
-        Category newCat = gson.fromJson(body, Category.class);
+    public ResponseEntity<Category> updateCategory(@Valid @RequestBody final Category newCat) {
         Category oldCat = categoryRepository.findCategoryByName(newCat.getName());
         if (oldCat == null) return ResponseEntity.notFound().build();
         categoryRepository.save(newCat);

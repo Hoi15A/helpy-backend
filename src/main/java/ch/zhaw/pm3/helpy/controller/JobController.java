@@ -7,11 +7,11 @@ import ch.zhaw.pm3.helpy.model.Tag;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.*;
 
 @RestController
@@ -26,16 +26,13 @@ public class JobController {
     @Autowired
     UserRepository userRepository;
 
-    private final Gson gson = new Gson();
-
     @GetMapping("all")
     public ResponseEntity<List<Job>> getJobs() {
         return ResponseEntity.ok(jobRepository.findAll());
     }
 
     @PostMapping("add")
-    public ResponseEntity<Job> createJob(@RequestBody final String body) {
-        Job job = gson.fromJson(body, Job.class);
+    public ResponseEntity<Job> createJob(@Valid @RequestBody final Job job) {
         jobRepository.save(job);
         return ResponseEntity.ok(job);
     }
@@ -49,8 +46,7 @@ public class JobController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<Job> updateJob(@RequestBody final String body) {
-        Job job = gson.fromJson(body, Job.class);
+    public ResponseEntity<Job> updateJob(@Valid @RequestBody final Job job) {
         if (jobRepository.findById(job.getId()).isEmpty()) return ResponseEntity.notFound().build();
         jobRepository.save(job);
         return ResponseEntity.ok(job);
@@ -79,11 +75,10 @@ public class JobController {
     }
 
     @PostMapping("categories")
-    public ResponseEntity<Set<Job>> getJobsByCategories(@RequestBody final String categories) {
-        Category[] cats = gson.fromJson(categories, Category[].class);
+    public ResponseEntity<Set<Job>> getJobsByCategories(@Valid @RequestBody final Category[] categories) {
         Set<Job> jobs = new HashSet<>();
-        for (Category c : cats) {
-            jobs.addAll(jobRepository.findJobsByCategory(c.getName()));
+        for (Category category : categories) {
+            jobs.addAll(jobRepository.findJobsByCategory(category.getName()));
         }
         return ResponseEntity.ok(jobs);
     }
@@ -94,11 +89,10 @@ public class JobController {
     }
 
     @PostMapping("tags")
-    public ResponseEntity<Set<Job>> getJobsByTags(@RequestBody final String tags) {
-        Tag[] tagArray = gson.fromJson(tags, Tag[].class);
+    public ResponseEntity<Set<Job>> getJobsByTags(@Valid @RequestBody final Tag[] tags) {
         Set<Job> jobs = new HashSet<>();
-        for (Tag t : tagArray) {
-            jobs.addAll(jobRepository.findJobsByTag(t.getName()));
+        for (Tag tag : tags) {
+            jobs.addAll(jobRepository.findJobsByTag(tag.getName()));
         }
         return ResponseEntity.ok(jobs);
     }
