@@ -4,19 +4,17 @@ import ch.zhaw.pm3.helpy.model.Helper;
 import ch.zhaw.pm3.helpy.model.Helpseeker;
 import ch.zhaw.pm3.helpy.model.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
-import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("api/user")
 public class UserController {
-
-    private final Gson gson = new Gson();
 
     @Autowired
     UserRepository userRepository;
@@ -34,22 +32,19 @@ public class UserController {
     }
 
     @PostMapping(value = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addUser(@RequestBody String body) {
-        User user = gson.fromJson(body, User.class);
+    public ResponseEntity<User> addUser(@Valid @RequestBody final User user) {
         userRepository.save(user);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping(value = "addhelpseeker", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addHelpseeker(@RequestBody String body) {
-        Helpseeker helpseeker = gson.fromJson(body, Helpseeker.class);
+    public ResponseEntity<User> addHelpseeker(@Valid @RequestBody final Helpseeker helpseeker) {
         userRepository.save(helpseeker);
         return ResponseEntity.ok(helpseeker);
     }
 
     @PostMapping(value = "addhelper", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addHelper(@RequestBody String body) {
-        Helper helper = gson.fromJson(body, Helper.class);
+    public ResponseEntity<User> addHelper(@Valid @RequestBody final Helper helper) {
         userRepository.save(helper);
         return ResponseEntity.ok(helper);
     }
