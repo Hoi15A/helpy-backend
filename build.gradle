@@ -44,7 +44,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'ch.zhaw.pm3.helpy.App'
+    mainClassName = 'ch.zhaw.pm3.helpy.Helpy'
 }
 
 test {
