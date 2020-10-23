@@ -57,10 +57,14 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping("update")
-    public ResponseEntity<User> updateUser(@RequestBody final String username) {
-        //todo
-        return ResponseEntity.ok().build();
+    @PutMapping("update/{username}")
+    public ResponseEntity<User> updateUser(@RequestBody final User userUpdate,
+                                           @PathVariable("username") final String username) {
+        User user = userRepository.findUserByName(username);
+        if (user == null) return ResponseEntity.notFound().build();
+        userRepository.delete(user);
+        userRepository.save(userUpdate);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("plz/{plz}")
