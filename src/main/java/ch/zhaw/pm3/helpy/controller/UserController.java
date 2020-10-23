@@ -77,14 +77,8 @@ public class UserController {
         return ResponseEntity.ok(userRepository.findUsersByStatus(status));
     }
 
-    @GetMapping("age/{age}")
-    public ResponseEntity<List<String>> getByAge(@PathVariable("age") final int age) {
-        //todo
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("rating/{rating}")
-    public ResponseEntity<List<User>> getByRating(@PathVariable("rating") final int rating) {
+    public ResponseEntity<List<Helper>> getByRating(@PathVariable("rating") final int rating) {
         return ResponseEntity.ok(userRepository.findUsersByRating(rating));
     }
 }

@@ -177,17 +177,6 @@ public class TestUserController {
     }
 
     @Test
-    public void testGetByAge() throws Exception {
-        fail("Age not yet implemented in DB");
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/age/{age}", 28)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
-                //todo check response
-    }
-
-    @Test
     public void testGetByRating() throws Exception {
         fail("Rating not yet implemented in DB");
         this.mockMvc.perform(MockMvcRequestBuilders
