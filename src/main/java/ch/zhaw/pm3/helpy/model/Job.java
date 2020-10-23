@@ -4,6 +4,8 @@ import ch.zhaw.pm3.helpy.constant.JobStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -12,13 +14,18 @@ public class Job {
 
     @Id
     private long id;
+    @NotBlank(message = "You have to enter a title")
     private String title;
     @Column(columnDefinition = "LONGTEXT")
+    @NotBlank(message = "You have to enter a title")
     private String description;
     @ManyToOne
     @JsonManagedReference
+    @NotNull(message = "You have to provide an author")
     private Helpseeker author;
+    @NotNull(message = "You have to provide a date")
     private LocalDate created;
+    @NotNull(message = "You have to provide a status")
     private JobStatus status;
     @ManyToOne
     @JsonManagedReference
