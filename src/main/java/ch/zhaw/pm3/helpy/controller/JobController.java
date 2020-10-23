@@ -1,8 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.JobMatcher;
+import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.*;
-import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,13 @@ import java.util.*;
 @RequestMapping("api/job")
 public class JobController {
     @Autowired
-    JobRepository jobRepository;
+    private JobRepository jobRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private JobMatcher matcher;
 
     @GetMapping("all")
     public ResponseEntity<List<Job>> getJobs() {
@@ -55,6 +54,14 @@ public class JobController {
     public ResponseEntity<Job> getJobById(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
         return job.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(job.get());
+    }
+
+    @GetMapping("matches/{id}")
+    public ResponseEntity<List<Helper>> getMatchesByJobId(@PathVariable("id") final long id) {
+        Optional<Job> job = jobRepository.findById(id);
+        if (job.isEmpty()) return ResponseEntity.notFound().build();
+        matcher.setJob(job.get());
+        return ResponseEntity.ok(matcher.getPotentialHelper());
     }
 
     @GetMapping("status/{status}")
