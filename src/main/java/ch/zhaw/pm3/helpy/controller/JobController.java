@@ -62,7 +62,7 @@ public class JobController {
 
     @GetMapping("status/{status}")
     public ResponseEntity<List<Job>> getJobsByStatus(@PathVariable("status") final String status) {
-        return ResponseEntity.badRequest().body(jobRepository.findJobsByStatus(status));
+        return ResponseEntity.ok(jobRepository.findJobsByStatus(status));
     }
 
     @GetMapping("author/{author}")
