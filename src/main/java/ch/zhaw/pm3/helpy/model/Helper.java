@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 public class Helper extends User {
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Integer> ratings;
     @OneToMany
     @JsonBackReference
