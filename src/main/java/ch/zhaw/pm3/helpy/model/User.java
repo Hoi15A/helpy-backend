@@ -3,6 +3,7 @@ package ch.zhaw.pm3.helpy.model;
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -103,10 +104,12 @@ public class User {
         this.birthdate = birthdate;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
+    @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
