@@ -3,6 +3,7 @@ package ch.zhaw.pm3.helpy.controller;
 import ch.zhaw.pm3.helpy.model.Category;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class CategoryController {
         return ResponseEntity.ok(categoryRepository.findAll());
     }
 
-    @PostMapping("add")
+    @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> createCategory(@Valid @RequestBody final Category category) {
         categoryRepository.save(category);
         return ResponseEntity.ok(category);
