@@ -38,6 +38,8 @@ public class JobController {
 
     @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> createJob(@Valid @RequestBody final Job job) {
+        Helpseeker helpseeker = userRepository.findHelpseekerByName(job.getAuthor().getEmail());
+        job.setAuthor(helpseeker);
         job.setStatus(JobStatus.OPEN);
         job.setCreated(LocalDate.now());
         jobRepository.save(job);
