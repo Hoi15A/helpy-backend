@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.*;
 import ch.zhaw.pm3.helpy.model.category.Category;
@@ -60,8 +61,8 @@ public class JobController {
         return job.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(job.get());
     }
 
-    @GetMapping("matches/{id}")
-    public ResponseEntity<List<Helper>> getMatchesByJobId(@PathVariable("id") final long id) {
+    @GetMapping("id/{id}/find-helper")
+    public ResponseEntity<List<Helper>> findPotentialHelper(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) return ResponseEntity.notFound().build();
         matcher.setJob(job.get());
