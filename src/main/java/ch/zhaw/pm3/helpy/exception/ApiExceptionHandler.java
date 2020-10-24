@@ -1,7 +1,5 @@
-package ch.zhaw.pm3.helpy.controller;
+package ch.zhaw.pm3.helpy.exception;
 
-import ch.zhaw.pm3.helpy.exception.ErrorResponse;
-import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
