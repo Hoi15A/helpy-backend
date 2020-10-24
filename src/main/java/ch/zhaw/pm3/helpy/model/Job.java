@@ -18,6 +18,7 @@ import java.util.List;
 public class Job {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotBlank(message = "You have to enter a title")
     private String title;
@@ -44,10 +45,12 @@ public class Job {
         this.author = author;
     }
 
+    @JsonProperty
     public long getId() {
         return id;
     }
 
+    @JsonIgnore
     public void setId(long id) {
         this.id = id;
     }
