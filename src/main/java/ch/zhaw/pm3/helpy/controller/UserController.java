@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ public class UserController {
     @GetMapping("{username}")
     public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
-        return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
+        if(user == null) throw new RecordNotFoundException(username);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("all")
@@ -38,7 +40,7 @@ public class UserController {
     @DeleteMapping("remove/{username}")
     public ResponseEntity<User> removeUser(@PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
-        if (user == null) { return ResponseEntity.notFound().build(); }
+        if (user == null) throw new RecordNotFoundException(username);
         userRepository.delete(user);
         return ResponseEntity.ok(user);
     }
@@ -47,7 +49,7 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody final User userUpdate,
                                            @PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
-        if (user == null) return ResponseEntity.notFound().build();
+        if (user == null) throw new RecordNotFoundException(username);
         userRepository.delete(user);
         userRepository.save(userUpdate);
         return ResponseEntity.ok(user);

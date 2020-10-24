@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
+import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.*;
 import ch.zhaw.pm3.helpy.model.category.Category;
@@ -43,14 +44,14 @@ public class JobController {
     @DeleteMapping("remove/{id}")
     public ResponseEntity<Job> removeJob(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
-        if (job.isEmpty()) return ResponseEntity.notFound().build();
+        if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         jobRepository.delete(job.get());
         return ResponseEntity.ok(job.get());
     }
 
     @PutMapping(path = "update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> updateJob(@Valid @RequestBody final Job job) {
-        if (jobRepository.findById(job.getId()).isEmpty()) return ResponseEntity.notFound().build();
+        if (jobRepository.findById(job.getId()).isEmpty()) throw new RecordNotFoundException(String.valueOf(job.getId()));
         jobRepository.save(job);
         return ResponseEntity.ok(job);
     }
@@ -58,13 +59,14 @@ public class JobController {
     @GetMapping("id/{id}")
     public ResponseEntity<Job> getJobById(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
-        return job.isEmpty() ? ResponseEntity.notFound().build() : ResponseEntity.ok(job.get());
+        if(job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
+        return ResponseEntity.ok(job.get());
     }
 
     @GetMapping("id/{id}/find-helper")
     public ResponseEntity<List<Helper>> findPotentialHelper(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
-        if (job.isEmpty()) return ResponseEntity.notFound().build();
+        if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         matcher.setJob(job.get());
         return ResponseEntity.ok(matcher.getPotentialHelpers());
     }
@@ -73,7 +75,7 @@ public class JobController {
     public ResponseEntity<Job> updateHelper(@PathVariable("id") final long id,
                                                      @Valid @RequestBody final Helper helper) {
         Optional<Job> job = jobRepository.findById(id);
-        if (job.isEmpty()) return ResponseEntity.notFound().build();
+        if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job j = job.get();
         j.setMatchedHelper(helper);
         j.setStatus(JobStatus.IN_PROGRESS);
@@ -89,7 +91,8 @@ public class JobController {
     @GetMapping("author/{author}")
     public ResponseEntity<List<Job>> getJobsByAuthor(@PathVariable("author") final String name) {
         Helpseeker helpseeker = userRepository.findHelpseekerByName(name);
-        return helpseeker == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(jobRepository.findJobsByAuthor(helpseeker));
+        if (helpseeker == null) throw new RecordNotFoundException(name);
+        return ResponseEntity.ok(jobRepository.findJobsByAuthor(helpseeker));
     }
 
     @GetMapping("category/{category}")

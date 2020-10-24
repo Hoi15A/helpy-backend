@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class CategoryController {
     @PutMapping("update")
     public ResponseEntity<Category> updateCategory(@Valid @RequestBody final Category newCat) {
         Category oldCat = categoryRepository.findCategoryByName(newCat.getName());
-        if (oldCat == null) return ResponseEntity.notFound().build();
+        if (oldCat == null) throw new RecordNotFoundException(newCat.getName());
         categoryRepository.save(newCat);
         return ResponseEntity.ok(newCat);
     }
@@ -38,7 +39,7 @@ public class CategoryController {
     @DeleteMapping("remove/{category}")
     public ResponseEntity<Category> removeCategory(@PathVariable(name = "category") final String name) {
         Category category = categoryRepository.findCategoryByName(name);
-        if (category == null) return ResponseEntity.notFound().build();
+        if (category == null) throw new RecordNotFoundException(name);
         categoryRepository.delete(category);
         return ResponseEntity.ok(category);
     }
@@ -46,12 +47,13 @@ public class CategoryController {
     @GetMapping("{category}")
     public ResponseEntity<Category> getCategoryByName(@PathVariable("category") final String name) {
         Category category = categoryRepository.findCategoryByName(name);
-        return category == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(category);
+        if (category == null) throw new RecordNotFoundException(name);
+        return ResponseEntity.ok(category);
     }
 
     @GetMapping("related/{category}")
     public ResponseEntity<List<Category>> getRelatedCategories(@PathVariable("category") final String category) {
-        if (categoryRepository.findCategoryByName(category) == null) return ResponseEntity.notFound().build();
+        if (categoryRepository.findCategoryByName(category) == null) throw new RecordNotFoundException(category);
         return ResponseEntity.ok(categoryRepository.findRelatedCategories(category));
     }
 }
