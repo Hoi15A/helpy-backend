@@ -44,4 +44,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse error = new ErrorResponse("Validation Failed", details);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
+        return handleAllExceptions(ex, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotWritable(HttpMessageNotWritableException ex, HttpHeaders headers,
+                                                                  HttpStatus status, WebRequest request) {
+        return handleAllExceptions(ex, request);
+    }
 }
