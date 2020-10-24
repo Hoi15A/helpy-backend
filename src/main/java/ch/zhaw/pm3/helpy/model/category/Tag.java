@@ -1,9 +1,9 @@
-package ch.zhaw.pm3.helpy.model;
+package ch.zhaw.pm3.helpy.model.category;
 
 import javax.persistence.Entity;
 
 @Entity
-public class Tag extends Category{
+public class Tag extends Category {
     public Tag() {
         //needed for JPA
     }
