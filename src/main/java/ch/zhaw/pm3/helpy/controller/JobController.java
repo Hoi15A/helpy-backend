@@ -69,6 +69,18 @@ public class JobController {
         return ResponseEntity.ok(matcher.getPotentialHelpers());
     }
 
+    @PutMapping("id/{id}/set-helper")
+    public ResponseEntity<Job> updateHelper(@PathVariable("id") final long id,
+                                                     @Valid @RequestBody final Helper helper) {
+        Optional<Job> job = jobRepository.findById(id);
+        if (job.isEmpty()) return ResponseEntity.notFound().build();
+        Job j = job.get();
+        j.setMatchedHelper(helper);
+        j.setStatus(JobStatus.IN_PROGRESS);
+        jobRepository.save(j);
+        return ResponseEntity.ok(j);
+    }
+
     @GetMapping("status/{status}")
     public ResponseEntity<List<Job>> getJobsByStatus(@PathVariable("status") final String status) {
         return ResponseEntity.ok(jobRepository.findJobsByStatus(status));
