@@ -50,7 +50,7 @@ class JobMatcherTest {
         when(job.getCategories()).thenReturn(getJobCategories());
         when(job.getTags()).thenReturn(getJobTags());
 
-        List<Helper> result = matcher.getPotentialHelper();
+        List<Helper> result = matcher.getPotentialHelpers();
         assertIterableEquals(getExpectedResultList(), result);
     }
 

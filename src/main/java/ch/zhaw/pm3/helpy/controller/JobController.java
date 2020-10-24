@@ -65,7 +65,7 @@ public class JobController {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) return ResponseEntity.notFound().build();
         matcher.setJob(job.get());
-        return ResponseEntity.ok(matcher.getPotentialHelper());
+        return ResponseEntity.ok(matcher.getPotentialHelpers());
     }
 
     @GetMapping("status/{status}")

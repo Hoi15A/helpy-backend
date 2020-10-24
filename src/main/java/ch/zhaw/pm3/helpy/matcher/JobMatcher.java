@@ -36,11 +36,11 @@ public class JobMatcher {
      * @return List<Helper>
      */
     @Transactional
-    public List<Helper> getPotentialHelper() {
-        return sortByCompatibility(match(getHelperNearHelpseeker()));
+    public List<Helper> getPotentialHelpers() {
+        return sortByCompatibility(match(getHelpersNearHelpseeker()));
     }
 
-    private List<Helper> getHelperNearHelpseeker() {
+    private List<Helper> getHelpersNearHelpseeker() {
         List<User> users = new ArrayList<>();
         int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
         int plzRadius = 3;
@@ -55,14 +55,14 @@ public class JobMatcher {
                 .collect(Collectors.toList());
     }
 
-    private List<Helper> match(List<Helper> potentialHelper) {
-        return potentialHelper.stream()
+    private List<Helper> match(List<Helper> potentialHelpers) {
+        return potentialHelpers.stream()
                 .filter(helper -> helper.getStatus() == UserStatus.ACTIVE)
                 .filter(helper -> !Collections.disjoint(helper.getCategories(), job.getCategories())) // at least 1 category in common
                 .collect(Collectors.toList());
     }
 
-    private List<Helper> sortByCompatibility(List<Helper> potentialHelper) {
+    private List<Helper> sortByCompatibility(List<Helper> potentialHelpers) {
         Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
             // categories
             ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
@@ -78,7 +78,7 @@ public class JobMatcher {
             int ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
             return -(categoryScore + tagScore + completedJobScore + ratingScore);
         };
-        return potentialHelper.stream()
+        return potentialHelpers.stream()
                 .sorted(sortingByCompatibility)
                 .collect(Collectors.toList());
     }
