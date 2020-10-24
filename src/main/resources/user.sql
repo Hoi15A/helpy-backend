@@ -12,6 +12,8 @@ insert into USER (dtype, email, biographie, birthdate, firstname, lastname, pass
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'mj@email.com', 'bio', '1999-01-02', 'Mary Jane', 'Watson', 'm1y9zQYlz', 2, '8406', 'F', 0);
 insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'pepper@potts.com', 'bio', '1998-01-02', 'Pepper', 'Potts', 'm1y9zQYlz', 2, '8405', 'F', 0);
 
+insert into USER (dtype, email, biographie, birthdate, firstname, lastname, password, permission, plz, sex, status) values ('Helpseeker', 'ahmed_miri@gmx.net', 'Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.', '2003-01-05', 'Ahmed', 'Miri', 'password123', 2, '8400', 'M', 1);
+
 --
 -- Mockaroo test data
 --
