@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.*;
 
 @RestController
@@ -37,6 +38,8 @@ public class JobController {
 
     @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> createJob(@Valid @RequestBody final Job job) {
+        job.setStatus(JobStatus.OPEN);
+        job.setCreated(LocalDate.now());
         jobRepository.save(job);
         return ResponseEntity.ok(job);
     }
