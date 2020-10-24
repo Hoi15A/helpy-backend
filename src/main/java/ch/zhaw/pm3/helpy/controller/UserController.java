@@ -1,7 +1,5 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,18 +35,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping(value = "addhelpseeker", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addHelpseeker(@Valid @RequestBody final Helpseeker helpseeker) {
-        userRepository.save(helpseeker);
-        return ResponseEntity.ok(helpseeker);
-    }
-
-    @PostMapping(value = "addhelper", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addHelper(@Valid @RequestBody final Helper helper) {
-        userRepository.save(helper);
-        return ResponseEntity.ok(helper);
-    }
-
     @DeleteMapping("remove/{username}")
     public ResponseEntity<User> removeUser(@PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
@@ -65,20 +51,5 @@ public class UserController {
         userRepository.delete(user);
         userRepository.save(userUpdate);
         return ResponseEntity.ok(user);
-    }
-
-    @GetMapping("plz/{plz}")
-    public ResponseEntity<List<User>> getByPlz(@PathVariable("plz") final int plz) {
-        return ResponseEntity.ok(userRepository.findUsersByPlz(plz));
-    }
-
-    @GetMapping("status/{status}")
-    public ResponseEntity<List<User>> getByStatus(@PathVariable("status") final String status) {
-        return ResponseEntity.ok(userRepository.findUsersByStatus(status));
-    }
-
-    @GetMapping("rating/{rating}")
-    public ResponseEntity<List<Helper>> getByRating(@PathVariable("rating") final int rating) {
-        return ResponseEntity.ok(userRepository.findUsersByRating(rating));
     }
 }

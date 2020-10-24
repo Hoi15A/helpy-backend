@@ -81,36 +81,6 @@ public class TestUserController {
     }
 
     @Test
-    public void testAddHelpseeker() throws Exception {
-        //todo MethodArgumentNotValidException
-        User.UserBuilder builder = new User.UserBuilder();
-        builder.setEmail(NONEXISTENT_USER_EMAIL);
-        Helpseeker helpseeker = new Helpseeker(builder);
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .post(REQUEST_MAPPING + "/addhelpseeker")
-                .content(asJsonString(helpseeker))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                        .value(NONEXISTENT_USER_EMAIL));
-    }
-
-    @Test
-    public void testAddHelper() throws Exception {
-        //todo MethodArgumentNotValidException
-        User.UserBuilder builder = new User.UserBuilder();
-        builder.setEmail(NONEXISTENT_USER_EMAIL);
-        Helper helper = new Helper(builder);
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .post(REQUEST_MAPPING + "/addhelper")
-                .content(asJsonString(helper))
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                        .value(NONEXISTENT_USER_EMAIL));
-    }
-
-    @Test
     public void testRemoveUser() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{username}", EXISTING_USER_EMAIL)
@@ -151,39 +121,6 @@ public class TestUserController {
                 .put(REQUEST_MAPPING + "/update", NONEXISTENT_USER_EMAIL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
-    }
-
-    @Test
-    public void testGetByPlz() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/plz/{plz}", 6784)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
-                //todo check response
-
-    }
-
-    @Test
-    public void testGetByStatus() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/status/{status}", 1)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
-                //todo check response
-
-    }
-
-    @Test
-    public void testGetByRating() throws Exception {
-        fail("Rating not yet implemented in DB");
-        this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/rating/{rating}", 1)
-                .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$").exists());
-                //todo check response
     }
 
     public static String asJsonString(final Object obj) {
