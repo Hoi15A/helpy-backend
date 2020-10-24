@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.repository;
 
-import ch.zhaw.pm3.helpy.model.Helpseeker;
+import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

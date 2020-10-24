@@ -2,6 +2,10 @@ package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.*;
+import ch.zhaw.pm3.helpy.model.category.Category;
+import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

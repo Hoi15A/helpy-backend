@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.model.Category;
+import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -1,11 +1,11 @@
 package ch.zhaw.pm3.helpy.matcher;
 
 import ch.zhaw.pm3.helpy.constant.UserStatus;
-import ch.zhaw.pm3.helpy.model.Category;
-import ch.zhaw.pm3.helpy.model.Helper;
+import ch.zhaw.pm3.helpy.model.category.Category;
+import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.Job;
-import ch.zhaw.pm3.helpy.model.Tag;
-import ch.zhaw.pm3.helpy.model.User;
+import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.model.Helper;
-import ch.zhaw.pm3.helpy.model.Helpseeker;
-import ch.zhaw.pm3.helpy.model.User;
+import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.Helpseeker;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

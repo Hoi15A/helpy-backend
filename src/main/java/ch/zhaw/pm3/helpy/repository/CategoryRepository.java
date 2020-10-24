@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.repository;
 
-import ch.zhaw.pm3.helpy.model.Category;
+import ch.zhaw.pm3.helpy.model.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

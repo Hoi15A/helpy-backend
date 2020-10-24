@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy;
 
 import ch.zhaw.pm3.helpy.controller.CategoryController;
-import ch.zhaw.pm3.helpy.model.Category;
+import ch.zhaw.pm3.helpy.model.category.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

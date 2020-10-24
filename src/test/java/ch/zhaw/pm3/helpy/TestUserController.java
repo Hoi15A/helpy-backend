@@ -1,10 +1,9 @@
 package ch.zhaw.pm3.helpy;
 
 import ch.zhaw.pm3.helpy.controller.UserController;
-import ch.zhaw.pm3.helpy.model.Category;
-import ch.zhaw.pm3.helpy.model.Helper;
-import ch.zhaw.pm3.helpy.model.Helpseeker;
-import ch.zhaw.pm3.helpy.model.User;
+import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.Helpseeker;
+import ch.zhaw.pm3.helpy.model.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
