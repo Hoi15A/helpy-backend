@@ -50,7 +50,6 @@ public class UserController {
                                            @PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
         if (user == null) throw new RecordNotFoundException(username);
-        userRepository.delete(user);
         userRepository.save(userUpdate);
         return ResponseEntity.ok(user);
     }
