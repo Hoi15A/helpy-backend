@@ -5,6 +5,8 @@ import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -25,9 +27,7 @@ public class Job {
     @ManyToOne
     @NotNull(message = "You have to provide an author")
     private Helpseeker author;
-    @NotNull(message = "You have to provide a date")
     private LocalDate created;
-    @NotNull(message = "You have to provide a status")
     private JobStatus status;
     @ManyToOne
     private Helper matchedHelper;
@@ -76,18 +76,22 @@ public class Job {
         this.author = author;
     }
 
+    @JsonProperty
     public LocalDate getCreated() {
         return created;
     }
 
+    @JsonIgnore
     public void setCreated(LocalDate created) {
         this.created = created;
     }
 
+    @JsonProperty
     public JobStatus getStatus() {
         return status;
     }
 
+    @JsonIgnore
     public void setStatus(JobStatus status) {
         this.status = status;
     }
