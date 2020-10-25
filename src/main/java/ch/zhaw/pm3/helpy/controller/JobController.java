@@ -89,7 +89,7 @@ public class JobController {
     }
 
     @GetMapping("status/{status}")
-    public ResponseEntity<List<Job>> getJobsByStatus(@PathVariable("status") final String status) {
+    public ResponseEntity<List<Job>> getJobsByStatus(@PathVariable("status") final JobStatus status) {
         return ResponseEntity.ok(jobRepository.findJobsByStatus(status));
     }
 
