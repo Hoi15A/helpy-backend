@@ -30,8 +30,6 @@ public class TestCategoryController {
     @Autowired
     private MockMvc mockMvc;
 
-    private Category category = mock(Category.class);
-
     @Test
     public void contextLoads() {
         assertNotNull(categoryController);
