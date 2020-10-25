@@ -142,6 +142,6 @@ public class JobController {
 
     @GetMapping("date/{date}")
     public ResponseEntity<List<Job>> getJobsByDate(@PathVariable("date") final String date) {
-        return ResponseEntity.ok(jobRepository.findJobsByDate(date));
+        return ResponseEntity.ok(jobRepository.findJobsByDate(LocalDate.parse(date)));
     }
 }

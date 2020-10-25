@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface JobRepository extends JpaRepository<Job, Long> {
@@ -26,7 +27,7 @@ public interface JobRepository extends JpaRepository<Job, Long> {
      * @return list of Jobs with given date
      */
     @Query(value = "select j from Job j where j.created=?1")
-    List<Job> findJobsByDate(String date);
+    List<Job> findJobsByDate(LocalDate date);
 
     /**
      * Query to get a list of Jobs from the database whose helpseeker attribute is set to the given helpseeker
