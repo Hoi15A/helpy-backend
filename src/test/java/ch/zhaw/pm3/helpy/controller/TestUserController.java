@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +20,8 @@ public class TestUserController {
     private static final String EXISTING_USER_EMAIL = "rlavigne0@virginia.edu";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
     private static final String NONEXISTENT_USER_JSON_STRING = "{\"type\":\"Helper\",\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
-
+    private static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
+    private static final String RANDOM_TEST_STRING = "test";
 
     @Autowired
     private UserController userController;
@@ -105,7 +105,7 @@ public class TestUserController {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email")
                         .value(NONEXISTENT_USER_EMAIL));
 
-        updateString = updateString.replace("Carl", "Hans-Ruedi");
+        updateString = updateString.replace(NONEXISTENT_USER_FIRSTNAME, RANDOM_TEST_STRING);
 
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
@@ -113,7 +113,7 @@ public class TestUserController {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.firstname")
-                        .value("Hans-Ruedi"));
+                        .value(RANDOM_TEST_STRING));
     }
 
     @Test
