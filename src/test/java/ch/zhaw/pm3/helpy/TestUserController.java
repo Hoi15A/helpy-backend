@@ -26,6 +26,8 @@ public class TestUserController {
     private static final String REQUEST_MAPPING = "/api/user";
     private static final String EXISTING_USER_EMAIL = "rlavigne0@virginia.edu";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
+    private static final String NONEXISTENT_USER_JSON_STRING = "{\"type\":\"Helper\",\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+
 
     @Autowired
     private UserController userController;
@@ -68,12 +70,10 @@ public class TestUserController {
 
     @Test
     public void testAddUser() throws Exception {
-        User.UserBuilder builder = new User.UserBuilder();
-        builder.setEmail(NONEXISTENT_USER_EMAIL);
-        User user = new User(builder);
+        System.out.println(NONEXISTENT_USER_JSON_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
-                .content(asJsonString(user))
+                .content(NONEXISTENT_USER_JSON_STRING)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email")
