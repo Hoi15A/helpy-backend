@@ -59,6 +59,7 @@ public class UserController {
     public ResponseEntity<User> updateUser(@RequestBody final User userUpdate,
                                            @PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
+        if (userUpdate.getPassword() == null) userUpdate.setPassword(user.getPassword());
         if (user == null) throw new RecordNotFoundException(username);
         userRepository.save(userUpdate);
         return ResponseEntity.ok(user);
