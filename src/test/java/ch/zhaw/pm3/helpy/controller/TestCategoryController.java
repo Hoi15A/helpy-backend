@@ -23,7 +23,7 @@ public class TestCategoryController {
     private static final String REQUEST_MAPPING = "/api/category";
     private static final String EXISTING_CATEGORY_NAME_IN_USE = "Sprache";
     private static final String EXISTING_CATEGORY_NAME_NOT_IN_USE = "Divers";
-    private static final String NONEXISTENT_CATEGORY_NAME = "test";
+    private static final String RANDOM_TEST_STRING = "test";
 
     @Autowired
     private CategoryController categoryController;
@@ -50,14 +50,14 @@ public class TestCategoryController {
 
     @Test
     public void testCreateCategory() throws Exception {
-        Category testCat = new Category(NONEXISTENT_CATEGORY_NAME);
+        Category testCat = new Category(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name")
-                        .value(NONEXISTENT_CATEGORY_NAME));
+                        .value(RANDOM_TEST_STRING));
     }
 
     @Test
@@ -73,19 +73,19 @@ public class TestCategoryController {
     @Test
     public void testUpdateCategory() throws Exception {
         Category testCat = new Category(EXISTING_CATEGORY_NAME_IN_USE);
-        testCat.setDescription("update");
+        testCat.setDescription(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.description")
-                        .value(testCat.getDescription()));
+                        .value(RANDOM_TEST_STRING));
     }
 
     @Test
     public void testUpdateCategoryNotFound() throws Exception {
-        Category testCat = new Category(NONEXISTENT_CATEGORY_NAME);
+        Category testCat = new Category(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
@@ -106,7 +106,7 @@ public class TestCategoryController {
     @Test
     public void testDeleteCategoryNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete(REQUEST_MAPPING + "/remove/{category}", NONEXISTENT_CATEGORY_NAME)
+                .delete(REQUEST_MAPPING + "/remove/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -123,7 +123,7 @@ public class TestCategoryController {
     @Test
     public void testGetRelatedCategoriesNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/related/{category}", NONEXISTENT_CATEGORY_NAME)
+                .get(REQUEST_MAPPING + "/related/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
