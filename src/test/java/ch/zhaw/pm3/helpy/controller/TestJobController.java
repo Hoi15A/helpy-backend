@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy;
+package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.controller.JobController;
