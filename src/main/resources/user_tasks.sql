@@ -9,18 +9,18 @@ insert into User_Tasks (helpseeker_email, tasks_id) values ('peggy@america.com',
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 1);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 2);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 3);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 6);
+insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 11);
 
 --
 -- Mockaroo test data
 --
 insert into User_Tasks (helpseeker_email, tasks_id) values ('soleksiakb@smugmug.com', 4);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('soleksiakb@smugmug.com', 5);
-insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 6);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('sskiltonn@cdbaby.com', 7);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('mgalpinp@mit.edu', 8);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('dbaiylev@ocn.ne.jp', 9);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('nshearnx@t-online.de', 10);
-insert into User_Tasks (helpseeker_email, tasks_id) values ('ahmed_miri@gmx.net', 11);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('nshearnx@t-online.de', 12);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('bhawthorne13@time.com', 13);
 insert into User_Tasks (helpseeker_email, tasks_id) values ('ppoge17@umich.edu', 14);
