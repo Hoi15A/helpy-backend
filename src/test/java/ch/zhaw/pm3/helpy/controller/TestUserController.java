@@ -1,10 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.controller.UserController;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
-import ch.zhaw.pm3.helpy.model.user.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,8 +11,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
