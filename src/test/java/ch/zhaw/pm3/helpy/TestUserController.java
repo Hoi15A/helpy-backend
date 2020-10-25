@@ -102,33 +102,32 @@ public class TestUserController {
 
     @Test
     public void testUpdateUser() throws Exception {
-        //todo HttpRequestMethodNotSupportedException
-        User.UserBuilder builder = new User.UserBuilder();
-        builder.setEmail(EXISTING_USER_EMAIL);
-        User user = new User(builder);
+        String updateString = NONEXISTENT_USER_JSON_STRING;
         this.mockMvc.perform(MockMvcRequestBuilders
-                .put(REQUEST_MAPPING + "/update")
-                .content(asJsonString(user))
+                .post(REQUEST_MAPPING + "/add")
+                .content(updateString)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                        .value(EXISTING_USER_EMAIL));
+                        .value(NONEXISTENT_USER_EMAIL));
+
+        updateString = updateString.replace("Carl", "Hans-Ruedi");
+
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
+                .content(updateString)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstname")
+                        .value("Hans-Ruedi"));
     }
 
     @Test
     public void testUpdateUserNotFound() throws Exception {
-        //todo: HttpRequestMethodNotSupportedException
         this.mockMvc.perform(MockMvcRequestBuilders
-                .put(REQUEST_MAPPING + "/update", NONEXISTENT_USER_EMAIL)
+                .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
+                .content(NONEXISTENT_USER_JSON_STRING)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
-    }
-
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
