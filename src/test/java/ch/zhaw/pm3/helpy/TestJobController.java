@@ -155,8 +155,7 @@ public class TestJobController {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].categories.[*].name", Matchers.hasItem("Sprache")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].categories.[*].name", Matchers.hasItem("Schule")));;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].categories.[*].name", Matchers.hasItems("Sprache", "Schule")));
     }
 
     @Test
@@ -179,8 +178,7 @@ public class TestJobController {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].tags.[*].name", Matchers.hasItem("conglomeration")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].tags.[*].name", Matchers.hasItem("cohesive")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].tags.[*].name", Matchers.hasItems("conglomeration", "cohesive")));
     }
 
     @Test
