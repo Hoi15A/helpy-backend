@@ -57,13 +57,14 @@ public class TestJobController {
 
     @Test
     public void testRemoveJob() throws Exception {
-        //todo: FAILURE: DataIntegrityViolationException
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{id}", EXISTING_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name")
-                        .value(EXISTING_JOB_ID));
+                .andExpect(status().isOk());
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .get(REQUEST_MAPPING + "/id/{id}", EXISTING_JOB_ID)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

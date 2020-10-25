@@ -85,10 +85,11 @@ public class TestUserController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                        .value(EXISTING_USER_EMAIL));
-        //todo: Resolve delete error -> maybe (fetch = FetchType.EAGER) as with Category and Tags
+                .andExpect(status().isOk());
+        this.mockMvc.perform(MockMvcRequestBuilders
+                .get(REQUEST_MAPPING + "/{username}", EXISTING_USER_EMAIL)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test

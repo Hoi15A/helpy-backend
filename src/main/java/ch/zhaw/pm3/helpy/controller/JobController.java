@@ -47,11 +47,22 @@ public class JobController {
     }
 
     @DeleteMapping("remove/{id}")
-    public ResponseEntity<Job> removeJob(@PathVariable("id") final long id) {
+    public ResponseEntity<Object> removeJob(@PathVariable("id") final long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
+        Helpseeker helpseeker = job.get().getAuthor();
+        helpseeker.getTasks().remove(job.get());
+        Helper helper = job.get().getMatchedHelper();
+        if (helper != null) {
+            helper.getCompletedJobs().remove(job.get());
+            userRepository.save(helper);
+        }
+        job.get().setMatchedHelper(null);
+        job.get().setAuthor(null);
+        jobRepository.save(job.get());
+        userRepository.save(helpseeker);
         jobRepository.delete(job.get());
-        return ResponseEntity.ok(job.get());
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping(path = "update", consumes = MediaType.APPLICATION_JSON_VALUE)

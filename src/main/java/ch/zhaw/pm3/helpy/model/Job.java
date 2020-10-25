@@ -26,7 +26,7 @@ public class Job {
     @NotBlank(message = "You have to provide a description")
     private String description;
     @ManyToOne
-    @NotNull(message = "You have to provide an author")
+    //@NotNull(message = "You have to provide an author")
     private Helpseeker author;
     private LocalDate created;
     private JobStatus status;

@@ -4,7 +4,9 @@ import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,4 +51,14 @@ public interface JobRepository extends JpaRepository<Job, Long> {
      */
     @Query("select j from Job j join j.tags t where t.name = ?1")
     List<Job> findJobsByTag(String tag);
+
+    @Transactional
+    @Modifying
+    @Query("update Job j set j.matchedHelper = null where j.matchedHelper.email=?1")
+    void removeHelperFromJob(String email);
+
+    @Transactional
+    @Modifying
+    @Query("update Job j set j.author = null, j.status=2 where j.author.email=?1")
+    void removeAuthorFromJob(String email);
 }

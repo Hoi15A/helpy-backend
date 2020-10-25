@@ -1,7 +1,12 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
+import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +22,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
 
     @GetMapping("{username}")
     public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
@@ -41,8 +49,10 @@ public class UserController {
     public ResponseEntity<User> removeUser(@PathVariable("username") final String username) {
         User user = userRepository.findUserByName(username);
         if (user == null) throw new RecordNotFoundException(username);
+        if (user instanceof Helper) jobRepository.removeHelperFromJob(username);
+        else if (user instanceof Helpseeker) jobRepository.removeAuthorFromJob(username);
         userRepository.delete(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("update/{username}")
