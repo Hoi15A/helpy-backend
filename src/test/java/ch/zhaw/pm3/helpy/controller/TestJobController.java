@@ -1,8 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
-import ch.zhaw.pm3.helpy.controller.JobController;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
