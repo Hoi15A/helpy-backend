@@ -23,7 +23,7 @@ public class Job {
     @NotBlank(message = "You have to enter a title")
     private String title;
     @Column(columnDefinition = "LONGTEXT")
-    @NotBlank(message = "You have to enter a title")
+    @NotBlank(message = "You have to provide a description")
     private String description;
     @ManyToOne
     @NotNull(message = "You have to provide an author")
@@ -106,7 +106,7 @@ public class Job {
     public void setMatchedHelper(Helper matchedHelper) {
         this.matchedHelper = matchedHelper;
     }
-
+    
     public List<Category> getCategories() {
         return categories;
     }
