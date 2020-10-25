@@ -76,10 +76,11 @@ public class JobController {
         return ResponseEntity.ok(matcher.getPotentialHelpers());
     }
 
-    @PutMapping("id/{id}/set-helper")
+    @PutMapping("id/{id}/set-helper/{mail}")
     public ResponseEntity<Job> updateHelper(@PathVariable("id") final long id,
-                                                     @Valid @RequestBody final Helper helper) {
+                                                     @PathVariable("mail") final String email) {
         Optional<Job> job = jobRepository.findById(id);
+        Helper helper = userRepository.findHelperByName(email);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job j = job.get();
         j.setMatchedHelper(helper);
