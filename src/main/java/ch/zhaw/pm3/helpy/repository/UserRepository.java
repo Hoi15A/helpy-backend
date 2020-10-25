@@ -23,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select h from Helpseeker h where h.email=?1")
     Helpseeker findHelpseekerByName(String name);
+
+    @Query("select h from Helper h where h.email = ?1")
+    Helper findHelperByName(String name);
 }
