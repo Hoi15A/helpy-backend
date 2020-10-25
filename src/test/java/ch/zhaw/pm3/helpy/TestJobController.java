@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class TestJobController {
     private static final String REQUEST_MAPPING = "/api/job";
-    private static final int EXISTING_JOB_ID = 1;
+    private static final int EXISTING_JOB_ID = 11;
     private static final int NONEXISTENT_JOB_ID = -1;
 
     @Autowired
@@ -186,8 +186,8 @@ public class TestJobController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/date/{date}", "2020-01-01")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-        //todo check response
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[*].created", Matchers.hasItem("2020-01-01")));
     }
 
     public static String asJsonString(final Object obj) {
