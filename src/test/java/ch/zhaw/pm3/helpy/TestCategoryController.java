@@ -73,13 +73,14 @@ public class TestCategoryController {
     @Test
     public void testUpdateCategory() throws Exception {
         Category testCat = new Category(EXISTING_CATEGORY_NAME_IN_USE);
+        testCat.setDescription("update");
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name")
-                        .value(EXISTING_CATEGORY_NAME_IN_USE));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.description")
+                        .value(testCat.getDescription()));
     }
 
     @Test
