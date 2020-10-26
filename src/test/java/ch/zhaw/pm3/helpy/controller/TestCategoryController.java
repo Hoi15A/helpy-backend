@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestCategoryController {
+class TestCategoryController {
 
     private static final String REQUEST_MAPPING = "/api/category";
     private static final String EXISTING_CATEGORY_NAME_IN_USE = "Sprache";
@@ -31,12 +31,12 @@ public class TestCategoryController {
     private MockMvc mockMvc;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(categoryController);
     }
 
     @Test
-    public void testGetCategoryByName() throws Exception {
+    void testGetCategoryByName() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{category}", EXISTING_CATEGORY_NAME_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
@@ -46,7 +46,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testCreateCategory() throws Exception {
+    void testCreateCategory() throws Exception {
         Category testCat = new Category(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
@@ -58,7 +58,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testGetCategories() throws Exception{
+    void testGetCategories() throws Exception{
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/all")
                 .accept(MediaType.APPLICATION_JSON))
@@ -68,7 +68,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testUpdateCategory() throws Exception {
+    void testUpdateCategory() throws Exception {
         Category testCat = new Category(EXISTING_CATEGORY_NAME_IN_USE);
         testCat.setDescription(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
@@ -81,7 +81,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testUpdateCategoryNotFound() throws Exception {
+    void testUpdateCategoryNotFound() throws Exception {
         Category testCat = new Category(RANDOM_TEST_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
@@ -91,7 +91,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testDeleteCategory() throws Exception {
+    void testDeleteCategory() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{category}", EXISTING_CATEGORY_NAME_NOT_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
@@ -101,7 +101,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testDeleteCategoryNotFound() throws Exception {
+    void testDeleteCategoryNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
@@ -109,7 +109,7 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testGetRelatedCategories() throws Exception {
+    void testGetRelatedCategories() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/related/{category}", EXISTING_CATEGORY_NAME_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
@@ -118,14 +118,14 @@ public class TestCategoryController {
     }
 
     @Test
-    public void testGetRelatedCategoriesNotFound() throws Exception {
+    void testGetRelatedCategoriesNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/related/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 
-    public static String asJsonString(final Object obj) {
+    static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
         } catch (Exception e) {

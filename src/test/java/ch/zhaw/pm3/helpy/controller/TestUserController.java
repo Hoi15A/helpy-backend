@@ -14,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestUserController {
+class TestUserController {
 
     private static final String REQUEST_MAPPING = "/api/user";
     private static final String EXISTING_USER_EMAIL = "rlavigne0@virginia.edu";
@@ -30,12 +30,12 @@ public class TestUserController {
     private MockMvc mockMvc;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(userController);
     }
 
     @Test
-    public void testGetUser() throws Exception {
+    void testGetUser() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
@@ -45,7 +45,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testGetUserNotFound() throws Exception {
+    void testGetUserNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{username}", NONEXISTENT_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
@@ -53,7 +53,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testGetAll() throws Exception {
+    void testGetAll() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/all")
                 .accept(MediaType.APPLICATION_JSON))
@@ -63,7 +63,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testAddUser() throws Exception {
+    void testAddUser() throws Exception {
         System.out.println(NONEXISTENT_USER_JSON_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
@@ -75,7 +75,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testRemoveUser() throws Exception {
+    void testRemoveUser() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
@@ -87,7 +87,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testRemoveUserNotFound() throws Exception {
+    void testRemoveUserNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "remove/{username}", NONEXISTENT_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
@@ -95,7 +95,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testUpdateUser() throws Exception {
+    void testUpdateUser() throws Exception {
         String updateString = NONEXISTENT_USER_JSON_STRING;
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
@@ -117,7 +117,7 @@ public class TestUserController {
     }
 
     @Test
-    public void testUpdateUserNotFound() throws Exception {
+    void testUpdateUserNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
                 .content(NONEXISTENT_USER_JSON_STRING)

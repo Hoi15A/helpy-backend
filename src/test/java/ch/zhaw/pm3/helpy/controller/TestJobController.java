@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TestJobController {
+class TestJobController {
     private static final String REQUEST_MAPPING = "/api/job";
     private static final int EXISTING_JOB_ID = 11;
     private static final int NONEXISTENT_JOB_ID = -1;
@@ -41,12 +41,12 @@ public class TestJobController {
     private MockMvc mockMvc;
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(jobController);
     }
 
     @Test
-    public void testGetJobs() throws Exception {
+    void testGetJobs() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/all")
                 .accept(MediaType.APPLICATION_JSON))
@@ -56,7 +56,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testCreateJob() throws Exception {
+    void testCreateJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(NEW_USER_AS_JSON_STRING)
@@ -66,7 +66,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testRemoveJob() throws Exception {
+    void testRemoveJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{id}", EXISTING_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
@@ -78,7 +78,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testRemoveJobNotFound() throws Exception {
+    void testRemoveJobNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{category}", NONEXISTENT_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
@@ -86,7 +86,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testUpdateJob() throws Exception {
+    void testUpdateJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING)
@@ -97,7 +97,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testUpdateJobNotFound() throws Exception {
+    void testUpdateJobNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update", NONEXISTENT_JOB_ID)
                 .content(NONEXISTENT_USER_ID_AS_JSON_STRING)
@@ -106,7 +106,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobById() throws Exception {
+    void testGetJobById() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/id/{id}", EXISTING_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
@@ -116,7 +116,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobByIdNotFound() throws Exception {
+    void testGetJobByIdNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/id/{id}" , NONEXISTENT_JOB_ID)
                 .accept(MediaType.APPLICATION_JSON))
@@ -124,7 +124,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByStatus() throws Exception {
+    void testGetJobsByStatus() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/status/{status}", JobStatus.OPEN)
                 .accept(MediaType.APPLICATION_JSON))
@@ -135,7 +135,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByAuthor() throws Exception {
+    void testGetJobsByAuthor() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/author/{author}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
@@ -146,7 +146,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByCategory() throws Exception {
+    void testGetJobsByCategory() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/category/{category}", EXISTING_CATEGORY_TITLE_1)
                 .accept(MediaType.APPLICATION_JSON))
@@ -157,7 +157,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByCategories() throws Exception {
+    void testGetJobsByCategories() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/categories")
                 .content(TWO_EXISTING_CATEGORIES_AS_JSON_STRING)
@@ -170,7 +170,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByTag() throws Exception {
+    void testGetJobsByTag() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/tag/{tag}", EXISTING_TAG_TITLE_1)
                 .accept(MediaType.APPLICATION_JSON))
@@ -181,7 +181,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByTags() throws Exception {
+    void testGetJobsByTags() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/tags")
                 .content(TWO_EXISTING_TAGS_AS_JSON_STRING)
@@ -194,7 +194,7 @@ public class TestJobController {
     }
 
     @Test
-    public void testGetJobsByDate() throws Exception {
+    void testGetJobsByDate() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/date/{date}", EXISTING_JOB_DATE)
                 .accept(MediaType.APPLICATION_JSON))

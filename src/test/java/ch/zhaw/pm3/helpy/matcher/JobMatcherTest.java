@@ -32,19 +32,19 @@ class JobMatcherTest {
     private JobMatcher matcher;
 
     @BeforeEach
-    public void ListUp() {
+    void ListUp() {
         helpseeker = mock(Helpseeker.class);
         job = mock(Job.class);
         matcher.setJob(job);
     }
 
     @Test
-    public void contextLoads() {
+    void contextLoads() {
         assertNotNull(userRepository);
     }
 
     @Test
-    public void testMatch() {
+    void testMatch() {
         when(job.getAuthor()).thenReturn(helpseeker);
         when(job.getAuthor().getPlz()).thenReturn(8406);
         when(job.getCategories()).thenReturn(getJobCategories());
