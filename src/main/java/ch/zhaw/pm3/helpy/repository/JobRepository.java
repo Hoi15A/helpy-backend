@@ -6,11 +6,13 @@ import ch.zhaw.pm3.helpy.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Repository for the {@link Job} entity.
+ */
 public interface JobRepository extends JpaRepository<Job, Long> {
 
     /**
@@ -53,13 +55,20 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     @Query("select j from Job j join j.tags t where t.name = ?1")
     List<Job> findJobsByTag(String tag);
 
-    @Transactional
+    /**
+     * Query to remove a {@link ch.zhaw.pm3.helpy.model.user.Helper} from all jobs
+     * @param email from {@link ch.zhaw.pm3.helpy.model.user.Helper}
+     */
     @Modifying
     @Query("update Job j set j.matchedHelper = null where j.matchedHelper.email=?1")
     void removeHelperFromJob(String email);
 
-    @Transactional
+    /**
+     * Query to remove a {@link Helpseeker} aka the author from all jobs
+     * @param email from author
+     */
     @Modifying
     @Query("update Job j set j.author = null, j.status=2 where j.author.email=?1")
     void removeAuthorFromJob(String email);
+
 }
