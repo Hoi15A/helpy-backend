@@ -195,19 +195,18 @@ public class JobService {
         if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job job = optionalJob.get();
 
+        // resolve author constrain
         Helpseeker helpseeker = job.getAuthor();
         helpseeker.getTasks().remove(job);
 
+        // resolve helper constrain
         Helper helper = job.getMatchedHelper();
         if (helper != null) {
             helper.getCompletedJobs().remove(job);
-            userRepository.save(helper);
         }
 
         job.setMatchedHelper(null);
         job.setAuthor(null);
-        jobRepository.save(job);
-        userRepository.save(helpseeker);
         jobRepository.delete(job);
     }
 
