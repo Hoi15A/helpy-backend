@@ -56,9 +56,9 @@ class JobMatcherTest {
 
     private List<Helper> getExpectedResultList() {
         List<Helper> expectedList = new ArrayList<>();
-        expectedList.add((Helper) userRepository.findUserByName("leandro@email.com"));
-        expectedList.add((Helper) userRepository.findUserByName("hawkeye@email.com"));
-        expectedList.add((Helper) userRepository.findUserByName("spidey@email.com"));
+        expectedList.add((Helper) userRepository.findUserByEmail("leandro@email.com"));
+        expectedList.add((Helper) userRepository.findUserByEmail("hawkeye@email.com"));
+        expectedList.add((Helper) userRepository.findUserByEmail("spidey@email.com"));
         return expectedList;
     }
 

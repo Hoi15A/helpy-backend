@@ -12,11 +12,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * Query to get a User from the database whose eMail attribute is set to the given String
-     * @param username of User to get
+     * @param email of User to get
      * @return User with given eMail
      */
     @Query("select u from User u where u.email=?1")
-    User findUserByName(String username);
+    User findUserByEmail(String email);
 
     /**
      * Query to get a list of Users from the database whose plz attribute is set to the given int
@@ -44,17 +44,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * Query to get a HelpSeeker from the database whose eMail attribute is set to the given String
-     * @param name of HelpSeeker to get
+     * @param email of HelpSeeker to get
      * @return HelpSeeker with given eMail
      */
     @Query("select h from Helpseeker h where h.email=?1")
-    Helpseeker findHelpseekerByName(String name);
+    Helpseeker findHelpseekerByEmail(String email);
 
     /**
      * Query to get a Helper from the database whose eMail attribute is set to the given String
-     * @param name of Helper to get
+     * @param email of Helper to get
      * @return Helper with given eMail
      */
     @Query("select h from Helper h where h.email = ?1")
-    Helper findHelperByName(String name);
+    Helper findHelperByEmail(String email);
 }

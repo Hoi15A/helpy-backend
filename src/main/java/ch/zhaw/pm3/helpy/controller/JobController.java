@@ -38,7 +38,7 @@ public class JobController {
 
     @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Job> createJob(@Valid @RequestBody final Job job) {
-        Helpseeker helpseeker = userRepository.findHelpseekerByName(job.getAuthor().getEmail());
+        Helpseeker helpseeker = userRepository.findHelpseekerByEmail(job.getAuthor().getEmail());
         job.setAuthor(helpseeker);
         job.setStatus(JobStatus.OPEN);
         job.setCreated(LocalDate.now());
@@ -91,7 +91,7 @@ public class JobController {
     public ResponseEntity<Job> updateHelper(@PathVariable("id") final long id,
                                                      @PathVariable("mail") final String email) {
         Optional<Job> job = jobRepository.findById(id);
-        Helper helper = userRepository.findHelperByName(email);
+        Helper helper = userRepository.findHelperByEmail(email);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job j = job.get();
         j.setMatchedHelper(helper);
@@ -107,7 +107,7 @@ public class JobController {
 
     @GetMapping("author/{author}")
     public ResponseEntity<List<Job>> getJobsByAuthor(@PathVariable("author") final String name) {
-        Helpseeker helpseeker = userRepository.findHelpseekerByName(name);
+        Helpseeker helpseeker = userRepository.findHelpseekerByEmail(name);
         if (helpseeker == null) throw new RecordNotFoundException(name);
         return ResponseEntity.ok(jobRepository.findJobsByAuthor(helpseeker));
     }
