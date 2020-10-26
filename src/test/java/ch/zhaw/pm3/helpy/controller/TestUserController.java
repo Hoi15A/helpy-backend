@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -100,10 +101,7 @@ class TestUserController {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(updateString)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.email")
-                        .value(NONEXISTENT_USER_EMAIL));
+                .contentType(MediaType.APPLICATION_JSON));
 
         updateString = updateString.replace(NONEXISTENT_USER_FIRSTNAME, RANDOM_TEST_STRING);
 
