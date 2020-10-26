@@ -28,8 +28,11 @@ public class JobMatcher {
 
     private Job job;
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public JobMatcher(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     /**
      * Returns a list of available and compatible helpers, sorted by a compatibility score.
