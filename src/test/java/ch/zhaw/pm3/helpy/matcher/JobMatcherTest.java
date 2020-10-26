@@ -32,7 +32,7 @@ class JobMatcherTest {
     private JobMatcher matcher;
 
     @BeforeEach
-    void ListUp() {
+    void setUp() {
         helpseeker = mock(Helpseeker.class);
         job = mock(Job.class);
         matcher.setJob(job);
