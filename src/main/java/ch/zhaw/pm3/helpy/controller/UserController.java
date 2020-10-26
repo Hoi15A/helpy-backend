@@ -1,12 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
-import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
-import ch.zhaw.pm3.helpy.repository.JobRepository;
-import ch.zhaw.pm3.helpy.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import ch.zhaw.pm3.helpy.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,48 +13,36 @@ import java.util.List;
 @RequestMapping("api/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
 
-    @Autowired
-    private JobRepository jobRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("{username}")
     public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
-        User user = userRepository.findUserByEmail(username);
-        if(user == null) throw new RecordNotFoundException(username);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.findByEmail(username));
     }
 
     @GetMapping("all")
     public ResponseEntity<List<User>> getAll() {
-        List<User> users = userRepository.findAll();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PostMapping(value = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> addUser(@Valid @RequestBody final User user) {
-        userRepository.save(user);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.createUser(user));
     }
 
     @DeleteMapping("remove/{username}")
     public ResponseEntity<User> removeUser(@PathVariable("username") final String username) {
-        User user = userRepository.findUserByEmail(username);
-        if (user == null) throw new RecordNotFoundException(username);
-        if (user instanceof Helper) jobRepository.removeHelperFromJob(username);
-        else if (user instanceof Helpseeker) jobRepository.removeAuthorFromJob(username);
-        userRepository.delete(user);
+        userService.deleteUser(username);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("update/{username}")
     public ResponseEntity<User> updateUser(@RequestBody final User userUpdate,
                                            @PathVariable("username") final String username) {
-        User user = userRepository.findUserByEmail(username);
-        if (userUpdate.getPassword() == null) userUpdate.setPassword(user.getPassword());
-        if (user == null) throw new RecordNotFoundException(username);
-        userRepository.save(userUpdate);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.updateUser(username, userUpdate));
     }
 }
