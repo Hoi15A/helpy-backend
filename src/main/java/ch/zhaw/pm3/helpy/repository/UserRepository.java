@@ -4,6 +4,7 @@ import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -57,4 +58,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     @Query("select h from Helper h where h.email = ?1")
     Helper findHelperByEmail(String email);
+
+    @Modifying
+    @Query("update User u set u.email=?2 where u.email=?1")
+    void updateUserEmail(String oldMail, String newMail);
+
+    @Query("select count(u.email) from User u where u.email=?1")
+    long existsByEmail(String email);
 }
