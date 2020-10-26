@@ -1,7 +1,6 @@
 package ch.zhaw.pm3.helpy.model.user;
 
 import ch.zhaw.pm3.helpy.model.Job;
-import ch.zhaw.pm3.helpy.model.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.Entity;
