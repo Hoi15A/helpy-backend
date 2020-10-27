@@ -12,7 +12,7 @@ import java.util.List;
 public class Helper extends User {
     @ElementCollection
     private List<Integer> ratings;
-    @OneToMany
+    @OneToMany(mappedBy = "matchedHelper")
     @JsonBackReference
     private List<Job> completedJobs;
     @ManyToMany

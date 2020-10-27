@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 public class Helpseeker extends User {
-    @OneToMany
+    @OneToMany(mappedBy = "author")
     @JsonBackReference
     private List<Job> tasks;
 
