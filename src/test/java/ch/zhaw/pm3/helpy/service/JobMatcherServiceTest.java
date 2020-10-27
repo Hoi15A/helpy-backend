@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.matcher;
+package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.user.Helper;
@@ -20,37 +20,39 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class JobMatcherTest {
+class JobMatcherServiceTest {
 
-    @Autowired
-    private UserRepository userRepository;
+    private static final int AUTHOR_PLZ = 8406;
 
     private Helpseeker helpseeker;
     private Job job;
 
     @Autowired
-    private JobMatcher matcher;
+    private UserRepository userRepository;
+
+    @Autowired
+    private JobMatcherService service;
 
     @BeforeEach
     void setUp() {
         helpseeker = mock(Helpseeker.class);
         job = mock(Job.class);
-        matcher.setJob(job);
     }
 
     @Test
     void contextLoads() {
         assertNotNull(userRepository);
+        assertNotNull(service);
     }
 
     @Test
     void testMatch() {
         when(job.getAuthor()).thenReturn(helpseeker);
-        when(job.getAuthor().getPlz()).thenReturn(8406);
+        when(job.getAuthor().getPlz()).thenReturn(AUTHOR_PLZ);
         when(job.getCategories()).thenReturn(getJobCategories());
         when(job.getTags()).thenReturn(getJobTags());
 
-        List<Helper> result = matcher.getPotentialHelpers();
+        List<Helper> result = service.getPotentialHelpersForJob(job);
         assertIterableEquals(getExpectedResultList(), result);
     }
 

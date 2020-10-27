@@ -5,9 +5,6 @@ import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.User;
-import ch.zhaw.pm3.helpy.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
@@ -23,43 +20,26 @@ import java.util.stream.Collectors;
  * @author meletlea
  * @version 18.10.2020
  */
-@Component
 public class JobMatcher {
 
-    private Job job;
+    private final Job job;
+    private final List<Helper> helpersNearHelpseeker;
 
-    private final UserRepository userRepository;
-
-    public JobMatcher(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public JobMatcher(Job job, List<Helper> helpersNearHelpseeker) {
+        this.job = job;
+        this.helpersNearHelpseeker = helpersNearHelpseeker;
     }
 
     /**
      * Returns a list of available and compatible helpers, sorted by a compatibility score.
      * @return List<Helper>
      */
-    @Transactional
     public List<Helper> getPotentialHelpers() {
-        return sortByCompatibility(match(getHelpersNearHelpseeker()));
+        return sortByCompatibility(match());
     }
 
-    private List<Helper> getHelpersNearHelpseeker() {
-        List<User> users = new ArrayList<>();
-        int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
-        int plzRadius = 3;
-        for (int i = -plzRadius; i < plzRadius; i++) {
-            int plz = i + jobPlz;
-            users.addAll(userRepository.findUsersByPlz(plz));
-        }
-
-        return users.stream()
-                .filter(Helper.class::isInstance)
-                .map(Helper.class::cast)
-                .collect(Collectors.toList());
-    }
-
-    private List<Helper> match(List<Helper> potentialHelpers) {
-        return potentialHelpers.stream()
+    private List<Helper> match() {
+        return helpersNearHelpseeker.stream()
                 .filter(helper -> helper.getStatus() == UserStatus.ACTIVE)
                 .filter(helper -> !Collections.disjoint(helper.getCategories(), job.getCategories())) // at least 1 category in common
                 .collect(Collectors.toList());
@@ -116,9 +96,5 @@ public class JobMatcher {
             return commonList.size();
         }
 
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
     }
 }

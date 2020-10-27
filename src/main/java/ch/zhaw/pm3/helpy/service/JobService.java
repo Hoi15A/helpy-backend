@@ -29,18 +29,18 @@ import java.util.Set;
 public class JobService {
 
     private final JobRepository jobRepository;
-    private final JobMatcher jobMatcher;
+    private final JobMatcherService jobMatcherService;
     private final UserRepository userRepository;
 
     /**
      * Default constructor
      * @param jobRepository
-     * @param jobMatcher
+     * @param jobMatcherService
      * @param userRepository
      */
-    public JobService(JobRepository jobRepository, JobMatcher jobMatcher, UserRepository userRepository) {
+    public JobService(JobRepository jobRepository, JobMatcherService jobMatcherService, UserRepository userRepository) {
         this.jobRepository = jobRepository;
-        this.jobMatcher = jobMatcher;
+        this.jobMatcherService = jobMatcherService;
         this.userRepository = userRepository;
     }
 
@@ -144,8 +144,7 @@ public class JobService {
     public List<Helper> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        jobMatcher.setJob(job.get());
-        return jobMatcher.getPotentialHelpers();
+        return jobMatcherService.getPotentialHelpersForJob(job.get());
     }
 
     /**
