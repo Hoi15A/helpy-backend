@@ -24,10 +24,6 @@ public class Helper extends User {
         //needed for JPA
     }
 
-    public Helper(UserBuilder userBuilder) {
-        super(userBuilder);
-    }
-
     public List<Integer> getRatings() {
         return ratings;
     }

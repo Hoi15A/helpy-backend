@@ -46,20 +46,6 @@ public class User {
         //needed for JPA
     }
 
-    public User(UserBuilder builder) {
-        User user = builder.build();
-        firstname = user.firstname;
-        lastname = user.lastname;
-        email = user.email;
-        sex = user.sex;
-        plz = user.plz;
-        birthdate = user.birthdate;
-        password = user.password;
-        biographie = user.biographie;
-        status = user.status;
-        permission = user.permission;
-    }
-
     public String getFirstname() {
         return firstname;
     }
@@ -153,72 +139,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(email);
-    }
-
-    public static class UserBuilder {
-        User user;
-
-        public UserBuilder() {
-            user = new User();
-        }
-
-        public UserBuilder(User user) {
-            this.user = user;
-        }
-
-        public UserBuilder setFirstname(String firstname) {
-            user.firstname = firstname;
-            return this;
-        }
-
-        public UserBuilder setLastname(String lastname) {
-            user.lastname = lastname;
-            return this;
-        }
-
-        public UserBuilder setEmail(String email) {
-            user.email = email;
-            return this;
-        }
-
-        public UserBuilder setSex(char sex) {
-            user.sex = sex;
-            return this;
-        }
-
-        public UserBuilder setPlz(int plz) {
-            user.plz = plz;
-            return this;
-        }
-
-        public UserBuilder setBirthdate(LocalDate birthdate) {
-            user.birthdate = birthdate;
-            return this;
-        }
-
-        public UserBuilder setPassword(String password) {
-            user.password = password;
-            return this;
-        }
-        public UserBuilder setBiographie(String biographie) {
-            user.biographie = biographie;
-            return this;
-        }
-
-        public UserBuilder setStatus(UserStatus status) {
-            user.status = status;
-            return this;
-        }
-
-        public UserBuilder setPermission(Permission permission) {
-            user.permission = permission;
-            return this;
-        }
-
-        public User build() {
-            return user;
-        }
-
     }
 
 }

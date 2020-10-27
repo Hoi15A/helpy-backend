@@ -17,10 +17,6 @@ public class Helpseeker extends User {
         //needed for JPA
     }
 
-    public Helpseeker(UserBuilder userBuilder) {
-        super(userBuilder);
-    }
-
     public List<Job> getTasks() {
         return tasks;
     }
