@@ -36,6 +36,7 @@ public class Job {
     private List<Category> categories;
     @ManyToMany
     private List<Tag> tags;
+    private LocalDate dueDate;
 
     public Job() {}
 
@@ -121,5 +122,13 @@ public class Job {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
     }
 }
