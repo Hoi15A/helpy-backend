@@ -2,16 +2,19 @@ package ch.zhaw.pm3.helpy.model.user;
 
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
+import ch.zhaw.pm3.helpy.constant.Weekdays;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -39,6 +42,8 @@ public class User {
     private UserStatus status;
     @NotNull(message = "You have to enter a permission type")
     private Permission permission;
+    @ElementCollection
+    private List<Weekdays> availableWeekDays;
 
     public User() {
         //needed for JPA
@@ -124,6 +129,14 @@ public class User {
 
     public void setPermission(Permission permission) {
         this.permission = permission;
+    }
+
+    public List<Weekdays> getAvailableWeekDays() {
+        return availableWeekDays;
+    }
+
+    public void setAvailableWeekDays(List<Weekdays> availableWeekDays) {
+        this.availableWeekDays = availableWeekDays;
     }
 
     @Override
