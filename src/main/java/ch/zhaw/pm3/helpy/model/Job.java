@@ -46,12 +46,6 @@ public class Job {
      */
     public Job() {}
 
-    public Job(String title, String description, Helpseeker author) {
-        this.title = title;
-        this.description = description;
-        this.author = author;
-    }
-
     @JsonProperty
     public long getId() {
         return id;
