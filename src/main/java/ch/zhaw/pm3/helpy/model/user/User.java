@@ -17,6 +17,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Model class which holds the information for the helpy user.
+ */
 @Entity
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({@JsonSubTypes.Type(Helper.class), @JsonSubTypes.Type(Helpseeker.class)})
@@ -45,6 +48,9 @@ public class User {
     @ElementCollection
     private List<Weekdays> availableWeekDays;
 
+    /**
+     * Creates a new user instance.
+     */
     public User() {
         //needed for JPA
     }
