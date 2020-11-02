@@ -15,9 +15,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class catches and handles all exceptions that occur inside the controllers.
+ */
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
+    /**
+     * Catches all {@link Exception} and returns it with the information what went wrong.
+     * @param ex {@link Exception}
+     * @param request {@link WebRequest}
+     * @return ResponseEntity<Object>
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
@@ -26,6 +35,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    /**
+     * Catches a {@link RecordNotFoundException} and returns it with
+     * additional details which record could not be found.
+     * @param ex {@link RecordNotFoundException}
+     * @param request {@link WebRequest}
+     * @return ResponseEntity<Object>
+     */
     @ExceptionHandler(RecordNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
