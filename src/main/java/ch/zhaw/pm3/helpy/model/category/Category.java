@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Provides a category representation.
+ */
 @Entity
 public class Category {
 
@@ -18,10 +21,17 @@ public class Category {
     @NotBlank(message = "You have to provide a description for the category")
     private String description;
 
+    /**
+     * Creates a new category instance
+     */
     public Category() {
         //needed for JPA
     }
 
+    /**
+     * Creates a new category instance
+     * @param name String
+     */
     public Category(String name) {
         Objects.requireNonNull(name);
         this.name = name;
