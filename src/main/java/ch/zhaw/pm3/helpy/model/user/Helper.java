@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Model class which holds the information for the Helpy helper.
+ */
 @Entity
 public class Helper extends User {
     @ElementCollection
@@ -20,6 +23,9 @@ public class Helper extends User {
     @ManyToMany
     private List<Tag> tags;
 
+    /**
+     * Creates a new helper instance.
+     */
     public Helper() {
         //needed for JPA
     }
