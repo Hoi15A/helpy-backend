@@ -36,7 +36,7 @@ public class CategoryController {
     }
 
     /**
-     * Takes a {@link Category} in json notation and saves it to the database.
+     * Takes a {@link Category} and saves it to the database.
      * The same {@link Category} will be returned after creation.
      * @param category takes a {@link Category} object.
      * @return ResponseEntity<Category>
@@ -48,7 +48,7 @@ public class CategoryController {
     }
 
     /**
-     * Takes a {@link Category} in json notation and updates the database entry with the same name.
+     * Takes a {@link Category} and updates the database entry with the same name.
      * The saved {@link Category} will be returned after the update.
      * @param category takes a {@link Category} object.
      * @return ResponseEntity<Category>
@@ -60,7 +60,7 @@ public class CategoryController {
     }
 
     /**
-     * Takes a category name and deletes it from the database.
+     * Takes a category name and deletes the category object from the database.
      * The deleted {@link Category} will be returned.
      * @param name of the {@link Category}
      * @return ResponseEntity<Category>
@@ -71,7 +71,7 @@ public class CategoryController {
     }
 
     /**
-     * Takes a category name and sear
+     * Takes a category name and returns the the found {@link Category} object from the database.
      * @param name of the {@link Category}
      * @return ResponseEntity<Category>
      */
