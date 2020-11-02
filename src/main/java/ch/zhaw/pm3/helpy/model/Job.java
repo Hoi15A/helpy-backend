@@ -14,6 +14,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Model class which holds the information for the Helpy job.
+ */
 @Entity
 public class Job {
 
@@ -38,6 +41,9 @@ public class Job {
     private List<Tag> tags;
     private LocalDate dueDate;
 
+    /**
+     * Creates a new job instance.
+     */
     public Job() {}
 
     public Job(String title, String description, Helpseeker author) {
