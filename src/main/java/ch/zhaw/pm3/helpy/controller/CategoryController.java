@@ -19,7 +19,7 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     /**
-     * Autowires the user service for the category management.
+     * Autowires the category service for the category management.
      * @param categoryService {@link CategoryService}
      */
     public CategoryController(CategoryService categoryService) {
@@ -27,7 +27,7 @@ public class CategoryController {
     }
 
     /**
-     * Returns all categories from the database as json.
+     * Returns all {@link Category} from the database.
      * @return ResponseEntity<List<Category>>
      */
     @GetMapping("all")
