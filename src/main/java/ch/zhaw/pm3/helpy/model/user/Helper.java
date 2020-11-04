@@ -4,9 +4,9 @@ import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,10 +14,9 @@ import java.util.List;
 /**
  * Model class which holds the information for the Helpy helper.
  */
-//TODO: why is equalsandhascode callSuper=True not working?
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true, onlyExplicitlyIncluded = true)
+@ToString(callSuper = true, onlyExplicitlyIncluded = true)
 @Entity
 public class Helper extends User {
 
