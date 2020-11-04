@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- *
+ * Service for the jobs.
  * @author meletela
  * @version 26.10.2020
  */
@@ -32,10 +32,10 @@ public class JobService {
     private final UserRepository userRepository;
 
     /**
-     * Default constructor
-     * @param jobRepository
-     * @param jobMatcherService
-     * @param userRepository
+     * Autowired constructor
+     * @param jobRepository interface to persistence
+     * @param jobMatcherService interface to persistence
+     * @param userRepository interface to persistence
      */
     public JobService(JobRepository jobRepository, JobMatcherService jobMatcherService, UserRepository userRepository) {
         this.jobRepository = jobRepository;
