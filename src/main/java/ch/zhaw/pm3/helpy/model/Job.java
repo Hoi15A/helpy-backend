@@ -7,19 +7,26 @@ import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
 /**
  * Model class which holds the information for the Helpy job.
  */
+@NoArgsConstructor
+@Data
 @Entity
 public class Job {
-
+/* // TODO: why is this not working
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Getter(onMethod = @__({@Id}))*/
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,7 +38,11 @@ public class Job {
     @ManyToOne
     //@NotNull(message = "You have to provide an author")
     private Helpseeker author;
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDate created;
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private JobStatus status;
     @ManyToOne
     private Helper matchedHelper;
@@ -41,10 +52,6 @@ public class Job {
     private List<Tag> tags;
     private LocalDate dueDate;
 
-    /**
-     * Creates a new job instance.
-     */
-    public Job() {}
 
     @JsonProperty
     public long getId() {
@@ -56,79 +63,4 @@ public class Job {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Helpseeker getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Helpseeker author) {
-        this.author = author;
-    }
-
-    @JsonProperty
-    public LocalDate getCreated() {
-        return created;
-    }
-
-    @JsonIgnore
-    public void setCreated(LocalDate created) {
-        this.created = created;
-    }
-
-    @JsonProperty
-    public JobStatus getStatus() {
-        return status;
-    }
-
-    @JsonIgnore
-    public void setStatus(JobStatus status) {
-        this.status = status;
-    }
-
-    public Helper getMatchedHelper() {
-        return matchedHelper;
-    }
-
-    public void setMatchedHelper(Helper matchedHelper) {
-        this.matchedHelper = matchedHelper;
-    }
-    
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
 }
