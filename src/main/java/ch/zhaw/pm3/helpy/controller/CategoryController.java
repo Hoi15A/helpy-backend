@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +13,12 @@ import java.util.List;
 /**
  * This class is for the manipulation of the {@link Category} model.
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/category")
 public class CategoryController {
 
     private final CategoryService categoryService;
-
-    /**
-     * Autowires the category service for the category management.
-     * @param categoryService {@link CategoryService}
-     */
-    public CategoryController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 
     /**
      * Returns all {@link Category} from the database.
