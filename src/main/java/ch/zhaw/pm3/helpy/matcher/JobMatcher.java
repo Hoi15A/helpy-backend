@@ -23,6 +23,11 @@ public class JobMatcher {
     private final Job job;
     private final List<Helper> helpersNearHelpseeker;
 
+    /**
+     * Default constructor
+     * @param job containing the data to match
+     * @param helpersNearHelpseeker list of Helper to filter
+     */
     public JobMatcher(Job job, List<Helper> helpersNearHelpseeker) {
         this.job = job;
         this.helpersNearHelpseeker = helpersNearHelpseeker;
