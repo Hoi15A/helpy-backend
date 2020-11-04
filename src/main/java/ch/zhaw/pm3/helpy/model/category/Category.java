@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.helpy.model.category;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
