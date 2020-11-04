@@ -10,13 +10,24 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
+/**
+ * Launcher class
+ */
 @SpringBootApplication
 public class Helpy {
+
+    /**
+     * Entry method
+     * @param args list of arguments
+     */
     public static void main(String[] args) {
         SpringApplication.run(Helpy.class, args);
     }
 
-
+    /**
+     * Filter Cors
+     * @return FilterRegistrationBean<CorsFilter>
+     */
     @Bean
     public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
