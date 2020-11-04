@@ -9,6 +9,7 @@ import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +24,7 @@ import java.util.Set;
  * @author meletela
  * @version 26.10.2020
  */
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class JobService {
@@ -30,18 +32,6 @@ public class JobService {
     private final JobRepository jobRepository;
     private final JobMatcherService jobMatcherService;
     private final UserRepository userRepository;
-
-    /**
-     * Autowired constructor
-     * @param jobRepository interface to persistence
-     * @param jobMatcherService interface to persistence
-     * @param userRepository interface to persistence
-     */
-    public JobService(JobRepository jobRepository, JobMatcherService jobMatcherService, UserRepository userRepository) {
-        this.jobRepository = jobRepository;
-        this.jobMatcherService = jobMatcherService;
-        this.userRepository = userRepository;
-    }
 
     /**
      * Get all jobs from persistence.

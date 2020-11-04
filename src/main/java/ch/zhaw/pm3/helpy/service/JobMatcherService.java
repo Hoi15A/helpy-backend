@@ -5,6 +5,7 @@ import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,19 +17,12 @@ import java.util.stream.Collectors;
  * Service for the job matcher.
  * @author meletela
  */
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class JobMatcherService {
 
     private final UserRepository userRepository;
-
-    /**
-     * Autowired constructor
-     * @param userRepository interface to persistence
-     */
-    public JobMatcherService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     /**
      * Returns a list of potential helpers
