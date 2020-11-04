@@ -8,7 +8,9 @@ import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -22,44 +24,41 @@ import java.util.List;
 @Data
 @Entity
 public class Job {
-/* // TODO: why is this not working
-    @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @Getter(onMethod = @__({@Id}))*/
+
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     @NotBlank(message = "You have to enter a title")
     private String title;
+
     @Column(columnDefinition = "LONGTEXT")
     @NotBlank(message = "You have to provide a description")
     private String description;
+
     @ManyToOne
     //@NotNull(message = "You have to provide an author")
     private Helpseeker author;
-    @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     private LocalDate created;
-    @JsonIgnore
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     private JobStatus status;
+
     @ManyToOne
     private Helper matchedHelper;
+
     @ManyToMany
     private List<Category> categories;
+
     @ManyToMany
     private List<Tag> tags;
+
     private LocalDate dueDate;
-
-
-    @JsonProperty
-    public long getId() {
-        return id;
-    }
-
-    @JsonIgnore
-    public void setId(long id) {
-        this.id = id;
-    }
-
+    
 }
