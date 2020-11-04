@@ -59,10 +59,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select h from Helper h where h.email = ?1")
     Helper findHelperByEmail(String email);
 
+    /**
+     * Query to update the email of a user (id)
+     * @param oldMail old id
+     * @param newMail new id
+     */
     @Modifying
     @Query("update User u set u.email=?2 where u.email=?1")
     void updateUserEmail(String oldMail, String newMail);
 
+    /**
+     * Query to check if a user exists
+     * @param email id
+     * @return number of existing entries (should be 0 or 1)
+     */
     @Query("select count(u.email) from User u where u.email=?1")
     long existsByEmail(String email);
 }
