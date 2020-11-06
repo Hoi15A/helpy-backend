@@ -60,9 +60,9 @@ class JobMatcherServiceTest {
 
     private List<Helper> getExpectedResultList() {
         List<Helper> expectedList = new ArrayList<>();
-        expectedList.add((Helper) userRepository.findUserByEmail("leandro@email.com"));
-        expectedList.add((Helper) userRepository.findUserByEmail("hawkeye@email.com"));
-        expectedList.add((Helper) userRepository.findUserByEmail("spidey@email.com"));
+        expectedList.add((Helper) userRepository.findById("leandro@email.com").get());
+        expectedList.add((Helper) userRepository.findById("hawkeye@email.com").get());
+        expectedList.add((Helper) userRepository.findById("spidey@email.com").get());
         return expectedList;
     }
 
