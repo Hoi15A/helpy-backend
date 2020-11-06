@@ -11,6 +11,7 @@ import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for the users.
@@ -37,9 +38,9 @@ public class UserService {
      * @return the {@link User}
      */
     public User findByEmail(String email) {
-        User user = userRepository.findUserByEmail(email);
-        if(user == null) throw new RecordNotFoundException(email);
-        return user;
+        Optional<User> user = userRepository.findById(email);
+        if(user.isEmpty()) throw new RecordNotFoundException(email);
+        return user.get();
     }
 
     /**
@@ -69,15 +70,15 @@ public class UserService {
      * @param email his email
      */
     public void deleteUser(String email) {
-        User user = userRepository.findUserByEmail(email);
-        if (user == null) throw new RecordNotFoundException(email);
-        if (user instanceof Helper) {
+        Optional<User> user = userRepository.findById(email);
+        if (user.isEmpty()) throw new RecordNotFoundException(email);
+        if (user.get() instanceof Helper) {
             jobRepository.removeHelperFromJob(email);
         }
-        else if (user instanceof Helpseeker) {
+        else if (user.get() instanceof Helpseeker) {
             jobRepository.removeAuthorFromJob(email);
         }
-        userRepository.delete(user);
+        userRepository.delete(user.get());
     }
 
     /**
