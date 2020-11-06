@@ -13,7 +13,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -64,16 +66,16 @@ class JobMatcherServiceTest {
         return expectedList;
     }
 
-    private List<Category> getJobCategories() {
-        List<Category> jobCategories = new ArrayList<>();
+    private Set<Category> getJobCategories() {
+        Set<Category> jobCategories = new HashSet<>();
         jobCategories.add(new Category("Administrativ"));
         jobCategories.add(new Category("Sprache"));
         jobCategories.add(new Category("ÖV"));
         return jobCategories;
     }
 
-    private List<Tag> getJobTags() {
-        List<Tag> jobTags = new ArrayList<>();
+    private Set<Tag> getJobTags() {
+        Set<Tag> jobTags = new HashSet<>();
         jobTags.add(new Tag("Swisspass"));
         jobTags.add(new Tag("Abonnement"));
         jobTags.add(new Tag("Winterthur"));
