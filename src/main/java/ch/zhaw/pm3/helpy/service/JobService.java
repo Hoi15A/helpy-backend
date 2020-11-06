@@ -83,6 +83,17 @@ public class JobService {
     }
 
     /**
+     * Get a list of jobs by matchedHelper
+     * @param email author identifier
+     * @return a list of jobs
+     */
+    public List<Job> getJobsByMatchedHelper(String email) {
+        Helper helper = userRepository.findHelperByEmail(email);
+        if (helper == null) throw new RecordNotFoundException(email);
+        return jobRepository.findJobsByMatchedHelper(helper);
+    }
+
+    /**
      * Get a list of jobs by {@link Category}
      * @param category the {@link Category} to search in the jobs as String
      * @return a list of jobs
