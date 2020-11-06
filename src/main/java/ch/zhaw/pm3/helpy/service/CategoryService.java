@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for the categories.
@@ -39,9 +40,9 @@ public class CategoryService {
      * @return a {@link Category}
      */
     public Category getCategoryByName(String name) {
-        Category category = categoryRepository.findCategoryByName(name);
-        if (category == null) throw new RecordNotFoundException(name);
-        return category;
+        Optional<Category> category = categoryRepository.findById(name);
+        if (category.isEmpty()) throw new RecordNotFoundException(name);
+        return category.get();
     }
 
     /**
@@ -50,7 +51,7 @@ public class CategoryService {
      * @return list of related categories
      */
     public List<Category> getRelatedCategories(String name) {
-        if (categoryRepository.findCategoryByName(name) == null) throw new RecordNotFoundException(name);
+        if (categoryRepository.findById(name).isEmpty()) throw new RecordNotFoundException(name);
         return categoryRepository.findRelatedCategories(name);
     }
 
@@ -67,8 +68,8 @@ public class CategoryService {
      * @param category the updated Category
      */
     public void updateCategory(Category category) {
-        Category oldCat = categoryRepository.findCategoryByName(category.getName());
-        if (oldCat == null) throw new RecordNotFoundException(category.getName());
+        Optional<Category> oldCat = categoryRepository.findById(category.getName());
+        if (oldCat.isEmpty()) throw new RecordNotFoundException(category.getName());
         categoryRepository.save(category);
     }
 
@@ -78,10 +79,10 @@ public class CategoryService {
      * @return the deleted {@link Category}
      */
     public Category deleteCategory(String name) {
-        Category category = categoryRepository.findCategoryByName(name);
-        if (category == null) throw new RecordNotFoundException(name);
-        categoryRepository.delete(category);
-        return category;
+        Optional<Category> category = categoryRepository.findById(name);
+        if (category.isEmpty()) throw new RecordNotFoundException(name);
+        categoryRepository.delete(category.get());
+        return category.get();
     }
 
 }
