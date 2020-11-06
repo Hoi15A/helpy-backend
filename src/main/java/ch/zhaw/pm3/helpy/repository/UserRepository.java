@@ -9,15 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-
-    /**
-     * Query to get a User from the database whose eMail attribute is set to the given String
-     * @param email of User to get
-     * @return User with given eMail
-     */
-    @Query("select u from User u where u.email=?1")
-    User findUserByEmail(String email);
+public interface UserRepository extends JpaRepository<User, String> {
 
     /**
      * Query to get a list of Users from the database whose plz attribute is set to the given int
