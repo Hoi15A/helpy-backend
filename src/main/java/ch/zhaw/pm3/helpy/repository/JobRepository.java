@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.helpy.repository;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
+import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.Job;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,6 +39,14 @@ public interface JobRepository extends JpaRepository<Job, Long> {
      */
     @Query(value = "select j from Job j where j.author=?1")
     List<Job> findJobsByAuthor(Helpseeker helpseeker);
+
+    /**
+     * Query to get a list of Jobs from the database whose matchedHelper attribute is set to the given helper
+     * @param helper to match with a Job's matchedHelper attribute
+     * @return list of Jobs with given helper
+     */
+    @Query(value = "select j from Job j where j.matchedHelper=?1")
+    List<Job> findJobsByMatchedHelper(Helper helper);
 
     /**
      * Query to get a list of Jobs from the database whose list of categories includes the given category

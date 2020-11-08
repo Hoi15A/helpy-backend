@@ -127,6 +127,16 @@ public class JobController {
     }
 
     /**
+     * Takes the email from the matched helper and returns a list of jobs where this helper is matched with.
+     * @param email string
+     * @return ResponseEntity<List<Job>>
+     */
+    @GetMapping("helper/{matchedHelper}")
+    public ResponseEntity<List<Job>> getJobsByMatchedHelper(@PathVariable("matchedHelper") final String email) {
+        return ResponseEntity.ok(jobService.getJobsByMatchedHelper(email));
+    }
+
+    /**
      * Takes a category name and returns all jobs with the provided category name.
      * @param category string
      * @return ResponseEntity<List<Job>>

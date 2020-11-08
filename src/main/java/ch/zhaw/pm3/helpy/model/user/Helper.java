@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Model class which holds the information for the Helpy helper.
@@ -19,9 +20,9 @@ public class Helper extends User {
     @JsonBackReference
     private List<Job> completedJobs;
     @ManyToMany
-    private List<Category> categories;
+    private Set<Category> categories;
     @ManyToMany
-    private List<Tag> tags;
+    private Set<Tag> tags;
 
     /**
      * Creates a new helper instance.
@@ -46,20 +47,19 @@ public class Helper extends User {
         this.completedJobs = completedJobs;
     }
 
-    public List<Category> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
-
 }

@@ -6,10 +6,7 @@ import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -23,6 +20,11 @@ public class JobMatcher {
     private final Job job;
     private final List<Helper> helpersNearHelpseeker;
 
+    /**
+     * Default constructor
+     * @param job containing the data to match
+     * @param helpersNearHelpseeker list of Helper to filter
+     */
     public JobMatcher(Job job, List<Helper> helpersNearHelpseeker) {
         this.job = job;
         this.helpersNearHelpseeker = helpersNearHelpseeker;
@@ -88,7 +90,7 @@ public class JobMatcher {
 
     private static class ListScoreCalculator<T> {
 
-        int calc(List<T> l1, List<T> l2) {
+        int calc(Set<T> l1, Set<T> l2) {
             List<T> commonList = new ArrayList<>(l1);
             commonList.retainAll(l2);
             return commonList.size();

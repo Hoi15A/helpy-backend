@@ -13,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Model class which holds the information for the Helpy job.
@@ -36,9 +37,9 @@ public class Job {
     @ManyToOne
     private Helper matchedHelper;
     @ManyToMany
-    private List<Category> categories;
+    private Set<Category> categories;
     @ManyToMany
-    private List<Tag> tags;
+    private Set<Tag> tags;
     private LocalDate dueDate;
 
     /**
@@ -107,20 +108,20 @@ public class Job {
     public void setMatchedHelper(Helper matchedHelper) {
         this.matchedHelper = matchedHelper;
     }
-    
-    public List<Category> getCategories() {
+
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(Set<Tag> tags) {
         this.tags = tags;
     }
 

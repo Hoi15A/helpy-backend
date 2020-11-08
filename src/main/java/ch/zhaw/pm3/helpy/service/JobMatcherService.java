@@ -12,16 +12,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for the job matcher.
+ * @author meletela
+ */
 @Transactional
 @Service
 public class JobMatcherService {
 
     private final UserRepository userRepository;
 
+    /**
+     * Autowired constructor
+     * @param userRepository interface to persistence
+     */
     public JobMatcherService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Returns a list of potential helpers
+     * @param job to match
+     * @return a list of {@link Helper}
+     */
     public List<Helper> getPotentialHelpersForJob(Job job) {
         List<User> users = new ArrayList<>();
         int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
