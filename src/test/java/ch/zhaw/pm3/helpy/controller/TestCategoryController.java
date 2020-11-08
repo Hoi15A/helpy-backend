@@ -20,7 +20,7 @@ class TestCategoryController {
 
     private static final String REQUEST_MAPPING = "/api/category";
     private static final String EXISTING_CATEGORY_NAME_IN_USE = "Sprache";
-    private static final String EXISTING_CATEGORY_NAME_NOT_IN_USE = "Divers";
+    private static final String EXISTING_CATEGORY_NAME_NOT_IN_USE = "Geistig";
     private static final String RANDOM_TEST_STRING = "test";
 
     @Autowired

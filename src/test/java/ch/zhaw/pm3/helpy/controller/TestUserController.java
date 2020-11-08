@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TestUserController {
 
     private static final String REQUEST_MAPPING = "/api/user";
-    private static final String EXISTING_USER_EMAIL = "rlavigne0@virginia.edu";
+    private static final String EXISTING_USER_EMAIL = "hawkeye@email.com";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
     private static final String NONEXISTENT_USER_JSON_STRING = "{\"type\":\"Helper\",\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
     private static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
