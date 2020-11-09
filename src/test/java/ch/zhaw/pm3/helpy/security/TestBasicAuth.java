@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(Profiles.BASIC_AUTH)
-public class TestBasicAuth {
+class TestBasicAuth {
 
     private static final String REQUEST_MAPPING = "/api/user";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
