@@ -8,6 +8,7 @@ import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -21,15 +22,17 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Autowired constructor
      * @param userRepository interface to persistence
      * @param jobRepository interface to persistence
      */
-    public UserService(UserRepository userRepository, JobRepository jobRepository) {
+    public UserService(UserRepository userRepository, JobRepository jobRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.jobRepository = jobRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -61,6 +64,7 @@ public class UserService {
             String message = String.format("User with the id: %s already exists", user.getEmail());
             throw new RecordAlreadyExistsException(message);
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return user;
     }
@@ -98,6 +102,4 @@ public class UserService {
         userRepository.save(user);
         return user;
     }
-
-
 }
