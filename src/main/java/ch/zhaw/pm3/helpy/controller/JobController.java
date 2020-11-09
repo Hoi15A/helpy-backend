@@ -6,6 +6,7 @@ import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.service.JobService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +17,12 @@ import java.util.*;
 /**
  * This class is for the manipulation of the {@link Job} model.
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/job")
 public class JobController {
 
     private final JobService jobService;
-
-    /**
-     * Autowires the job service for the job management.
-     * @param jobService {@link JobService}
-     */
-    public JobController(JobService jobService) {
-        this.jobService = jobService;
-    }
 
     /**
      * Returns all jobs from the database as json.

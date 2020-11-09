@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +13,12 @@ import java.util.List;
 /**
  * This class is for the manipulation of the {@link User} model.
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("api/user")
 public class UserController {
 
     private final UserService userService;
-
-    /**
-     * Autowires the user service for the user management.
-     * @param userService {@link UserService}
-     */
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     /**
      * Takes an email address and returns the {@link User} with

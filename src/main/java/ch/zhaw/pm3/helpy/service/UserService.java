@@ -2,12 +2,12 @@ package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.exception.RecordAlreadyExistsException;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,23 +17,14 @@ import java.util.Optional;
 /**
  * Service for the users.
  */
+@RequiredArgsConstructor
 @Transactional
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
     private final JobRepository jobRepository;
     private final PasswordEncoder passwordEncoder;
-
-    /**
-     * Autowired constructor
-     * @param userRepository interface to persistence
-     * @param jobRepository interface to persistence
-     */
-    public UserService(UserRepository userRepository, JobRepository jobRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.jobRepository = jobRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     /**
      * Return a user by email (id)
