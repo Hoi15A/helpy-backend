@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,7 +26,7 @@ class TestJobController {
     private static final int NONEXISTENT_JOB_ID = -1;
     private static final int NEXT_AVAILABLE_JOB_ID = 105;
     private static final String NEW_USER_AS_JSON_STRING = "{\"author\":{\"email\":\"newUser@gmail.com\",\"type\":\"Helpseeker\"},\"title\":\"test12345\",\"categories\":[{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"ÖV\",\"listOfRelated\":[],\"description\":\"nec euismod scelerisque quam turpis adipiscing lorem vitae mattis\"}],\"tags\":[],\"description\":\"aaaa\"}";
-    private static final String EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING = "{\"id\":100,\"title\":\"test\",\"description\":\"sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est\",\"author\":{\"type\":\"Helpseeker\",\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"Betreibung\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
+    private static final String EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING = "{\"id\":101,\"title\":\"test\",\"description\":\"sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est\",\"author\":{\"type\":\"Helpseeker\",\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"Betreibung\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
     private static final String RANDOM_TEST_STRING = "test";
     private static final String NONEXISTENT_JOB_ID_AS_JSON_STRING = "{\"id\":-1,\"title\":\"update\",\"description\":\"void\",\"author\":{\"type\":\"Helpseeker\",\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"encryption\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
     private static final String EXISTING_USER_EMAIL = "mj@email.com";
@@ -89,6 +90,7 @@ class TestJobController {
     }
 
     @Test
+    @Rollback(true)
     void testUpdateJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
@@ -169,7 +171,7 @@ class TestJobController {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].categories.[*].name",
-                        Matchers.hasItems(EXISTING_CATEGORY_TITLE_1, EXISTING_CATEGORY_TITLE_2)));
+                        Matchers.anyOf(Matchers.hasItem(EXISTING_CATEGORY_TITLE_1), Matchers.hasItem(EXISTING_CATEGORY_TITLE_2))));
     }
 
     @Test
@@ -193,7 +195,7 @@ class TestJobController {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[*].tags.[*].name",
-                        Matchers.hasItems(EXISTING_TAG_TITLE_1, EXISTING_TAG_TITLE_2)));
+                        Matchers.anyOf(Matchers.hasItem(EXISTING_TAG_TITLE_1), Matchers.hasItem(EXISTING_TAG_TITLE_2))));
     }
 
     @Test
