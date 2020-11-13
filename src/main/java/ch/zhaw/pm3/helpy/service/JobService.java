@@ -5,8 +5,7 @@ import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -67,9 +66,9 @@ public class JobService {
      * @return a list of jobs
      */
     public List<Job> getJobsByAuthor(String email) {
-        Helpseeker helpseeker = userRepository.findHelpseekerByEmail(email);
-        if (helpseeker == null) throw new RecordNotFoundException(email);
-        return jobRepository.findJobsByAuthor(helpseeker);
+        Optional<User> user = userRepository.findById(email);
+        if (user.isEmpty()) throw new RecordNotFoundException(email);
+        return jobRepository.findJobsByAuthor(user.get());
     }
 
     /**
@@ -78,9 +77,9 @@ public class JobService {
      * @return a list of jobs
      */
     public List<Job> getJobsByMatchedHelper(String email) {
-        Helper helper = userRepository.findHelperByEmail(email);
-        if (helper == null) throw new RecordNotFoundException(email);
-        return jobRepository.findJobsByMatchedHelper(helper);
+        Optional<User> user = userRepository.findById(email);
+        if (user.isEmpty()) throw new RecordNotFoundException(email);
+        return jobRepository.findJobsByMatchedHelper(user.get());
     }
 
     /**
@@ -152,8 +151,8 @@ public class JobService {
      * @param job the {@link Job}
      */
     public void createJob(Job job) {
-        Helpseeker helpseeker = userRepository.findHelpseekerByEmail(job.getAuthor().getEmail());
-        job.setAuthor(helpseeker);
+        Optional<User> user = userRepository.findById(job.getAuthor().getEmail());
+        job.setAuthor(user.get());
         job.setStatus(JobStatus.OPEN);
         job.setCreated(LocalDate.now());
         jobRepository.save(job);
@@ -169,7 +168,7 @@ public class JobService {
     }
 
     /**
-     * Add a {@link Helper} to a {@link Job}
+     * Add a {@link User} to a {@link Job}
      * @param id job identifier
      * @param email helper identifier
      * @return the updated {@link Job}
@@ -177,9 +176,9 @@ public class JobService {
     public Job addHelperForJob(long id, String email) {
         Optional<Job> optionalJob = jobRepository.findById(id);
         if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        Helper helper = userRepository.findHelperByEmail(email);
+        Optional<User> user = userRepository.findById(email);
         Job job = optionalJob.get();
-        job.setMatchedHelper(helper);
+        job.setMatchedHelper(user.get());
         job.setStatus(JobStatus.IN_PROGRESS);
         jobRepository.save(job);
         return job;
