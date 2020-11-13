@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static ch.zhaw.pm3.helpy.model.DTOMapper.*;
+import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
 
 /**
  * Service for the jobs.
