@@ -8,3 +8,9 @@ insert into Category (dtype, name, description) values ('Category', 'Behörden',
 insert into Category (dtype, name, description) values ('Category', 'Administrativ', 'ac nulla sed vel enim sit amet nunc viverra');
 insert into Category (dtype, name, description) values ('Category', 'Divers', 'sem sed sagittis nam congue risus');
 insert into Category (dtype, name, description) values ('Category', 'Sport', 'platea dictumst morbi vestibulum velit id pretium iaculis diam');
+
+---
+insert into Category (dtype, name, description) values ('Category', 'Rollstuhl', '');
+insert into Category (dtype, name, description) values ('Category', 'Blind', '');
+insert into Category (dtype, name, description) values ('Category', 'Stadt', '');
+---

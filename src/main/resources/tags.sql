@@ -9,6 +9,15 @@ insert into Category (dtype, name) values ('Tag', 'Kino');
 insert into Category (dtype, name) values ('Tag', 'Yoga');
 insert into Category (dtype, name) values ('Tag', 'Betreibung');
 
+---
+insert into Category (dtype, name) values ('Tag', 'Computer');
+insert into Category (dtype, name) values ('Tag', 'Fribourg');
+insert into Category (dtype, name) values ('Tag', 'Französisch');
+insert into Category (dtype, name) values ('Tag', 'Deutsch');
+insert into Category (dtype, name) values ('Tag', 'Arbeit');
+insert into Category (dtype, name) values ('Tag', 'Vermittlung');
+---
+
 --
 -- Mockaroo test data
 --

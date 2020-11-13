@@ -13,6 +13,11 @@ insert into Job (id, created, description, status, title, author_email, matched_
 insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (6, '2020-09-16', 'facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel', 0, 'Kann mir jemand bei der jobsuche helfen', 'ahmed_miri@gmx.net', null);
 insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (11, '2019-11-15', 'orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec', 1, 'Suche Hilfe für Mathematik Sekundarstufe 2', 'ahmed_miri@gmx.net', 'fparbrookq@biblegateway.com');
 
+---
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (105, '2020-07-30', 'Ich bin der deutschen Sprache nicht mächtig und bräuchte dringend jemanden der mir hilft, mich in meiner Gemeinde anzumelden.', 0, 'Hilfe beim Übersetzen', 'e-lebeau@bluewin.ch', null);
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (106, '2020-04-28', 'Ich bin eingeschränkt und kann mich nur im Rollstuhl fortbewegen. Ich bräuchte Hilfe beim Umzug.', 0, 'Hilfe beim Umzug', 'h-fournier@bluewin.ch', null);
+insert into Job (id, created, description, status, title, author_email, matched_helper_email) values (107, '2020-10-01', 'Ich bin blind und muss in nächster Zeit nach Fribourg und brauche Hilfe von jemanden der sich in Fribourg auskennt.', 0, 'Hilfe für Führung in der Stadt Fribourg', 'r-millet@bluewin.ch', null);
+---
 --
 -- Mockaroo test data
 --
