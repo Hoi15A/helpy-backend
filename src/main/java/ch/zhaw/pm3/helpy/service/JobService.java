@@ -153,13 +153,14 @@ public class JobService {
      * Persist a job
      * @param dto the {@link JobDTO}
      */
-    public void createJob(JobDTO dto) {
+    public JobDTO createJob(JobDTO dto) {
         Job job = mapDTOToJob(dto);
         Optional<User> user = userRepository.findById(job.getAuthor().getEmail());
         job.setAuthor(user.get());
         job.setStatus(JobStatus.OPEN);
         job.setCreated(LocalDate.now());
         jobRepository.save(job);
+        return mapJobToDTO(job);
     }
 
     /**

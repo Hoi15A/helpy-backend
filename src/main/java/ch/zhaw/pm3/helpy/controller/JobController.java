@@ -41,8 +41,7 @@ public class JobController {
      */
     @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<JobDTO> createJob(@Valid @RequestBody final JobDTO job) {
-        jobService.createJob(job);
-        return ResponseEntity.ok(job);
+        return ResponseEntity.ok(jobService.createJob(job));
     }
 
     /**
