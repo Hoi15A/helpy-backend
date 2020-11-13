@@ -75,4 +75,17 @@ public class UserController {
                                            @PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.updateUser(username, userUpdate));
     }
+
+    /**
+     * Takes an Integer as well as an email address.
+     * Adds the given Integer to the list of ratings
+     * of the {@link User} with the provided email address.
+     * @param rating Integer to add to ratings list
+     * @param username string to match with {@link User} email
+     * @return ResponseEntity<User>
+     */
+    @PostMapping("addRating/{username}")
+    public ResponseEntity<User> addRating(@RequestBody final int rating, @PathVariable("username") final String username) {
+        return ResponseEntity.ok(userService.addRating(username, rating));
+    }
 }
