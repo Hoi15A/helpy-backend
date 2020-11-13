@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import ch.zhaw.pm3.helpy.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -21,33 +22,33 @@ public class UserController {
     private final UserService userService;
 
     /**
-     * Takes an email address and returns the {@link User} with
+     * Takes an email address and returns the {@link UserDTO} with
      * the same email address from the database.
      * @param username string
-     * @return ResponseEntity<User>
+     * @return ResponseEntity<UserDTO>
      */
     @GetMapping("{username}")
-    public ResponseEntity<User> getUser(@PathVariable("username") final String username) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.findByEmail(username));
     }
 
     /**
-     * Returns all {@link User} from the database.
-     * @return ResponseEntity<List<User>>
+     * Returns all {@link UserDTO} from the database.
+     * @return ResponseEntity<List<UserDTO>>
      */
     @GetMapping("all")
-    public ResponseEntity<List<User>> getAll() {
+    public ResponseEntity<List<UserDTO>> getAll() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     /**
-     * Takes a {@link User} and saves it to the database.
-     * The same {@link User} will be returned after creation.
-     * @param user {@link User}
+     * Takes a {@link UserDTO} and saves it to the database.
+     * The same {@link UserDTO} will be returned after creation.
+     * @param user {@link UserDTO}
      * @return ResponseEntity<User>
      */
     @PostMapping(value = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> addUser(@Valid @RequestBody final User user) {
+    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody final UserDTO user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 
@@ -64,14 +65,14 @@ public class UserController {
     }
 
     /**
-     * Takes a {@link User} as well as an email address.
+     * Takes a {@link UserDTO} as well as an email address.
      * Updates the user with the provided email address.
-     * @param userUpdate {@link User}
+     * @param userUpdate {@link UserDTO}
      * @param username string
      * @return ResponseEntity<User>
      */
     @PutMapping("update/{username}")
-    public ResponseEntity<User> updateUser(@RequestBody final User userUpdate,
+    public ResponseEntity<UserDTO> updateUser(@RequestBody final UserDTO userUpdate,
                                            @PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.updateUser(username, userUpdate));
     }

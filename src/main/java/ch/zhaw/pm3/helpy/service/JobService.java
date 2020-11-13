@@ -7,6 +7,7 @@ import ch.zhaw.pm3.helpy.model.JobDTO;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -139,14 +139,14 @@ public class JobService {
     }
 
     /**
-     * Get a list of {@link User} who matcher with the job criteria
+     * Get a list of {@link UserDTO} who matcher with the job criteria
      * @param id job identifier
-     * @return a list of {@link User}
+     * @return a list of {@link UserDTO}
      */
-    public List<User> getPotentialHelpersForJob(long id) {
+    public List<UserDTO> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        return jobMatcherService.getPotentialHelpersForJob(job.get());
+        return UserService.mapUsersToDTOs(jobMatcherService.getPotentialHelpersForJob(job.get()));
     }
 
     /**
@@ -202,15 +202,16 @@ public class JobService {
         jobRepository.delete(job);
     }
 
-    private List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
-        return jobs.stream().map(this::mapJobToDTO).collect(Collectors.toList());
+    static List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
+        return jobs.stream().map(JobService::mapJobToDTO).collect(Collectors.toList());
     }
 
-    private Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
-        return jobs.stream().map(this::mapJobToDTO).collect(Collectors.toSet());
+    static Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
+        return jobs.stream().map(JobService::mapJobToDTO).collect(Collectors.toSet());
     }
 
-    private JobDTO mapJobToDTO(Job job) {
+    static JobDTO mapJobToDTO(Job job) {
+        if (job == null) return null;
         return JobDTO.builder()
                 .id(job.getId())
                 .title(job.getTitle())
@@ -218,21 +219,22 @@ public class JobService {
                 .dueDate(job.getDueDate())
                 .created(job.getCreated())
                 .status(job.getStatus())
-                .author(job.getAuthor())
-                .matchedHelper(job.getMatchedHelper())
+                .author(UserService.mapUserToDTO(job.getAuthor()))
+                .matchedHelper(UserService.mapUserToDTO(job.getMatchedHelper()))
                 .categories(job.getCategories())
                 .tags(job.getTags())
                 .build();
     }
 
-    private Job mapDTOToJob(JobDTO dto) {
+    static Job mapDTOToJob(JobDTO dto) {
+        if (dto == null) return null;
         // id, status and created set JsonIgnore
         return Job.builder()
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .dueDate(dto.getDueDate())
-                .author(dto.getAuthor())
-                .matchedHelper(dto.getMatchedHelper())
+                .author(UserService.mapDTOToUser(dto.getAuthor()))
+                .matchedHelper(UserService.mapDTOToUser(dto.getMatchedHelper()))
                 .categories(dto.getCategories())
                 .tags(dto.getTags())
                 .build();

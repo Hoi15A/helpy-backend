@@ -3,7 +3,7 @@ package ch.zhaw.pm3.helpy.model;
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
@@ -36,7 +36,7 @@ public class JobDTO {
     private String description;
 
     //@NotNull(message = "You have to provide an author")
-    private User author;
+    private UserDTO author;
 
     @Getter(onMethod = @__({@JsonProperty}))
     @Setter(onMethod = @__({@JsonIgnore}))
@@ -46,7 +46,7 @@ public class JobDTO {
     @Setter(onMethod = @__({@JsonIgnore}))
     private JobStatus status;
 
-    private User matchedHelper;
+    private UserDTO matchedHelper;
 
     private Set<Category> categories;
 
