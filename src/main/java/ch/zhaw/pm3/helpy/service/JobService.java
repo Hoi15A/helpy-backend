@@ -3,6 +3,7 @@ package ch.zhaw.pm3.helpy.service;
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.JobDTO;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -13,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Service for the jobs.
@@ -36,8 +39,8 @@ public class JobService {
      * Get all jobs from persistence.
      * @return a list of jobs
      */
-    public List<Job> getAllJobs() {
-        return jobRepository.findAll();
+    public List<JobDTO> getAllJobs() {
+        return mapJobsToDTOs(jobRepository.findAll());
     }
 
     /**
@@ -45,10 +48,10 @@ public class JobService {
      * @param id job identifier
      * @return the job or {@link RecordNotFoundException} when the job is not existent
      */
-    public Job getJobById(long id) {
+    public JobDTO getJobById(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if(job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        return job.get();
+        return mapJobToDTO(job.get());
     }
 
     /**
@@ -56,8 +59,8 @@ public class JobService {
      * @param status the {@link JobStatus} to search in the jobs
      * @return a list of jobs
      */
-    public List<Job> getJobsByStatus(JobStatus status) {
-        return jobRepository.findJobsByStatus(status);
+    public List<JobDTO> getJobsByStatus(JobStatus status) {
+        return mapJobsToDTOs(jobRepository.findJobsByStatus(status));
     }
 
     /**
@@ -65,10 +68,10 @@ public class JobService {
      * @param email author identifier
      * @return a list of jobs
      */
-    public List<Job> getJobsByAuthor(String email) {
+    public List<JobDTO> getJobsByAuthor(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
-        return jobRepository.findJobsByAuthor(user.get());
+        return mapJobsToDTOs(jobRepository.findJobsByAuthor(user.get()));
     }
 
     /**
@@ -76,10 +79,10 @@ public class JobService {
      * @param email author identifier
      * @return a list of jobs
      */
-    public List<Job> getJobsByMatchedHelper(String email) {
+    public List<JobDTO> getJobsByMatchedHelper(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
-        return jobRepository.findJobsByMatchedHelper(user.get());
+        return mapJobsToDTOs(jobRepository.findJobsByMatchedHelper(user.get()));
     }
 
     /**
@@ -87,8 +90,8 @@ public class JobService {
      * @param category the {@link Category} to search in the jobs as String
      * @return a list of jobs
      */
-    public List<Job> getJobsByCategory(String category) {
-        return jobRepository.findJobsByCategory(category);
+    public List<JobDTO> getJobsByCategory(String category) {
+        return mapJobsToDTOs(jobRepository.findJobsByCategory(category));
     }
 
     /**
@@ -96,12 +99,12 @@ public class JobService {
      * @param categories list of {@link Category} as array
      * @return a set of jobs
      */
-    public Set<Job> getJobsByCategories(Category[] categories) {
+    public Set<JobDTO> getJobsByCategories(Category[] categories) {
         Set<Job> jobs = new HashSet<>();
         for (Category category : categories) {
             jobs.addAll(jobRepository.findJobsByCategory(category.getName()));
         }
-        return jobs;
+        return mapJobsToDTOs(jobs);
     }
 
     /**
@@ -109,8 +112,8 @@ public class JobService {
      * @param tag the {@link Tag} to search in the jobs as String
      * @return a list of jobs
      */
-    public List<Job> getJobsByTag(String tag) {
-        return jobRepository.findJobsByTag(tag);
+    public List<JobDTO> getJobsByTag(String tag) {
+        return mapJobsToDTOs(jobRepository.findJobsByTag(tag));
     }
 
     /**
@@ -118,12 +121,12 @@ public class JobService {
      * @param tags list of {@link Tag} as array
      * @return a list of jobs
      */
-    public Set<Job> getJobsByTags(Tag[] tags) {
+    public Set<JobDTO> getJobsByTags(Tag[] tags) {
         Set<Job> jobs = new HashSet<>();
         for (Tag tag : tags) {
             jobs.addAll(jobRepository.findJobsByTag(tag.getName()));
         }
-        return jobs;
+        return mapJobsToDTOs(jobs);
     }
 
     /**
@@ -131,8 +134,8 @@ public class JobService {
      * @param date as String in format yyyy-MM-dd
      * @return a list of jobs
      */
-    public List<Job> getJobsByDate(String date) {
-        return jobRepository.findJobsByDate(LocalDate.parse(date));
+    public List<JobDTO> getJobsByDate(String date) {
+        return mapJobsToDTOs(jobRepository.findJobsByDate(LocalDate.parse(date)));
     }
 
     /**
@@ -148,9 +151,10 @@ public class JobService {
 
     /**
      * Persist a job
-     * @param job the {@link Job}
+     * @param dto the {@link JobDTO}
      */
-    public void createJob(Job job) {
+    public void createJob(JobDTO dto) {
+        Job job = mapDTOToJob(dto);
         Optional<User> user = userRepository.findById(job.getAuthor().getEmail());
         job.setAuthor(user.get());
         job.setStatus(JobStatus.OPEN);
@@ -160,9 +164,10 @@ public class JobService {
 
     /**
      * Update a job
-     * @param job the {@link Job}
+     * @param dto the {@link JobDTO}
      */
-    public void updateJob(Job job) {
+    public void updateJob(JobDTO dto) {
+        Job job = mapDTOToJob(dto);
         if (jobRepository.findById(job.getId()).isEmpty()) throw new RecordNotFoundException(String.valueOf(job.getId()));
         jobRepository.save(job);
     }
@@ -173,7 +178,7 @@ public class JobService {
      * @param email helper identifier
      * @return the updated {@link Job}
      */
-    public Job addHelperForJob(long id, String email) {
+    public JobDTO addHelperForJob(long id, String email) {
         Optional<Job> optionalJob = jobRepository.findById(id);
         if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Optional<User> user = userRepository.findById(email);
@@ -181,7 +186,7 @@ public class JobService {
         job.setMatchedHelper(user.get());
         job.setStatus(JobStatus.IN_PROGRESS);
         jobRepository.save(job);
-        return job;
+        return mapJobToDTO(job);
     }
 
     /**
@@ -194,4 +199,43 @@ public class JobService {
         Job job = optionalJob.get();
         jobRepository.delete(job);
     }
+
+    private List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
+        return jobs.stream().map(this::mapJobToDTO).collect(Collectors.toList());
+    }
+
+    private Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
+        return jobs.stream().map(this::mapJobToDTO).collect(Collectors.toSet());
+    }
+
+    private JobDTO mapJobToDTO(Job job) {
+        return JobDTO.builder()
+                .id(job.getId())
+                .title(job.getTitle())
+                .description(job.getDescription())
+                .dueDate(job.getDueDate())
+                .created(job.getCreated())
+                .status(job.getStatus())
+                .author(job.getAuthor())
+                .matchedHelper(job.getMatchedHelper())
+                .categories(job.getCategories())
+                .tags(job.getTags())
+                .build();
+    }
+
+    private Job mapDTOToJob(JobDTO dto) {
+        return Job.builder()
+                .id(dto.getId())
+                .title(dto.getTitle())
+                .description(dto.getDescription())
+                .dueDate(dto.getDueDate())
+                .created(dto.getCreated())
+                .status(dto.getStatus())
+                .author(dto.getAuthor())
+                .matchedHelper(dto.getMatchedHelper())
+                .categories(dto.getCategories())
+                .tags(dto.getTags())
+                .build();
+    }
+
 }

@@ -4,48 +4,54 @@ import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.Set;
 
 /**
  * Model class which holds the information for the Helpy job.
  */
+@Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE) // @Builder calls @AllArgsConstructor on public mode
-@NoArgsConstructor // needed for @entity
-@Data @Builder
-@Entity
-public class Job {
+@Data
+public class JobDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     private long id;
 
+    @NotBlank(message = "You have to enter a title")
     private String title;
 
-    @Column(columnDefinition = "LONGTEXT")
+    @NotBlank(message = "You have to provide a description")
     private String description;
 
-    @ManyToOne
+    //@NotNull(message = "You have to provide an author")
     private User author;
 
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     private LocalDate created;
 
+    @Getter(onMethod = @__({@JsonProperty}))
+    @Setter(onMethod = @__({@JsonIgnore}))
     private JobStatus status;
 
-    @ManyToOne
     private User matchedHelper;
 
-    @ManyToMany
     private Set<Category> categories;
-    @ManyToMany
+
     private Set<Tag> tags;
+
     private LocalDate dueDate;
 
 }
