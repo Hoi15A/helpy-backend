@@ -12,7 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+
+import static ch.zhaw.pm3.helpy.model.DTOMapper.*;
 
 /**
  * Service for the users.
@@ -92,53 +93,4 @@ public class UserService {
         return mapUserToDTO(user);
     }
 
-    static List<UserDTO> mapUsersToDTOs(List<User> users) {
-        return users.stream().map(UserService::mapUserToDTO).collect(Collectors.toList());
-    }
-
-    static UserDTO mapUserToDTO(User user) {
-        if (user == null) return null;
-        // password get JsonIgnore
-        return UserDTO.builder()
-                .email(user.getEmail())
-                .firstname(user.getFirstname())
-                .lastname(user.getLastname())
-                .sex(user.getSex())
-                .plz(user.getPlz())
-                .birthdate(user.getBirthdate())
-                .biographie(user.getBiographie())
-                .status(user.getStatus())
-                .permission(user.getPermission())
-                .availableWeekDays(user.getAvailableWeekDays())
-                .wantsToHelpActive(user.isWantsToHelpActive())
-                .tasks(user.getTasks())
-                .ratings(user.getRatings())
-                .completedJobs(user.getCompletedJobs())
-                .categories(user.getCategories())
-                .tags(user.getTags())
-                .build();
-    }
-
-    static User mapDTOToUser(UserDTO dto) {
-        if (dto == null) return null;
-        return User.builder()
-                .email(dto.getEmail())
-                .firstname(dto.getFirstname())
-                .lastname(dto.getLastname())
-                .sex(dto.getSex())
-                .plz(dto.getPlz())
-                .birthdate(dto.getBirthdate())
-                .password(dto.getPassword())
-                .biographie(dto.getBiographie())
-                .status(dto.getStatus())
-                .permission(dto.getPermission())
-                .availableWeekDays(dto.getAvailableWeekDays())
-                .wantsToHelpActive(dto.isWantsToHelpActive())
-                .tasks(dto.getTasks())
-                .ratings(dto.getRatings())
-                .completedJobs(dto.getCompletedJobs())
-                .categories(dto.getCategories())
-                .tags(dto.getTags())
-                .build();
-    }
 }

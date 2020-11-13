@@ -19,7 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static ch.zhaw.pm3.helpy.model.DTOMapper.*;
 
 /**
  * Service for the jobs.
@@ -146,7 +147,7 @@ public class JobService {
     public List<UserDTO> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        return UserService.mapUsersToDTOs(jobMatcherService.getPotentialHelpersForJob(job.get()));
+        return mapUsersToDTOs(jobMatcherService.getPotentialHelpersForJob(job.get()));
     }
 
     /**
@@ -200,44 +201,6 @@ public class JobService {
         if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job job = optionalJob.get();
         jobRepository.delete(job);
-    }
-
-    static List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
-        return jobs.stream().map(JobService::mapJobToDTO).collect(Collectors.toList());
-    }
-
-    static Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
-        return jobs.stream().map(JobService::mapJobToDTO).collect(Collectors.toSet());
-    }
-
-    static JobDTO mapJobToDTO(Job job) {
-        if (job == null) return null;
-        return JobDTO.builder()
-                .id(job.getId())
-                .title(job.getTitle())
-                .description(job.getDescription())
-                .dueDate(job.getDueDate())
-                .created(job.getCreated())
-                .status(job.getStatus())
-                .author(UserService.mapUserToDTO(job.getAuthor()))
-                .matchedHelper(UserService.mapUserToDTO(job.getMatchedHelper()))
-                .categories(job.getCategories())
-                .tags(job.getTags())
-                .build();
-    }
-
-    static Job mapDTOToJob(JobDTO dto) {
-        if (dto == null) return null;
-        // id, status and created set JsonIgnore
-        return Job.builder()
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .dueDate(dto.getDueDate())
-                .author(UserService.mapDTOToUser(dto.getAuthor()))
-                .matchedHelper(UserService.mapDTOToUser(dto.getMatchedHelper()))
-                .categories(dto.getCategories())
-                .tags(dto.getTags())
-                .build();
     }
 
 }
