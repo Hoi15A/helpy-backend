@@ -22,7 +22,8 @@ class TestUserController {
     private static final String REQUEST_MAPPING = "/api/user";
     private static final String EXISTING_USER_EMAIL = "hawkeye@email.com";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
-    private static final String NONEXISTENT_USER_JSON_STRING = "{\"type\":\"Helper\",\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+    private static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+    private static final String NONEXISTENT_USER_JSON_STRING2 = "{\"email\":\"sampleMail@user.com\",\"password\":\"Steve\",\"firstname\":\"Steve\",\"lastname\":\"Rogers\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2001-01-02\",\"biographie\":\"bio\",\"status\":\"BANNED\",\"permission\":\"USER\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[],\"categories\":[{\"name\":\"Freizeit\",\"listOfRelated\":[],\"description\":\"consequat morbi a ipsum integer\"},{\"name\":\"Sport\",\"listOfRelated\":[],\"description\":\"platea dictumst morbi vestibulum velit id pretium iaculis diam\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[]}";
     private static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
     private static final String RANDOM_TEST_STRING = "test";
 
@@ -70,8 +71,8 @@ class TestUserController {
         System.out.println(NONEXISTENT_USER_JSON_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
-                .content(NONEXISTENT_USER_JSON_STRING)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .content(NONEXISTENT_USER_JSON_STRING2)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email")
                         .value(NONEXISTENT_USER_EMAIL));
