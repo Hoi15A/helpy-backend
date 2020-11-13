@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -92,5 +93,28 @@ public class UserService {
         }
         userRepository.save(user);
         return user;
+    }
+
+    /**
+     * Add a rating to the {@link User}
+     * @param email of {@link User} to add rating
+     * @param rating to add to user
+     * @return the updated {@link User}
+     */
+    public User addRating(String email, int rating) {
+        if (userRepository.existsByEmail(email) < 1) {
+            String message = String.format("Could not find user with the mail address: %s", email);
+            throw new RecordNotFoundException(message);
+        }
+        if (rating > 10 || rating < 0) {
+            String message = String.format("Rating \"%s\" is out of bounds of range 0 to 10", rating);
+            throw new IllegalArgumentException(message);
+        }
+        Helper helper = userRepository.findHelperByEmail(email);
+        List<Integer> list = helper.getRatings();
+        list.add(rating);
+        helper.setRatings(list);
+        userRepository.save(helper);
+        return helper;
     }
 }
