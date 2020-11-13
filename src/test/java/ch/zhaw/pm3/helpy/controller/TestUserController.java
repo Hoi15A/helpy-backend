@@ -22,7 +22,7 @@ class TestUserController {
     private static final String REQUEST_MAPPING = "/api/user";
     private static final String EXISTING_USER_EMAIL = "hawkeye@email.com";
     private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
-    private static final String NONEXISTENT_USER_JSON_STRING = "{\"type\":\"Helper\",\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+    private static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[1],\"categories\":[],\"tags\":[]}";
     private static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
     private static final String RANDOM_TEST_STRING = "test";
 
@@ -67,11 +67,10 @@ class TestUserController {
 
     @Test
     void testAddUser() throws Exception {
-        System.out.println(NONEXISTENT_USER_JSON_STRING);
         this.mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(NONEXISTENT_USER_JSON_STRING)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.email")
                         .value(NONEXISTENT_USER_EMAIL));

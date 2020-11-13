@@ -1,9 +1,8 @@
 package ch.zhaw.pm3.helpy.repository;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -34,19 +33,19 @@ public interface JobRepository extends JpaRepository<Job, Long> {
 
     /**
      * Query to get a list of Jobs from the database whose helpseeker attribute is set to the given helpseeker
-     * @param helpseeker to match with a Job's helpseeker attribute
+     * @param user to match with a Job's helpseeker attribute
      * @return list of Jobs with given helpseeker
      */
     @Query(value = "select j from Job j where j.author=?1")
-    List<Job> findJobsByAuthor(Helpseeker helpseeker);
+    List<Job> findJobsByAuthor(User user);
 
     /**
      * Query to get a list of Jobs from the database whose matchedHelper attribute is set to the given helper
-     * @param helper to match with a Job's matchedHelper attribute
+     * @param user to match with a Job's matchedHelper attribute
      * @return list of Jobs with given helper
      */
     @Query(value = "select j from Job j where j.matchedHelper=?1")
-    List<Job> findJobsByMatchedHelper(Helper helper);
+    List<Job> findJobsByMatchedHelper(User user);
 
     /**
      * Query to get a list of Jobs from the database whose list of categories includes the given category
@@ -65,15 +64,15 @@ public interface JobRepository extends JpaRepository<Job, Long> {
     List<Job> findJobsByTag(String tag);
 
     /**
-     * Query to remove a {@link ch.zhaw.pm3.helpy.model.user.Helper} from all jobs
-     * @param email from {@link ch.zhaw.pm3.helpy.model.user.Helper}
+     * Query to remove a {@link User} from all jobs
+     * @param email from {@link User}
      */
     @Modifying
     @Query("update Job j set j.matchedHelper = null where j.matchedHelper.email=?1")
     void removeHelperFromJob(String email);
 
     /**
-     * Query to remove a {@link Helpseeker} aka the author from all jobs
+     * Query to remove a {@link User} aka the author from all jobs
      * @param email from author
      */
     @Modifying

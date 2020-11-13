@@ -2,9 +2,8 @@ package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.exception.RecordAlreadyExistsException;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+
+import static ch.zhaw.pm3.helpy.model.DTOMapper.*;
 
 /**
  * Service for the users.
@@ -30,35 +31,36 @@ public class UserService {
     /**
      * Return a user by email (id)
      * @param email his email address
-     * @return the {@link User}
+     * @return the {@link UserDTO}
      */
-    public User findByEmail(String email) {
+    public UserDTO findByEmail(String email) {
         Optional<User> user = userRepository.findById(email);
         if(user.isEmpty()) throw new RecordNotFoundException(email);
-        return user.get();
+        return mapUserToDTO(user.get());
     }
 
     /**
      * Returns all users.
-     * @return list of {@link User}
+     * @return list of {@link UserDTO}
      */
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return mapUsersToDTOs(userRepository.findAll());
     }
 
     /**
-     * Creates a {@link User}
-     * @param user the new {@link User}
-     * @return the new {@link User}
+     * Creates a {@link UserDTO}
+     * @param dto the new {@link UserDTO}
+     * @return the new {@link UserDTO}
      */
-    public User createUser(User user) {
+    public UserDTO createUser(UserDTO dto) {
+        User user = mapDTOToUser(dto);
         if (userRepository.existsByEmail(user.getEmail()) > 0) {
             String message = String.format("User with the id: %s already exists", user.getEmail());
             throw new RecordAlreadyExistsException(message);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return user;
+        return mapUserToDTO(user);
     }
 
     /**
@@ -68,22 +70,19 @@ public class UserService {
     public void deleteUser(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
-        if (user.get() instanceof Helper) {
-            jobRepository.removeHelperFromJob(email);
-        }
-        else if (user.get() instanceof Helpseeker) {
-            jobRepository.removeAuthorFromJob(email);
-        }
+        jobRepository.removeHelperFromJob(email);
+        jobRepository.removeAuthorFromJob(email);
         userRepository.delete(user.get());
     }
 
     /**
      * Upates a user by email
      * @param email his old email
-     * @param user the updated {@link User}
-     * @return the updated {@link User}
+     * @param userDTO the updated {@link UserDTO}
+     * @return the updated {@link UserDTO}
      */
-    public User updateUser(String email, User user) {
+    public UserDTO updateUser(String email, UserDTO userDTO) {
+        User user = mapDTOToUser(userDTO);
         if (userRepository.existsByEmail(email) < 1) {
             String message = String.format("Could not find user with the mail address: %s", email);
             throw new RecordNotFoundException(message);
@@ -92,7 +91,7 @@ public class UserService {
             userRepository.updateUserEmail(email, user.getEmail());
         }
         userRepository.save(user);
-        return user;
+        return mapUserToDTO(user);
     }
 
     /**
@@ -101,7 +100,7 @@ public class UserService {
      * @param rating to add to user
      * @return the updated {@link User}
      */
-    public User addRating(String email, int rating) {
+    public UserDTO addRating(String email, int rating) {
         if (userRepository.existsByEmail(email) < 1) {
             String message = String.format("Could not find user with the mail address: %s", email);
             throw new RecordNotFoundException(message);
@@ -110,11 +109,15 @@ public class UserService {
             String message = String.format("Rating \"%s\" is out of bounds of range 0 to 10", rating);
             throw new IllegalArgumentException(message);
         }
-        Helper helper = userRepository.findHelperByEmail(email);
-        List<Integer> list = helper.getRatings();
-        list.add(rating);
-        helper.setRatings(list);
-        userRepository.save(helper);
-        return helper;
+        Optional<User> optional = userRepository.findById(email);
+        if (optional.isPresent()) {
+            User user = optional.get();
+            List<Integer> list = user.getRatings();
+            list.add(rating);
+            user.setRatings(list);
+            userRepository.save(user);
+            return mapUserToDTO(user);
+        }
+        return null;
     }
 }

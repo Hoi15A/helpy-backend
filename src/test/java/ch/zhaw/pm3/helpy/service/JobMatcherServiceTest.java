@@ -1,10 +1,9 @@
 package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class JobMatcherServiceTest {
 
     private static final int AUTHOR_PLZ = 8406;
 
-    private Helpseeker helpseeker;
+    private User helpseeker;
     private Job job;
 
     @Autowired
@@ -37,7 +36,7 @@ class JobMatcherServiceTest {
 
     @BeforeEach
     void setUp() {
-        helpseeker = mock(Helpseeker.class);
+        helpseeker = mock(User.class);
         job = mock(Job.class);
     }
 
@@ -54,15 +53,15 @@ class JobMatcherServiceTest {
         when(job.getCategories()).thenReturn(getJobCategories());
         when(job.getTags()).thenReturn(getJobTags());
 
-        List<Helper> result = service.getPotentialHelpersForJob(job);
+        List<User> result = service.getPotentialHelpersForJob(job);
         assertIterableEquals(getExpectedResultList(), result);
     }
 
-    private List<Helper> getExpectedResultList() {
-        List<Helper> expectedList = new ArrayList<>();
-        expectedList.add((Helper) userRepository.findById("leandro@email.com").get());
-        expectedList.add((Helper) userRepository.findById("hawkeye@email.com").get());
-        expectedList.add((Helper) userRepository.findById("spidey@email.com").get());
+    private List<User> getExpectedResultList() {
+        List<User> expectedList = new ArrayList<>();
+        expectedList.add(userRepository.findById("leandro@email.com").get());
+        expectedList.add(userRepository.findById("hawkeye@email.com").get());
+        expectedList.add(userRepository.findById("spidey@email.com").get());
         return expectedList;
     }
 

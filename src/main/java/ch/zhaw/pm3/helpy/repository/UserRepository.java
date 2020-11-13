@@ -1,7 +1,5 @@
 package ch.zhaw.pm3.helpy.repository;
 
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -32,24 +30,8 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param rating to match with a User's rating attribute
      * @return list of Users with given rating
      */
-    @Query("select h from Helper h where h.ratings=?1")
-    List<Helper> findUsersByRating(int rating);
-
-    /**
-     * Query to get a HelpSeeker from the database whose eMail attribute is set to the given String
-     * @param email of HelpSeeker to get
-     * @return HelpSeeker with given eMail
-     */
-    @Query("select h from Helpseeker h where h.email=?1")
-    Helpseeker findHelpseekerByEmail(String email);
-
-    /**
-     * Query to get a Helper from the database whose eMail attribute is set to the given String
-     * @param email of Helper to get
-     * @return Helper with given eMail
-     */
-    @Query("select h from Helper h where h.email = ?1")
-    Helper findHelperByEmail(String email);
+    @Query("select u from User u where u.ratings=?1")
+    List<User> findUsersByRating(int rating);
 
     /**
      * Query to update the email of a user (id)
