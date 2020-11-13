@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.category.Category;
+import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
 
 /**
  * Service for the categories.
@@ -22,21 +26,21 @@ public class CategoryService {
 
     /**
      * Returns all categories.
-     * @return list of {@link Category}
+     * @return list of {@link CategoryDTO}
      */
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
+    public Set<CategoryDTO> getAllCategories() {
+        return mapCategoriesToDTOs(categoryRepository.findAll());
     }
 
     /**
-     * Returns a {@link Category} by name
+     * Returns a {@link CategoryDTO} by name
      * @param name of the {@link Category}
      * @return a {@link Category}
      */
-    public Category getCategoryByName(String name) {
+    public CategoryDTO getCategoryByName(String name) {
         Optional<Category> category = categoryRepository.findById(name);
         if (category.isEmpty()) throw new RecordNotFoundException(name);
-        return category.get();
+        return mapCategoryToDTO(category.get());
     }
 
     /**
@@ -44,27 +48,27 @@ public class CategoryService {
      * @param name of the {@link Category}
      * @return list of related categories
      */
-    public List<Category> getRelatedCategories(String name) {
+    public Set<CategoryDTO> getRelatedCategories(String name) {
         if (categoryRepository.findById(name).isEmpty()) throw new RecordNotFoundException(name);
-        return categoryRepository.findRelatedCategories(name);
+        return mapCategoriesToDTOs(categoryRepository.findRelatedCategories(name));
     }
 
     /**
-     * Creates a {@link Category}
-     * @param category the new {@link Category}
+     * Creates a {@link CategoryDTO}
+     * @param category the new {@link CategoryDTO}
      */
-    public void createCategory(Category category) {
-        categoryRepository.save(category);
+    public void createCategory(CategoryDTO category) {
+        categoryRepository.save(mapDTOToCategory(category));
     }
 
     /**
      * Updates a {@link Category}
      * @param category the updated Category
      */
-    public void updateCategory(Category category) {
+    public void updateCategory(CategoryDTO category) {
         Optional<Category> oldCat = categoryRepository.findById(category.getName());
         if (oldCat.isEmpty()) throw new RecordNotFoundException(category.getName());
-        categoryRepository.save(category);
+        categoryRepository.save(mapDTOToCategory(category));
     }
 
     /**
@@ -72,11 +76,11 @@ public class CategoryService {
      * @param name of the {@link Category}
      * @return the deleted {@link Category}
      */
-    public Category deleteCategory(String name) {
+    public CategoryDTO deleteCategory(String name) {
         Optional<Category> category = categoryRepository.findById(name);
         if (category.isEmpty()) throw new RecordNotFoundException(name);
         categoryRepository.delete(category.get());
-        return category.get();
+        return mapCategoryToDTO(category.get());
     }
 
 }

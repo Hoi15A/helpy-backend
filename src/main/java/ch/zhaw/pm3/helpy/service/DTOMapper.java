@@ -22,34 +22,44 @@ public class DTOMapper {
     // ---------------------------------------------------------------------------------
     // Category / Tags
     // ---------------------------------------------------------------------------------
-    private static Set<CategoryDTO> mapCategoriesToDTOs(Set<Category> categories) {
+    public static Set<CategoryDTO> mapCategoriesToDTOs(List<Category> categories) {
+        return mapCategoriesToDTOs(new HashSet<>(categories));
+    }
+
+    public static Category mapDTOToCategory(CategoryDTO dto) {
+        Category category = new Category(dto.getName());
+        category.setListOfRelated(mapDTOsToCategories(dto.getListOfRelated()));
+        return category;
+    }
+
+    public static CategoryDTO mapCategoryToDTO(Category category) {
+        CategoryDTO dto = new CategoryDTO(category.getName());
+        dto.setListOfRelated(mapCategoriesToDTOs(category.getListOfRelated()));
+        return dto;
+    }
+
+    public static Set<CategoryDTO> mapCategoriesToDTOs(Set<Category> categories) {
         if (categories == null) return new HashSet<>();
         return categories.stream()
-                .map(category -> {
-                    CategoryDTO dto = new CategoryDTO(category.getName());
-                    dto.setListOfRelated(mapCategoriesToDTOs(category.getListOfRelated()));
-                    return dto;
-                }) .collect(Collectors.toSet());
+                .map(DTOMapper::mapCategoryToDTO)
+                .collect(Collectors.toSet());
     }
 
-    private static Set<Category> mapDTOsToCategories(Set<CategoryDTO> dtos) {
+    public static Set<Category> mapDTOsToCategories(Set<CategoryDTO> dtos) {
         if (dtos == null) return new HashSet<>();
         return dtos.stream()
-                .map(dto -> {
-                    Category category = new Category(dto.getName());
-                    category.setListOfRelated(mapDTOsToCategories(dto.getListOfRelated()));
-                    return category;
-                }).collect(Collectors.toSet());
+                .map(DTOMapper::mapDTOToCategory)
+                .collect(Collectors.toSet());
     }
 
-    private static Set<TagDTO> mapTagsToDTOs(Set<Tag> tags) {
+    public static Set<TagDTO> mapTagsToDTOs(Set<Tag> tags) {
         if (tags == null) return new HashSet<>();
         return tags.stream()
                 .map(tag -> new TagDTO(tag.getName()))
                 .collect(Collectors.toSet());
     }
 
-    private static Set<Tag> mapDTOsToTags(Set<TagDTO> dtos) {
+    public static Set<Tag> mapDTOsToTags(Set<TagDTO> dtos) {
         if (dtos == null) return new HashSet<>();
         return dtos.stream()
                 .map(dto -> new Tag(dto.getName()))
