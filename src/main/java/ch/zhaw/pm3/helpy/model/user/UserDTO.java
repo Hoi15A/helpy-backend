@@ -4,8 +4,8 @@ import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 import ch.zhaw.pm3.helpy.constant.Weekdays;
 import ch.zhaw.pm3.helpy.model.Job;
-import ch.zhaw.pm3.helpy.model.category.Category;
-import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
+import ch.zhaw.pm3.helpy.model.category.TagDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
@@ -86,8 +86,8 @@ public class UserDTO {
     private List<Job> completedJobs;
 
     @ToString.Exclude
-    private Set<Category> categories;
+    private Set<CategoryDTO> categories;
 
     @ToString.Exclude
-    private Set<Tag> tags;
+    private Set<TagDTO> tags;
 }

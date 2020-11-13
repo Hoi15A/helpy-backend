@@ -1,8 +1,8 @@
 package ch.zhaw.pm3.helpy.model;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
-import ch.zhaw.pm3.helpy.model.category.Category;
-import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
+import ch.zhaw.pm3.helpy.model.category.TagDTO;
 import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -48,9 +48,9 @@ public class JobDTO {
 
     private UserDTO matchedHelper;
 
-    private Set<Category> categories;
+    private Set<CategoryDTO> categories;
 
-    private Set<Tag> tags;
+    private Set<TagDTO> tags;
 
     private LocalDate dueDate;
 
