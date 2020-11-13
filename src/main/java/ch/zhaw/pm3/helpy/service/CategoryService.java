@@ -3,15 +3,18 @@ package ch.zhaw.pm3.helpy.service;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
+import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
+import java.util.stream.Collectors;
 
 /**
  * Service for the categories.
@@ -28,7 +31,11 @@ public class CategoryService {
      * @return list of {@link CategoryDTO}
      */
     public Set<CategoryDTO> getAllCategories() {
-        return mapCategoriesToDTOs(categoryRepository.findAll());
+        List<Category> categories = categoryRepository.findAll();
+        return mapCategoriesToDTOs(categories
+                .stream()
+                .filter(category -> !(category instanceof Tag))
+                .collect(Collectors.toSet()));
     }
 
     /**

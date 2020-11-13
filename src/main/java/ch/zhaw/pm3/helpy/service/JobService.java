@@ -185,6 +185,7 @@ public class JobService {
         Optional<Job> optionalJob = jobRepository.findById(id);
         if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Optional<User> user = userRepository.findById(email);
+        if (user.isEmpty()) throw new RecordNotFoundException("Der gesuchte Helfer konnte nicht im System gefunden werden,");
         Job job = optionalJob.get();
         job.setMatchedHelper(user.get());
         job.setStatus(JobStatus.IN_PROGRESS);
