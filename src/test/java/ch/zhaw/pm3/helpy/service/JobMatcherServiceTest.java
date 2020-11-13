@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
-import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;

@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy.repository;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
-import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

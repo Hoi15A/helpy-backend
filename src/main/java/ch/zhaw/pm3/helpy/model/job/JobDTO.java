@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.model;
+package ch.zhaw.pm3.helpy.model.job;
 
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
