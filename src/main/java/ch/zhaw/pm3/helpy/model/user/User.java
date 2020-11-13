@@ -3,6 +3,10 @@ package ch.zhaw.pm3.helpy.model.user;
 import ch.zhaw.pm3.helpy.constant.Permission;
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 import ch.zhaw.pm3.helpy.constant.Weekdays;
+import ch.zhaw.pm3.helpy.model.Job;
+import ch.zhaw.pm3.helpy.model.category.Category;
+import ch.zhaw.pm3.helpy.model.category.Tag;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -17,9 +21,12 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Model class which holds the information for the helpy user.
@@ -27,10 +34,13 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
-@JsonSubTypes({@JsonSubTypes.Type(Helper.class), @JsonSubTypes.Type(Helpseeker.class)})
+//@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+//@JsonSubTypes({@JsonSubTypes.Type(Helper.class), @JsonSubTypes.Type(Helpseeker.class)})
 public class User {
 
+    //----------------------------------------------------------------
+    // general user
+    //----------------------------------------------------------------
     @EqualsAndHashCode.Include
     @Id
     @Email(message = "You have to enter a valid email address")
@@ -69,4 +79,33 @@ public class User {
     @ElementCollection
     private List<Weekdays> availableWeekDays;
 
+    private boolean wantsToHelpActive;
+
+    //----------------------------------------------------------------
+    // helpseeker
+    //----------------------------------------------------------------
+    @ToString.Exclude
+    @OneToMany(mappedBy = "author")
+    @JsonBackReference
+    private List<Job> tasks;
+
+    //----------------------------------------------------------------
+    // helper
+    //----------------------------------------------------------------
+    @ToString.Exclude
+    @ElementCollection
+    private List<Integer> ratings;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "matchedHelper")
+    @JsonBackReference
+    private List<Job> completedJobs;
+
+    @ToString.Exclude
+    @ManyToMany
+    private Set<Category> categories;
+
+    @ToString.Exclude
+    @ManyToMany
+    private Set<Tag> tags;
 }
