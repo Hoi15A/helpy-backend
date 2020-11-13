@@ -62,9 +62,9 @@ public class JobController {
      * @param job {@link JobDTO}
      * @return ResponseEntity<JobDTO>
      */
-    @PutMapping(path = "update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobDTO> updateJob(@Valid @RequestBody final JobDTO job) {
-        jobService.updateJob(job);
+    @PutMapping(path = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<JobDTO> updateJob(@PathVariable("id") final long id, @Valid @RequestBody final JobDTO job) {
+        jobService.updateJob(id, job);
         return ResponseEntity.ok(job);
     }
 

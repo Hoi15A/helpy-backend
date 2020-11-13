@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,12 +22,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TestJobController {
     private static final String REQUEST_MAPPING = "/api/job";
     private static final int EXISTING_JOB_ID = 100;
+    private static final int EXISTING_JOB_ID_UPDATE = 101;
+    private static final int EXISTING_JOB_ID_DELETE = 102;
     private static final int NONEXISTENT_JOB_ID = -1;
     private static final int NEXT_AVAILABLE_JOB_ID = 105;
     private static final String NEW_JOB_AS_JSON_STRING = "{\"author\":{\"email\":\"mj@email.com\"},\"title\":\"test12345\",\"categories\":[{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"ÖV\",\"listOfRelated\":[],\"description\":\"nec euismod scelerisque quam turpis adipiscing lorem vitae mattis\"}],\"tags\":[],\"description\":\"aaaa\"}";
-    private static final String EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING = "{\"id\":101,\"title\":\"test\",\"description\":\"sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est\",\"author\":{\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"Betreibung\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
+    private static final String EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING = "{\"title\":\"test\",\"description\":\"sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est\",\"author\":{\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"Betreibung\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
     private static final String RANDOM_TEST_STRING = "test";
-    private static final String NONEXISTENT_JOB_ID_AS_JSON_STRING = "{\"id\":-1,\"title\":\"update\",\"description\":\"void\",\"author\":{\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"encryption\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
+    private static final String NONEXISTENT_JOB_ID_AS_JSON_STRING = "{\"title\":\"update\",\"description\":\"void\",\"author\":{\"email\":\"ahmed_miri@gmx.net\",\"firstname\":\"Ahmed\",\"lastname\":\"Miri\",\"sex\":\"M\",\"plz\":8400,\"birthdate\":\"2003-01-05\",\"biographie\":\"Ich heisse Ahmed und bin 17 Jahre alt und bin seit 2015 in der Schweiz und komme aus Afghanistan. Ich wohne in Winterthur und gehe im Moment in die 10. Klasse. Ich schaue gerne Fussball und spiele beim SC Veltheim in der U19 2. Mannschaft. Ich habe Probleme mit Schreiben und Lesen von wichtigen Papieren in der Schweiz und verstehe sie nicht alle.\",\"status\":\"INACTIVE\",\"permission\":\"USER\"},\"created\":\"2020-06-16\",\"status\":\"OPEN\",\"matchedHelper\":null,\"categories\":[{\"name\":\"Sprache\",\"listOfRelated\":[],\"description\":\"eget tincidunt eget tempus vel pede morbi porttitor lorem id\"},{\"name\":\"Schule\",\"listOfRelated\":[],\"description\":\"aenean fermentum donec ut mauris eget\"},{\"name\":\"Physisch\",\"listOfRelated\":[],\"description\":\"magnis dis parturient montes nascetur\"},{\"name\":\"Behörden\",\"listOfRelated\":[],\"description\":\"quisque arcu libero rutrum ac lobortis vel\"}],\"tags\":[{\"name\":\"encryption\",\"listOfRelated\":[],\"description\":\"volutpat quam pede lobortis ligula sit amet eleifend\"}]}";
     private static final String EXISTING_USER_EMAIL = "mj@email.com";
     private static final String EXISTING_CATEGORY_TITLE_1 = "Sprache";
     private static final String EXISTING_CATEGORY_TITLE_2 = "Schule";
@@ -72,11 +73,11 @@ class TestJobController {
     @Test
     void testRemoveJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .delete(REQUEST_MAPPING + "/remove/{id}", EXISTING_JOB_ID)
+                .delete(REQUEST_MAPPING + "/remove/{id}", EXISTING_JOB_ID_DELETE)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
         this.mockMvc.perform(MockMvcRequestBuilders
-                .get(REQUEST_MAPPING + "/id/{id}", EXISTING_JOB_ID)
+                .get(REQUEST_MAPPING + "/id/{id}", EXISTING_JOB_ID_DELETE)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
@@ -90,10 +91,9 @@ class TestJobController {
     }
 
     @Test
-    @Rollback(true)
     void testUpdateJob() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .put(REQUEST_MAPPING + "/update")
+                .put(REQUEST_MAPPING + "/update/{id}", EXISTING_JOB_ID_UPDATE)
                 .content(EXISTING_USER_ID_UPDATED_INFO_AS_JASON_STRING)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -104,7 +104,7 @@ class TestJobController {
     @Test
     void testUpdateJobNotFound() throws Exception {
         this.mockMvc.perform(MockMvcRequestBuilders
-                .put(REQUEST_MAPPING + "/update", NONEXISTENT_JOB_ID)
+                .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_JOB_ID)
                 .content(NONEXISTENT_JOB_ID_AS_JSON_STRING)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());

@@ -166,9 +166,10 @@ public class JobService {
      * Update a job
      * @param dto the {@link JobDTO}
      */
-    public void updateJob(JobDTO dto) {
+    public void updateJob(long id, JobDTO dto) {
+        if (jobRepository.findById(id).isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         Job job = mapDTOToJob(dto);
-        if (jobRepository.findById(job.getId()).isEmpty()) throw new RecordNotFoundException(String.valueOf(job.getId()));
+        job.setId(id);
         jobRepository.save(job);
     }
 
@@ -224,13 +225,11 @@ public class JobService {
     }
 
     private Job mapDTOToJob(JobDTO dto) {
+        // id, status and created set JsonIgnore
         return Job.builder()
-                .id(dto.getId())
                 .title(dto.getTitle())
                 .description(dto.getDescription())
                 .dueDate(dto.getDueDate())
-                .created(dto.getCreated())
-                .status(dto.getStatus())
                 .author(dto.getAuthor())
                 .matchedHelper(dto.getMatchedHelper())
                 .categories(dto.getCategories())
