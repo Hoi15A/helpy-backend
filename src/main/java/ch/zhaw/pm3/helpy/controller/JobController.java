@@ -4,7 +4,7 @@ import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.*;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.service.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -81,10 +81,10 @@ public class JobController {
     /**
      * Takes a job id and returns a list of potential helpers.
      * @param id long
-     * @return ResponseEntity<List<Helper>>
+     * @return ResponseEntity<List<User>>
      */
     @GetMapping("id/{id}/find-helper")
-    public ResponseEntity<List<Helper>> findPotentialHelper(@PathVariable("id") final long id) {
+    public ResponseEntity<List<User>> findPotentialHelper(@PathVariable("id") final long id) {
         return ResponseEntity.ok(jobService.getPotentialHelpersForJob(id));
     }
 

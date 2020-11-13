@@ -3,8 +3,7 @@ package ch.zhaw.pm3.helpy.model;
 import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
+import ch.zhaw.pm3.helpy.model.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -38,7 +37,7 @@ public class Job {
 
     @ManyToOne
     //@NotNull(message = "You have to provide an author")
-    private Helpseeker author;
+    private User author;
 
     @Getter(onMethod = @__({@JsonProperty}))
     @Setter(onMethod = @__({@JsonIgnore}))
@@ -49,7 +48,7 @@ public class Job {
     private JobStatus status;
 
     @ManyToOne
-    private Helper matchedHelper;
+    private User matchedHelper;
 
     @ManyToMany
     private Set<Category> categories;

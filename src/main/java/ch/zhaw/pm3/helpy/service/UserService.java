@@ -2,8 +2,6 @@ package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.exception.RecordAlreadyExistsException;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.user.Helper;
-import ch.zhaw.pm3.helpy.model.user.Helpseeker;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
@@ -67,12 +65,8 @@ public class UserService {
     public void deleteUser(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
-        if (user.get() instanceof Helper) {
-            jobRepository.removeHelperFromJob(email);
-        }
-        else if (user.get() instanceof Helpseeker) {
-            jobRepository.removeAuthorFromJob(email);
-        }
+        jobRepository.removeHelperFromJob(email);
+        jobRepository.removeAuthorFromJob(email);
         userRepository.delete(user.get());
     }
 

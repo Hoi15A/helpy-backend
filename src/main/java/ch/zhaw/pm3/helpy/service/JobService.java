@@ -137,11 +137,11 @@ public class JobService {
     }
 
     /**
-     * Get a list of {@link Helper} who matcher with the job criteria
+     * Get a list of {@link User} who matcher with the job criteria
      * @param id job identifier
-     * @return a list of {@link Helper}
+     * @return a list of {@link User}
      */
-    public List<Helper> getPotentialHelpersForJob(long id) {
+    public List<User> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
         return jobMatcherService.getPotentialHelpersForJob(job.get());

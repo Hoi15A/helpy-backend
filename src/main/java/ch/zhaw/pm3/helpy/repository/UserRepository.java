@@ -32,8 +32,8 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param rating to match with a User's rating attribute
      * @return list of Users with given rating
      */
-    @Query("select h from Helper h where h.ratings=?1")
-    List<Helper> findUsersByRating(int rating);
+    @Query("select u from User u where u.ratings=?1")
+    List<User> findUsersByRating(int rating);
 
     /**
      * Query to get a HelpSeeker from the database whose eMail attribute is set to the given String

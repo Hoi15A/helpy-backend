@@ -2,7 +2,6 @@ package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.Job;
-import ch.zhaw.pm3.helpy.model.user.Helper;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +26,9 @@ public class JobMatcherService {
     /**
      * Returns a list of potential helpers
      * @param job to match
-     * @return a list of {@link Helper}
+     * @return a list of {@link User}
      */
-    public List<Helper> getPotentialHelpersForJob(Job job) {
+    public List<User> getPotentialHelpersForJob(Job job) {
         List<User> users = new ArrayList<>();
         int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
         int plzRadius = 3;
@@ -38,9 +37,8 @@ public class JobMatcherService {
             users.addAll(userRepository.findUsersByPlz(plz));
         }
 
-        List<Helper> helpersNearHelpseeker =  users.stream()
-                .filter(Helper.class::isInstance)
-                .map(Helper.class::cast)
+        List<User> helpersNearHelpseeker =  users.stream()
+                .filter(User::isWantsToHelpActive)
                 .collect(Collectors.toList());
 
         JobMatcher jobMatcher = new JobMatcher(job, helpersNearHelpseeker);

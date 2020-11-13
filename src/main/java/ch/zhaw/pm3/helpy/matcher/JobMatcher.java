@@ -2,7 +2,7 @@ package ch.zhaw.pm3.helpy.matcher;
 
 import ch.zhaw.pm3.helpy.constant.UserStatus;
 import ch.zhaw.pm3.helpy.model.category.Category;
-import ch.zhaw.pm3.helpy.model.user.Helper;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 /**
- * Provides an appropriate list of Helper.
+ * Provides an appropriate list of User.
  * @author meletlea
  * @version 18.10.2020
  */
@@ -20,25 +20,25 @@ import java.util.stream.Collectors;
 public class JobMatcher {
 
     private final Job job;
-    private final List<Helper> helpersNearHelpseeker;
+    private final List<User> helpersNearHelpseeker;
 
     /**
      * Returns a list of available and compatible helpers, sorted by a compatibility score.
-     * @return List<Helper>
+     * @return List<User>
      */
-    public List<Helper> getPotentialHelpers() {
+    public List<User> getPotentialHelpers() {
         return sortByCompatibility(match());
     }
 
-    private List<Helper> match() {
+    private List<User> match() {
         return helpersNearHelpseeker.stream()
                 .filter(helper -> helper.getStatus() == UserStatus.ACTIVE)
                 .filter(helper -> !Collections.disjoint(helper.getCategories(), job.getCategories())) // at least 1 category in common
                 .collect(Collectors.toList());
     }
 
-    private List<Helper> sortByCompatibility(List<Helper> potentialHelpers) {
-        Comparator<Helper> sortingByCompatibility = (h1, h2) -> {
+    private List<User> sortByCompatibility(List<User> potentialUsers) {
+        Comparator<User> sortingByCompatibility = (h1, h2) -> {
             // categories
             ListScoreCalculator<Category> categoryScoreCalculator = new ListScoreCalculator<>();
             int categoryScore = categoryScoreCalculator.calc(job.getCategories(), h1.getCategories()) - categoryScoreCalculator.calc(job.getCategories(), h2.getCategories());
@@ -53,7 +53,7 @@ public class JobMatcher {
             int ratingScore = h1RatingsCount * sumRatings(h2.getRatings()) - h2RatingsCount * sumRatings(h1.getRatings());
             return -(categoryScore + tagScore + completedJobScore + ratingScore);
         };
-        return potentialHelpers.stream()
+        return potentialUsers.stream()
                 .sorted(sortingByCompatibility)
                 .collect(Collectors.toList());
     }
