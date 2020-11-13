@@ -33,6 +33,11 @@ public class Job {
     private String description;
 
     @ManyToOne
+    @JoinColumn(
+            foreignKey = @ForeignKey(
+                    foreignKeyDefinition = "FOREIGN KEY (author_email) REFERENCES user ON UPDATE CASCADE"
+            )
+    )
     private User author;
 
     private LocalDate created;
@@ -40,6 +45,11 @@ public class Job {
     private JobStatus status;
 
     @ManyToOne
+    @JoinColumn(
+            foreignKey = @ForeignKey(
+                    foreignKeyDefinition = "FOREIGN KEY (matched_helper_email) REFERENCES user ON UPDATE CASCADE"
+            )
+    )
     private User matchedHelper;
 
     @ManyToMany

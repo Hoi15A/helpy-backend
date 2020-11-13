@@ -89,6 +89,8 @@ public class UserService {
         }
         if (!user.getEmail().equals(email)) {
             userRepository.updateUserEmail(email, user.getEmail());
+            Optional<User> optional = userRepository.findById(user.getEmail());
+            user = optional.get();
         }
         userRepository.save(user);
         return mapUserToDTO(user);
