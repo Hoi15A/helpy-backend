@@ -86,7 +86,7 @@ public class User {
     //----------------------------------------------------------------
     @ToString.Exclude
     @OneToMany(mappedBy = "author")
-    @JsonBackReference
+    @JsonBackReference("tasks")
     private List<Job> tasks;
 
     //----------------------------------------------------------------
@@ -98,7 +98,7 @@ public class User {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "matchedHelper")
-    @JsonBackReference
+    @JsonBackReference("jobs")
     private List<Job> completedJobs;
 
     @ToString.Exclude
