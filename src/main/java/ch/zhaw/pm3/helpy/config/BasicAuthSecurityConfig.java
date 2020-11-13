@@ -25,7 +25,12 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers( "/", "/api/user/add", "/h2-console/**").permitAll()
-                .anyRequest().authenticated().and().httpBasic();
+                .anyRequest().authenticated().and().httpBasic().and().logout(logout ->
+                        logout.deleteCookies("remove")
+                                .invalidateHttpSession(false)
+                                .logoutUrl("/api/logout")
+                                .logoutSuccessUrl("/")
+                );
 
         http.headers()
                 .frameOptions()
