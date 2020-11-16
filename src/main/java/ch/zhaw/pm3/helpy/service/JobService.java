@@ -176,6 +176,20 @@ public class JobService {
     }
 
     /**
+     * Close a job
+     * @param id job identifier
+     * @return closedJob
+     */
+    public JobDTO closeJob(long id) {
+        Optional<Job> optionalJob = jobRepository.findById(id);
+        if (optionalJob.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
+        Job job = optionalJob.get();
+        job.setStatus(JobStatus.CLOSED);
+        jobRepository.save(job);
+        return mapJobToDTO(job);
+    }
+
+    /**
      * Add a {@link User} to a {@link Job}
      * @param id job identifier
      * @param email helper identifier
