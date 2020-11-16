@@ -169,9 +169,13 @@ public class JobService {
      * @param dto the {@link JobDTO}
      */
     public void updateJob(long id, JobDTO dto) {
-        if (jobRepository.findById(id).isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
+        Optional<Job> oldOptional = jobRepository.findById(id);
+        if (oldOptional.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
+        Job oldJob = oldOptional.get();
         Job job = mapDTOToJob(dto);
         job.setId(id);
+        job.setCreated(oldJob.getCreated());
+        job.setStatus(oldJob.getStatus());
         jobRepository.save(job);
     }
 

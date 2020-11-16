@@ -76,7 +76,7 @@ public class UserService {
     }
 
     /**
-     * Upates a user by email
+     * Updates a user by email
      * @param email his old email
      * @param userDTO the updated {@link UserDTO}
      * @return the updated {@link UserDTO}

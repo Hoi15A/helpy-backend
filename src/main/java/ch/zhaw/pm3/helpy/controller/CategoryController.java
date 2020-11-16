@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
+import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
 import ch.zhaw.pm3.helpy.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Set;
 
 /**
