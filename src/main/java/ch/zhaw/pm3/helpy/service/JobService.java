@@ -166,6 +166,7 @@ public class JobService {
 
     /**
      * Update a job
+     * @param id the job identifier
      * @param dto the {@link JobDTO}
      */
     public void updateJob(long id, JobDTO dto) {
