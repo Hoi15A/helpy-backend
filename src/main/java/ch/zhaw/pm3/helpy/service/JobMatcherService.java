@@ -32,7 +32,7 @@ public class JobMatcherService {
         List<User> users = new ArrayList<>();
         int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
         int plzRadius = 3;
-        for (int i = -plzRadius; i < plzRadius; i++) {
+        for (int i = -plzRadius; i <= plzRadius; i++) {
             int plz = i + jobPlz;
             users.addAll(userRepository.findUsersByPlz(plz));
         }
