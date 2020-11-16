@@ -69,6 +69,16 @@ public class JobController {
     }
 
     /**
+     * Takes a job Id and returns the closedJob
+     * @param id long
+     * @return ResponseEntity<JobDTO>
+     */
+    @PutMapping(path = "close/{id}")
+    public ResponseEntity<JobDTO> closeJob(@PathVariable("id") final long id) {
+        return ResponseEntity.ok(jobService.closeJob(id));
+    }
+
+    /**
      * Takes a job id and returns the found {@link JobDTO} object from the database.
      * @param id long
      * @return ResponseEntity<JobDTO>
