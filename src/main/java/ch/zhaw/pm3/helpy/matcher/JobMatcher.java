@@ -71,10 +71,10 @@ public class JobMatcher {
     private ToIntFunction<Job> mapJobToScore() {
         return toMappingJob -> {
             List<Category> commonCategories = new ArrayList<>(toMappingJob.getCategories());
-            commonCategories.retainAll(toMappingJob.getCategories());
+            commonCategories.retainAll(job.getCategories());
 
             List<Tag> commonTags = new ArrayList<>(toMappingJob.getTags());
-            commonTags.retainAll(toMappingJob.getTags());
+            commonTags.retainAll(job.getTags());
 
             return commonCategories.size() + commonTags.size();
         };
