@@ -8,8 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -29,7 +30,7 @@ public class JobMatcherService {
      * @return a list of {@link User}
      */
     public List<User> getPotentialHelpersForJob(Job job) {
-        List<User> users = new ArrayList<>();
+        Set<User> users = new HashSet<>();
         int jobPlz = job.getAuthor().getPlz(); // PLZ in switzerland is a 4 digit number
         int plzRadius = 3;
         for (int i = -plzRadius; i <= plzRadius; i++) {
@@ -37,9 +38,9 @@ public class JobMatcherService {
             users.addAll(userRepository.findUsersByPlz(plz));
         }
 
-        List<User> helpersNearHelpseeker =  users.stream()
+        Set<User> helpersNearHelpseeker = users.stream()
                 .filter(User::isWantsToHelpActive)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         JobMatcher jobMatcher = new JobMatcher(job, helpersNearHelpseeker);
         return jobMatcher.getPotentialHelpers();

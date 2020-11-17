@@ -66,7 +66,7 @@ public class UserDTO {
     private Permission permission;
 
     @ToString.Exclude
-    private List<Weekdays> availableWeekDays;
+    private Set<Weekdays> availableWeekDays;
 
     private boolean wantsToHelpActive;
 
@@ -74,7 +74,7 @@ public class UserDTO {
     // helpseeker
     //----------------------------------------------------------------
     @ToString.Exclude
-    private List<Job> tasks;
+    private Set<Job> tasks;
 
     //----------------------------------------------------------------
     // helper
@@ -83,7 +83,7 @@ public class UserDTO {
     private List<Integer> ratings;
 
     @ToString.Exclude
-    private List<Job> completedJobs;
+    private Set<Job> completedJobs;
 
     @ToString.Exclude
     private Set<CategoryDTO> categories;

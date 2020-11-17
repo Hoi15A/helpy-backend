@@ -5,33 +5,33 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import java.util.Set;
 
 public interface UserRepository extends JpaRepository<User, String> {
 
     /**
-     * Query to get a list of Users from the database whose plz attribute is set to the given int
+     * Query to get a set of Users from the database whose plz attribute is set to the given int
      * @param plz to match with a User's date attribute
-     * @return list of Users with given plz
+     * @return set of Users with given plz
      */
     @Query("select u from User u where u.plz=?1")
-    List<User> findUsersByPlz(int plz);
+    Set<User> findUsersByPlz(int plz);
 
     /**
-     * Query to get a list of Users from the database whose status attribute is set to the given String
+     * Query to get a set of Users from the database whose status attribute is set to the given String
      * @param status to match with a User's status attribute
-     * @return list of Users with given status
+     * @return set of Users with given status
      */
     @Query("select u from User u where u.status=?1")
-    List<User> findUsersByStatus(String status);
+    Set<User> findUsersByStatus(String status);
 
     /**
-     * Query to get a list of Users from the database whose rating attribute is set to the given int
+     * Query to get a set of Users from the database whose rating attribute is set to the given int
      * @param rating to match with a User's rating attribute
-     * @return list of Users with given rating
+     * @return set of Users with given rating
      */
     @Query("select u from User u where u.ratings=?1")
-    List<User> findUsersByRating(int rating);
+    Set<User> findUsersByRating(int rating);
 
     /**
      * Query to update the email of a user (id)

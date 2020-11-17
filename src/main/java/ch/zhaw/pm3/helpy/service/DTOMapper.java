@@ -21,10 +21,6 @@ public class DTOMapper {
     // ---------------------------------------------------------------------------------
     // Category / Tags
     // ---------------------------------------------------------------------------------
-    public Set<CategoryDTO> mapCategoriesToDTOs(List<Category> categories) {
-        return mapCategoriesToDTOs(new HashSet<>(categories));
-    }
-
     public Category mapDTOToCategory(CategoryDTO dto) {
         Category category = new Category(dto.getName());
         category.setListOfRelated(mapDTOsToCategories(dto.getListOfRelated()));
@@ -68,10 +64,6 @@ public class DTOMapper {
     // ---------------------------------------------------------------------------------
     // Jobs
     // ---------------------------------------------------------------------------------
-    public List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
-        return jobs.stream().map(DTOMapper::mapJobToDTO).collect(Collectors.toList());
-    }
-
     public Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
         return jobs.stream().map(DTOMapper::mapJobToDTO).collect(Collectors.toSet());
     }

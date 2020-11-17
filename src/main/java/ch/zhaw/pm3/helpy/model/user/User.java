@@ -62,7 +62,7 @@ public class User {
 
     @ToString.Exclude
     @ElementCollection
-    private List<Weekdays> availableWeekDays;
+    private Set<Weekdays> availableWeekDays;
 
     private boolean wantsToHelpActive;
 
@@ -72,7 +72,7 @@ public class User {
     @ToString.Exclude
     @OneToMany(mappedBy = "author")
     @JsonBackReference("tasks")
-    private List<Job> tasks;
+    private Set<Job> tasks;
 
     //----------------------------------------------------------------
     // helper
@@ -84,7 +84,7 @@ public class User {
     @ToString.Exclude
     @OneToMany(mappedBy = "matchedHelper")
     @JsonBackReference("jobs")
-    private List<Job> completedJobs;
+    private Set<Job> completedJobs;
 
     @ToString.Exclude
     @ManyToMany

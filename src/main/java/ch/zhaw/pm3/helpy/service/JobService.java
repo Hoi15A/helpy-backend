@@ -38,10 +38,10 @@ public class JobService {
 
     /**
      * Get all jobs from persistence.
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getAllJobs() {
-        return mapJobsToDTOs(jobRepository.findAll());
+    public Set<JobDTO> getAllJobs() {
+        return mapJobsToDTOs(new HashSet<>(jobRepository.findAll()));
     }
 
     /**
@@ -58,18 +58,18 @@ public class JobService {
     /**
      * Get a list of jobs by status
      * @param status the {@link JobStatus} to search in the jobs
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByStatus(JobStatus status) {
+    public Set<JobDTO> getJobsByStatus(JobStatus status) {
         return mapJobsToDTOs(jobRepository.findJobsByStatus(status));
     }
 
     /**
      * Get a list of jobs by author
      * @param email author identifier
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByAuthor(String email) {
+    public Set<JobDTO> getJobsByAuthor(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
         return mapJobsToDTOs(jobRepository.findJobsByAuthor(user.get()));
@@ -78,9 +78,9 @@ public class JobService {
     /**
      * Get a list of jobs by matchedHelper
      * @param email author identifier
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByMatchedHelper(String email) {
+    public Set<JobDTO> getJobsByMatchedHelper(String email) {
         Optional<User> user = userRepository.findById(email);
         if (user.isEmpty()) throw new RecordNotFoundException(email);
         return mapJobsToDTOs(jobRepository.findJobsByMatchedHelper(user.get()));
@@ -89,9 +89,9 @@ public class JobService {
     /**
      * Get a list of jobs by {@link Category}
      * @param category the {@link Category} to search in the jobs as String
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByCategory(String category) {
+    public Set<JobDTO> getJobsByCategory(String category) {
         return mapJobsToDTOs(jobRepository.findJobsByCategory(category));
     }
 
@@ -111,9 +111,9 @@ public class JobService {
     /**
      * Get a list of jobs by {@link Tag}
      * @param tag the {@link Tag} to search in the jobs as String
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByTag(String tag) {
+    public Set<JobDTO> getJobsByTag(String tag) {
         return mapJobsToDTOs(jobRepository.findJobsByTag(tag));
     }
 
@@ -133,9 +133,9 @@ public class JobService {
     /**
      * Get a list of jobs by creation date
      * @param date as String in format yyyy-MM-dd
-     * @return a list of jobs
+     * @return a set of jobs
      */
-    public List<JobDTO> getJobsByDate(String date) {
+    public Set<JobDTO> getJobsByDate(String date) {
         return mapJobsToDTOs(jobRepository.findJobsByDate(LocalDate.parse(date)));
     }
 

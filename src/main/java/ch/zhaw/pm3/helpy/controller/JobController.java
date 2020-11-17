@@ -27,10 +27,10 @@ public class JobController {
 
     /**
      * Returns all jobs from the database as json.
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("all")
-    public ResponseEntity<List<JobDTO>> getJobs() {
+    public ResponseEntity<Set<JobDTO>> getJobs() {
         return ResponseEntity.ok(jobService.getAllJobs());
     }
 
@@ -91,7 +91,7 @@ public class JobController {
     /**
      * Takes a job id and returns a list of potential helpers.
      * @param id long
-     * @return ResponseEntity<List<User>>
+     * @return ResponseEntity<Set<User>>
      */
     @GetMapping("id/{id}/find-helper")
     public ResponseEntity<List<UserDTO>> findPotentialHelper(@PathVariable("id") final long id) {
@@ -113,40 +113,40 @@ public class JobController {
     /**
      * Takes a job status and returns all jobs with the according status.
      * @param status {@link JobStatus}
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("status/{status}")
-    public ResponseEntity<List<JobDTO>> getJobsByStatus(@PathVariable("status") final JobStatus status) {
+    public ResponseEntity<Set<JobDTO>> getJobsByStatus(@PathVariable("status") final JobStatus status) {
         return ResponseEntity.ok(jobService.getJobsByStatus(status));
     }
 
     /**
      * Takes an email from the author and returns a list of jobs from the same author.
      * @param email string
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("author/{author}")
-    public ResponseEntity<List<JobDTO>> getJobsByAuthor(@PathVariable("author") final String email) {
+    public ResponseEntity<Set<JobDTO>> getJobsByAuthor(@PathVariable("author") final String email) {
         return ResponseEntity.ok(jobService.getJobsByAuthor(email));
     }
 
     /**
      * Takes the email from the matched helper and returns a list of jobs where this helper is matched with.
      * @param email string
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("helper/{matchedHelper}")
-    public ResponseEntity<List<JobDTO>> getJobsByMatchedHelper(@PathVariable("matchedHelper") final String email) {
+    public ResponseEntity<Set<JobDTO>> getJobsByMatchedHelper(@PathVariable("matchedHelper") final String email) {
         return ResponseEntity.ok(jobService.getJobsByMatchedHelper(email));
     }
 
     /**
      * Takes a category name and returns all jobs with the provided category name.
      * @param category string
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("category/{category}")
-    public ResponseEntity<List<JobDTO>> getJobsByCategory(@PathVariable("category") final String category) {
+    public ResponseEntity<Set<JobDTO>> getJobsByCategory(@PathVariable("category") final String category) {
         return ResponseEntity.ok(jobService.getJobsByCategory(category));
     }
 
@@ -163,10 +163,10 @@ public class JobController {
     /**
      * Takes a tag name and returns all the jobs with the provided tag name.
      * @param tag string
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("tag/{tag}")
-    public ResponseEntity<List<JobDTO>> getJobsByTag(@PathVariable("tag") final String tag) {
+    public ResponseEntity<Set<JobDTO>> getJobsByTag(@PathVariable("tag") final String tag) {
         return ResponseEntity.ok(jobService.getJobsByTag(tag));
     }
 
@@ -183,10 +183,10 @@ public class JobController {
     /**
      * Takes a date and returns all jobs with the same creation date.
      * @param date string
-     * @return ResponseEntity<List<JobDTO>>
+     * @return ResponseEntity<Set<JobDTO>>
      */
     @GetMapping("date/{date}")
-    public ResponseEntity<List<JobDTO>> getJobsByDate(@PathVariable("date") final String date) {
+    public ResponseEntity<Set<JobDTO>> getJobsByDate(@PathVariable("date") final String date) {
         return ResponseEntity.ok(jobService.getJobsByDate(date));
     }
 }
