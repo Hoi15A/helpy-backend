@@ -8,58 +8,57 @@ import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.job.JobDTO;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.UserDTO;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.experimental.UtilityClass;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@UtilityClass
 public class DTOMapper {
 
     // ---------------------------------------------------------------------------------
     // Category / Tags
     // ---------------------------------------------------------------------------------
-    public static Set<CategoryDTO> mapCategoriesToDTOs(List<Category> categories) {
+    public Set<CategoryDTO> mapCategoriesToDTOs(List<Category> categories) {
         return mapCategoriesToDTOs(new HashSet<>(categories));
     }
 
-    public static Category mapDTOToCategory(CategoryDTO dto) {
+    public Category mapDTOToCategory(CategoryDTO dto) {
         Category category = new Category(dto.getName());
         category.setListOfRelated(mapDTOsToCategories(dto.getListOfRelated()));
         return category;
     }
 
-    public static CategoryDTO mapCategoryToDTO(Category category) {
+    public CategoryDTO mapCategoryToDTO(Category category) {
         CategoryDTO dto = new CategoryDTO(category.getName());
         dto.setListOfRelated(mapCategoriesToDTOs(category.getListOfRelated()));
         return dto;
     }
 
-    public static Set<CategoryDTO> mapCategoriesToDTOs(Set<Category> categories) {
+    public Set<CategoryDTO> mapCategoriesToDTOs(Set<Category> categories) {
         if (categories == null) return new HashSet<>();
         return categories.stream()
                 .map(DTOMapper::mapCategoryToDTO)
                 .collect(Collectors.toSet());
     }
 
-    public static Set<Category> mapDTOsToCategories(Set<CategoryDTO> dtos) {
+    public Set<Category> mapDTOsToCategories(Set<CategoryDTO> dtos) {
         if (dtos == null) return new HashSet<>();
         return dtos.stream()
                 .map(DTOMapper::mapDTOToCategory)
                 .collect(Collectors.toSet());
     }
 
-    public static Set<TagDTO> mapTagsToDTOs(Set<Tag> tags) {
+    public Set<TagDTO> mapTagsToDTOs(Set<Tag> tags) {
         if (tags == null) return new HashSet<>();
         return tags.stream()
                 .map(tag -> new TagDTO(tag.getName()))
                 .collect(Collectors.toSet());
     }
 
-    public static Set<Tag> mapDTOsToTags(Set<TagDTO> dtos) {
+    public Set<Tag> mapDTOsToTags(Set<TagDTO> dtos) {
         if (dtos == null) return new HashSet<>();
         return dtos.stream()
                 .map(dto -> new Tag(dto.getName()))
@@ -69,15 +68,15 @@ public class DTOMapper {
     // ---------------------------------------------------------------------------------
     // Jobs
     // ---------------------------------------------------------------------------------
-    public static List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
+    public List<JobDTO> mapJobsToDTOs(List<Job> jobs) {
         return jobs.stream().map(DTOMapper::mapJobToDTO).collect(Collectors.toList());
     }
 
-    public static Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
+    public Set<JobDTO> mapJobsToDTOs(Set<Job> jobs) {
         return jobs.stream().map(DTOMapper::mapJobToDTO).collect(Collectors.toSet());
     }
 
-    public static JobDTO mapJobToDTO(Job job) {
+    public JobDTO mapJobToDTO(Job job) {
         if (job == null) return null;
         return JobDTO.builder()
                 .id(job.getId())
@@ -93,7 +92,7 @@ public class DTOMapper {
                 .build();
     }
 
-    public static Job mapDTOToJob(JobDTO dto) {
+    public Job mapDTOToJob(JobDTO dto) {
         if (dto == null) return null;
         // id, status and created set JsonIgnore
         return Job.builder()
@@ -110,11 +109,11 @@ public class DTOMapper {
     // ---------------------------------------------------------------------------------
     // User
     // ---------------------------------------------------------------------------------
-    public static List<UserDTO> mapUsersToDTOs(List<User> users) {
+    public List<UserDTO> mapUsersToDTOs(List<User> users) {
         return users.stream().map(DTOMapper::mapUserToDTO).collect(Collectors.toList());
     }
 
-    public static UserDTO mapUserToDTO(User user) {
+    public UserDTO mapUserToDTO(User user) {
         if (user == null) return null;
         // password get JsonIgnore
         return UserDTO.builder()
@@ -137,7 +136,7 @@ public class DTOMapper {
                 .build();
     }
 
-    public static User mapDTOToUser(UserDTO dto) {
+    public User mapDTOToUser(UserDTO dto) {
         if (dto == null) return null;
         return User.builder()
                 .email(dto.getEmail())
