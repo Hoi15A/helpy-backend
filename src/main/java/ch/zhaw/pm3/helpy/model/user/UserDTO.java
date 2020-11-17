@@ -52,8 +52,8 @@ public class UserDTO {
     @NotNull(message = "You have to enter your birthdate")
     private LocalDate birthdate;
 
-    @Getter(onMethod = @__({@JsonIgnore}))
-    @Setter(onMethod = @__({@JsonProperty}))
+    @Getter(onMethod_=@JsonIgnore)
+    @Setter(onMethod_=@JsonProperty)
     private String password;
 
     @NotEmpty(message = "You have to enter your biographie")

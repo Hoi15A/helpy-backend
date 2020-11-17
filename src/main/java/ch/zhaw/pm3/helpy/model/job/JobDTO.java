@@ -20,13 +20,12 @@ import java.util.Set;
 /**
  * Model class which holds the information for the Helpy job.
  */
-@Builder
+@Data @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE) // @Builder calls @AllArgsConstructor on public mode
-@Data
 public class JobDTO {
 
-    @Getter(onMethod = @__({@JsonProperty}))
-    @Setter(onMethod = @__({@JsonIgnore}))
+    @Getter(onMethod_=@JsonProperty)
+    @Setter(onMethod_=@JsonIgnore)
     private long id;
 
     @NotBlank(message = "You have to enter a title")
@@ -38,12 +37,12 @@ public class JobDTO {
     //@NotNull(message = "You have to provide an author")
     private UserDTO author;
 
-    @Getter(onMethod = @__({@JsonProperty}))
-    @Setter(onMethod = @__({@JsonIgnore}))
+    @Getter(onMethod_=@JsonProperty)
+    @Setter(onMethod_=@JsonIgnore)
     private LocalDate created;
 
-    @Getter(onMethod = @__({@JsonProperty}))
-    @Setter(onMethod = @__({@JsonIgnore}))
+    @Getter(onMethod_=@JsonProperty)
+    @Setter(onMethod_=@JsonIgnore)
     private JobStatus status;
 
     private UserDTO matchedHelper;
