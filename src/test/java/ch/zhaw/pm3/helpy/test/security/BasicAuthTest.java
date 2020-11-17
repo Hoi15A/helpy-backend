@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.security;
+package ch.zhaw.pm3.helpy.test.security;
 
 import ch.zhaw.pm3.helpy.constant.Profiles;
 import org.junit.jupiter.api.Test;
@@ -17,17 +17,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(Profiles.BASIC_AUTH)
-class TestBasicAuth {
+class BasicAuthTest {
 
-    private static final String REQUEST_MAPPING = "/api/user";
-    private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
-    private static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+    static final String REQUEST_MAPPING = "/api/user";
+    static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
+    static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[1],\"categories\":[],\"tags\":[]}";
 
-    private static final String EXISTING_USER_EMAIL = "leandro@email.com";
-    private static final String EXISTING_USER_PASSWORD = "m1y9zQYlz";
+    static final String EXISTING_USER_EMAIL = "leandro@email.com";
+    static final String EXISTING_USER_PASSWORD = "m1y9zQYlz";
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Test
     void givenAuthRequestOnPrivateService() throws Exception {

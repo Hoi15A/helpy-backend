@@ -1,6 +1,7 @@
-package ch.zhaw.pm3.helpy.controller;
+package ch.zhaw.pm3.helpy.test.controller;
 
 import ch.zhaw.pm3.helpy.constant.Profiles;
+import ch.zhaw.pm3.helpy.controller.CategoryController;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -19,18 +20,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(Profiles.NO_AUTH)
-class TestCategoryController {
+class CategoryControllerTest {
 
-    private static final String REQUEST_MAPPING = "/api/category";
-    private static final String EXISTING_CATEGORY_NAME_IN_USE = "Sprache";
-    private static final String EXISTING_CATEGORY_NAME_NOT_IN_USE = "Geistig";
-    private static final String RANDOM_TEST_STRING = "test";
-
-    @Autowired
-    private CategoryController categoryController;
+    static final String REQUEST_MAPPING = "/api/category";
+    static final String EXISTING_CATEGORY_NAME_IN_USE = "Sprache";
+    static final String EXISTING_CATEGORY_NAME_NOT_IN_USE = "Geistig";
+    static final String RANDOM_TEST_STRING = "test";
 
     @Autowired
-    private MockMvc mockMvc;
+    CategoryController categoryController;
+
+    @Autowired
+    MockMvc mockMvc;
 
     @Test
     void contextLoads() {
@@ -39,7 +40,7 @@ class TestCategoryController {
 
     @Test
     void testGetCategoryByName() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{category}", EXISTING_CATEGORY_NAME_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -50,7 +51,7 @@ class TestCategoryController {
     @Test
     void testCreateCategory() throws Exception {
         Category testCat = new Category(RANDOM_TEST_STRING);
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -61,7 +62,7 @@ class TestCategoryController {
 
     @Test
     void testGetCategories() throws Exception{
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/all")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -73,7 +74,7 @@ class TestCategoryController {
     void testUpdateCategory() throws Exception {
         Category testCat = new Category(EXISTING_CATEGORY_NAME_IN_USE);
         testCat.setDescription(RANDOM_TEST_STRING);
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -85,7 +86,7 @@ class TestCategoryController {
     @Test
     void testUpdateCategoryNotFound() throws Exception {
         Category testCat = new Category(RANDOM_TEST_STRING);
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -94,7 +95,7 @@ class TestCategoryController {
 
     @Test
     void testDeleteCategory() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{category}", EXISTING_CATEGORY_NAME_NOT_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -104,7 +105,7 @@ class TestCategoryController {
 
     @Test
     void testDeleteCategoryNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -112,7 +113,7 @@ class TestCategoryController {
 
     @Test
     void testGetRelatedCategories() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/related/{category}", EXISTING_CATEGORY_NAME_IN_USE)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -121,7 +122,7 @@ class TestCategoryController {
 
     @Test
     void testGetRelatedCategoriesNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/related/{category}", RANDOM_TEST_STRING)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());

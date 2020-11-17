@@ -1,12 +1,15 @@
-package ch.zhaw.pm3.helpy.service;
+package ch.zhaw.pm3.helpy.test.service;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
+import ch.zhaw.pm3.helpy.service.JobMatcherService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,21 +26,20 @@ import static org.mockito.Mockito.*;
 @AutoConfigureMockMvc
 class JobMatcherServiceTest {
 
-    private static final int AUTHOR_PLZ = 8406;
+    static final int AUTHOR_PLZ = 8406;
 
-    private User helpseeker;
-    private Job job;
-
-    @Autowired
-    private UserRepository userRepository;
+    @Mock User helpseeker;
+    @Mock Job job;
 
     @Autowired
-    private JobMatcherService service;
+    UserRepository userRepository;
+
+    @Autowired
+    JobMatcherService service;
 
     @BeforeEach
     void setUp() {
-        helpseeker = mock(User.class);
-        job = mock(Job.class);
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test

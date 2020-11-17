@@ -1,6 +1,7 @@
-package ch.zhaw.pm3.helpy.controller;
+package ch.zhaw.pm3.helpy.test.controller;
 
 import ch.zhaw.pm3.helpy.constant.Profiles;
+import ch.zhaw.pm3.helpy.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,20 +18,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles(Profiles.NO_AUTH)
-class TestUserController {
+class UserControllerTest {
 
-    private static final String REQUEST_MAPPING = "/api/user";
-    private static final String EXISTING_USER_EMAIL = "hawkeye@email.com";
-    private static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
-    private static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[1],\"categories\":[],\"tags\":[]}";
-    private static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
-    private static final String RANDOM_TEST_STRING = "test";
-
-    @Autowired
-    private UserController userController;
+    static final String REQUEST_MAPPING = "/api/user";
+    static final String EXISTING_USER_EMAIL = "hawkeye@email.com";
+    static final String NONEXISTENT_USER_EMAIL = "sampleMail@user.com";
+    static final String NONEXISTENT_USER_JSON_STRING = "{\"firstname\":\"Carl\",\"lastname\":\"Lubojanski\",\"email\":\"sampleMail@user.com\",\"age\":23,\"sex\":\"M\",\"plz\":8180,\"biographie\":\"Student at ZHAW\",\"password\":\"1234567890\",\"permission\":\"USER\",\"status\":\"ACTIVE\",\"birthdate\":\"2005-03-20\",\"availableWeekDays\":[],\"wantsToHelpActive\":true,\"ratings\":[1],\"categories\":[],\"tags\":[]}";
+    static final String NONEXISTENT_USER_FIRSTNAME = "Carl";
+    static final String RANDOM_TEST_STRING = "test";
 
     @Autowired
-    private MockMvc mockMvc;
+    UserController userController;
+
+    @Autowired
+    MockMvc mockMvc;
 
     @Test
     void contextLoads() {
@@ -39,7 +40,7 @@ class TestUserController {
 
     @Test
     void testGetUser() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -49,7 +50,7 @@ class TestUserController {
 
     @Test
     void testGetUserNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{username}", NONEXISTENT_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -57,7 +58,7 @@ class TestUserController {
 
     @Test
     void testGetAll() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/all")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -67,7 +68,7 @@ class TestUserController {
 
     @Test
     void testAddUser() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(NONEXISTENT_USER_JSON_STRING)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -78,11 +79,11 @@ class TestUserController {
 
     @Test
     void testRemoveUser() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "/remove/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .get(REQUEST_MAPPING + "/{username}", EXISTING_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -90,7 +91,7 @@ class TestUserController {
 
     @Test
     void testRemoveUserNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .delete(REQUEST_MAPPING + "remove/{username}", NONEXISTENT_USER_EMAIL)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -99,14 +100,14 @@ class TestUserController {
     @Test
     void testUpdateUser() throws Exception {
         String updateString = NONEXISTENT_USER_JSON_STRING;
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .post(REQUEST_MAPPING + "/add")
                 .content(updateString)
                 .contentType(MediaType.APPLICATION_JSON));
 
         updateString = updateString.replace(NONEXISTENT_USER_FIRSTNAME, RANDOM_TEST_STRING);
 
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
                 .content(updateString)
                 .contentType(MediaType.APPLICATION_JSON))
@@ -117,7 +118,7 @@ class TestUserController {
 
     @Test
     void testUpdateUserNotFound() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders
+        mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update/{id}", NONEXISTENT_USER_EMAIL)
                 .content(NONEXISTENT_USER_JSON_STRING)
                 .contentType(MediaType.APPLICATION_JSON))
