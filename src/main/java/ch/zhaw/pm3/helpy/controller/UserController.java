@@ -89,4 +89,19 @@ public class UserController {
     public ResponseEntity<UserDTO> addRating(@RequestBody final int rating, @PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.addRating(username, rating));
     }
+
+    @GetMapping("rating/latest/{username}")
+    public ResponseEntity<Integer> getLatestRating(@PathVariable("username") final String username) {
+        return ResponseEntity.ok(userService.getLatestRating(username));
+    }
+
+    @GetMapping("points/{username}")
+    public ResponseEntity<Integer> getPoints(@PathVariable("username") final String username) {
+        return ResponseEntity.ok(userService.getPoints(username));
+    }
+
+    @GetMapping("points/top-ten")
+    public ResponseEntity<List<User>> getTopTenUser() {
+        return ResponseEntity.ok(userService.getTopTenUser());
+    }
 }

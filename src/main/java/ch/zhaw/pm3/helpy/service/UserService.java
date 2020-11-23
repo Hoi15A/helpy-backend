@@ -11,10 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-
-import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
+import java.util.stream.Collectors;
 
 /**
  * Service for the users.
@@ -123,5 +123,42 @@ public class UserService {
             return mapUserToDTO(user);
         }
         return null;
+    }
+
+    public int getLatestRating(String email) {
+        Optional<User> user = userRepository.findById(email);
+        if (user.isPresent()) {
+            List<Integer> ratings = user.get().getRatings();
+            return ratings.size() > 0 ? ratings.get(ratings.size() - 1) : -1;
+        }
+        String message = String.format("Could not find user with the mail address: %s", email);
+        throw new RecordNotFoundException(message);
+    }
+
+    public int getPoints(String email) {
+        if (userRepository.existsByEmail(email) < 1) {
+            String message = String.format("Could not find user with the mail address: %ss, email");
+            throw new RecordNotFoundException(message);
+        }
+        Optional<User> optional = userRepository.findById(email);
+        if (optional.isPresent()) {
+            User user = optional.get();
+            return user.getRatings().stream().mapToInt(Integer::valueOf).sum();
+        }
+        return 0;
+    }
+
+    public List<User> getTopTenUser() {
+
+        Comparator<User> comparator = (o1, o2) -> {
+            int u1 = o1.getRatings().stream().mapToInt(Integer::valueOf).sum();
+            int u2 = o2.getRatings().stream().mapToInt(Integer::valueOf).sum();
+            return u2 - u1;
+        };
+
+        return userRepository.findAll().stream()
+                .sorted(comparator)
+                .limit(10)
+                .collect(Collectors.toList());
     }
 }
