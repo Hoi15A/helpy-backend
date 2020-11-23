@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
+
 /**
  * Service for the users.
  */
