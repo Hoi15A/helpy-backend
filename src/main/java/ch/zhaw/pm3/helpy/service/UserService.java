@@ -36,9 +36,8 @@ public class UserService {
      * @return the {@link UserDTO}
      */
     public UserDTO findByEmail(String email) {
-        Optional<User> user = userRepository.findById(email);
-        if(user.isEmpty()) throw new RecordNotFoundException(email);
-        return mapUserToDTO(user.get());
+        User user = getExistingUser(email);
+        return mapUserToDTO(user);
     }
 
     /**
@@ -56,7 +55,8 @@ public class UserService {
      */
     public UserDTO createUser(UserDTO dto) {
         User user = mapDTOToUser(dto);
-        if (userRepository.existsByEmail(user.getEmail()) > 0) {
+        Optional<User> optionalUser = userRepository.findById(user.getEmail());
+        if (optionalUser.isPresent()) {
             String message = String.format("User with the id: %s already exists", user.getEmail());
             throw new RecordAlreadyExistsException(message);
         }
@@ -70,11 +70,10 @@ public class UserService {
      * @param email his email
      */
     public void deleteUser(String email) {
-        Optional<User> user = userRepository.findById(email);
-        if (user.isEmpty()) throw new RecordNotFoundException(email);
+        User user = getExistingUser(email);
         jobRepository.removeHelperFromJob(email);
         jobRepository.removeAuthorFromJob(email);
-        userRepository.delete(user.get());
+        userRepository.delete(user);
     }
 
     /**
@@ -85,16 +84,9 @@ public class UserService {
      */
     public UserDTO updateUser(String email, UserDTO userDTO) {
         User user = mapDTOToUser(userDTO);
-        if (userRepository.existsByEmail(email) < 1) {
-            String message = String.format("Could not find user with the mail address: %s", email);
-            throw new RecordNotFoundException(message);
-        }
-        if (!user.getEmail().equals(email)) {
-            userRepository.updateUserEmail(email, user.getEmail());
-            Optional<User> optional = userRepository.findById(user.getEmail());
-            if (optional.isPresent()) {
-                user = optional.get();
-            }
+        User existingUser = getExistingUser(email);
+        if (!existingUser.getEmail().equals(user.getEmail())) {
+            userRepository.updateUserEmail(existingUser.getEmail(), user.getEmail());
         }
         userRepository.save(user);
         return mapUserToDTO(user);
@@ -107,47 +99,34 @@ public class UserService {
      * @return the updated {@link User}
      */
     public UserDTO addRating(String email, int rating) {
-        if (userRepository.existsByEmail(email) < 1) {
-            String message = String.format("Could not find user with the mail address: %s", email);
-            throw new RecordNotFoundException(message);
-        }
         if (rating > 10 || rating < 0) {
             String message = String.format("Rating \"%s\" is out of bounds of range 0 to 10", rating);
             throw new IllegalArgumentException(message);
         }
-        Optional<User> optional = userRepository.findById(email);
-        if (optional.isPresent()) {
-            User user = optional.get();
-            List<Integer> list = user.getRatings();
-            list.add(rating);
-            user.setRatings(list);
-            userRepository.save(user);
-            return mapUserToDTO(user);
-        }
-        return null;
+        User user = getExistingUser(email);
+        user.getRatings().add(rating);
+        userRepository.save(user);
+        return mapUserToDTO(user);
     }
 
     public int getLatestRating(String email) {
-        Optional<User> user = userRepository.findById(email);
-        if (user.isPresent()) {
-            List<Integer> ratings = user.get().getRatings();
-            return ratings.size() > 0 ? ratings.get(ratings.size() - 1) : -1;
-        }
-        String message = String.format("Could not find user with the mail address: %s", email);
-        throw new RecordNotFoundException(message);
+        User user = getExistingUser(email);
+        List<Integer> ratings = user.getRatings();
+        return ratings.size() > 0 ? ratings.get(ratings.size() - 1) : -1;
     }
 
     public int getPoints(String email) {
-        if (userRepository.existsByEmail(email) < 1) {
-            String message = String.format("Could not find user with the mail address: %ss, email");
+        User user = getExistingUser(email);
+        return user.getRatings().stream().reduce(0, Integer::sum);
+    }
+
+    private User getExistingUser(String email) {
+        Optional<User> optionalUser = userRepository.findById(email);
+        if (optionalUser.isEmpty()) {
+            String message = String.format("Could not find user with the mail address: %s", email);
             throw new RecordNotFoundException(message);
         }
-        Optional<User> optional = userRepository.findById(email);
-        if (optional.isPresent()) {
-            User user = optional.get();
-            return user.getRatings().stream().mapToInt(Integer::valueOf).sum();
-        }
-        return 0;
+        return optionalUser.get();
     }
 
     public List<User> getTopTenUser() {

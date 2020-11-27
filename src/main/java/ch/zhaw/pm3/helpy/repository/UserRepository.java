@@ -42,11 +42,4 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("update User u set u.email=?2 where u.email=?1")
     void updateUserEmail(String oldMail, String newMail);
 
-    /**
-     * Query to check if a user exists
-     * @param email id
-     * @return number of existing entries (should be 0 or 1)
-     */
-    @Query("select count(u.email) from User u where u.email=?1")
-    long existsByEmail(String email);
 }
