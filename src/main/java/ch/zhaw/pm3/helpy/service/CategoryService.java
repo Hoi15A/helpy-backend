@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
+import static ch.zhaw.pm3.helpy.service.util.DTOMapper.*;
 import java.util.stream.Collectors;
 
 /**
