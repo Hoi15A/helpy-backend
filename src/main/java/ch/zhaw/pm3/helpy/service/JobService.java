@@ -157,6 +157,8 @@ public class JobService {
     public JobDTO createJob(JobDTO dto) {
         Job job = mapDTOToJob(dto);
         Optional<User> user = userRepository.findById(job.getAuthor().getEmail());
+        String message = String.format("Unable to find user with mail address: %s", job.getAuthor().getEmail());
+        if (user.isEmpty()) throw new RecordNotFoundException(message);
         job.setAuthor(user.get());
         job.setStatus(JobStatus.OPEN);
         job.setCreated(LocalDate.now());
