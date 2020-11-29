@@ -37,12 +37,12 @@ public class JobController {
     /**
      * Takes a {@link Job} and saves it in the database.
      * The same {@link Job} will be returned after creation.
-     * @param job {@link Job}
+     * @param jobDTO {@link Job}
      * @return ResponseEntity<Job>
      */
     @PostMapping(path = "add", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobDTO> createJob(@Valid @RequestBody final JobDTO job) {
-        return ResponseEntity.ok(jobService.createJob(job));
+    public ResponseEntity<JobDTO> createJob(@Valid @RequestBody final JobDTO jobDTO) {
+        return ResponseEntity.ok(jobService.createJob(jobDTO));
     }
 
     /**
@@ -59,13 +59,13 @@ public class JobController {
     /**
      * Takes a {@link JobDTO} and updates the database entry with the same id.
      * The saved {@link JobDTO} will be returned after the update.
-     * @param job {@link JobDTO}
+     * @param jobDTO {@link JobDTO}
      * @return ResponseEntity<JobDTO>
      */
     @PutMapping(path = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<JobDTO> updateJob(@PathVariable("id") final long id, @Valid @RequestBody final JobDTO job) {
-        jobService.updateJob(id, job);
-        return ResponseEntity.ok(job);
+    public ResponseEntity<JobDTO> updateJob(@PathVariable("id") final long id, @Valid @RequestBody final JobDTO jobDTO) {
+        jobService.updateJob(id, jobDTO);
+        return ResponseEntity.ok(jobDTO);
     }
 
     /**
