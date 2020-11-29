@@ -91,6 +91,5 @@ public class JobMatcher {
             commonSet.retainAll(l2);
             return commonSet.size();
         }
-
     }
 }
