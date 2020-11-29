@@ -7,23 +7,23 @@ import javax.transaction.NotSupportedException;
 
 @UtilityClass
 public class MatcherFactory {
-    public MatcherStrategy getMatcher(StrategyType strategyType) throws NotSupportedException {
-        MatcherStrategy strategy;
+    public Strategy getMatcher(StrategyType strategyType) throws NotSupportedException {
+        Strategy strategy;
         switch (strategyType) {
             case TAG:
-                strategy = new TagMatcher();
+                strategy = new Tag();
             break;
             case RATING:
-                strategy = new RatingMatcher();
+                strategy = new Rating();
             break;
             case WEEKDAY:
-                strategy = new WeekdayMatcher();
+                strategy = new Weekday();
             break;
             case CATEGORY:
-                strategy = new CategoryMatcher();
+                strategy = new Category();
             break;
             case LOCATION:
-                strategy = new LocationMatcher();
+                strategy = new Location();
             break;
             default:
                 throw new NotSupportedException("Default is not supported");

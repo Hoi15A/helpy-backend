@@ -5,7 +5,7 @@ import ch.zhaw.pm3.helpy.model.user.User;
 
 import java.util.Set;
 
-public class WeekdayMatcher implements MatcherStrategy {
+public class Location implements Strategy {
     @Override
     public Set<User> getPotentialHelpers(Job job) {
         return null;
