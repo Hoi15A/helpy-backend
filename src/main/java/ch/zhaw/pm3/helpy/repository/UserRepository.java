@@ -28,6 +28,14 @@ public interface UserRepository extends JpaRepository<User, String> {
     Set<User> findUsersByStatus(UserStatus status);
 
     /**
+     * Query to get a set of Users from the database whose status attribute is set to the given UserStatus
+     * @param status to match with a User's status attribute
+     * @return set of Users with given status
+     */
+    @Query("select u from User u join fetch u.categories join fetch u.tags where u.status=?1")
+    Set<User> findUsersWithCategoriesAndTagsByStatus(UserStatus status);
+
+    /**
      * Query to get a set of Users from the database whose rating attribute is set to the given int
      * @param rating to match with a User's rating attribute
      * @return set of Users with given rating
