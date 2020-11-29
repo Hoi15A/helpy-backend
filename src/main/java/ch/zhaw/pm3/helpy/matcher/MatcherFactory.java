@@ -11,7 +11,7 @@ public class MatcherFactory {
         Strategy strategy;
         switch (strategyType) {
             case TAG:
-                strategy = new Tag();
+                strategy = new TagMatcher();
             break;
             case RATING:
                 strategy = new Rating();
@@ -20,7 +20,7 @@ public class MatcherFactory {
                 strategy = new Weekday();
             break;
             case CATEGORY:
-                strategy = new Category();
+                strategy = new CategoryMatcher();
             break;
             case LOCATION:
                 strategy = new Location();
