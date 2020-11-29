@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.helpy.repository;
 
+import ch.zhaw.pm3.helpy.constant.Weekdays;
 import ch.zhaw.pm3.helpy.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -41,5 +42,14 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Modifying
     @Query("update User u set u.email=?2 where u.email=?1")
     void updateUserEmail(String oldMail, String newMail);
+
+    /**
+     * Query to get a set of Users from the database whose availableWeekDays includes
+     * the given int representing a weekday
+     * @param weekday to match with a User's availability
+     * @return set of Users with given availability
+     */
+    @Query("select u from User u join u.availableWeekDays w where w=?1")
+    Set<User> findUsersByAvailability(Weekdays weekday);
 
 }
