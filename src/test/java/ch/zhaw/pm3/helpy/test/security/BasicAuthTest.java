@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.test.security;
 
-import ch.zhaw.pm3.helpy.constant.Profiles;
+import ch.zhaw.pm3.helpy.config.Profiles;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

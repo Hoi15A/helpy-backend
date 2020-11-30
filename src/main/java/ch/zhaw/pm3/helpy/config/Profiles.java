@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.constant;
+package ch.zhaw.pm3.helpy.config;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

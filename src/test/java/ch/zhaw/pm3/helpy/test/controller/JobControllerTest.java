@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy.test.controller;
 
-import ch.zhaw.pm3.helpy.constant.JobStatus;
-import ch.zhaw.pm3.helpy.constant.Profiles;
+import ch.zhaw.pm3.helpy.model.job.JobStatus;
+import ch.zhaw.pm3.helpy.config.Profiles;
 import ch.zhaw.pm3.helpy.controller.JobController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
