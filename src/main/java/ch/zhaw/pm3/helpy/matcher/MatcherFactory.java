@@ -17,7 +17,7 @@ public class MatcherFactory {
                 strategy = new RatingStrategy();
             break;
             case WEEKDAY:
-                strategy = new Weekday();
+                strategy = new WeekdayStrategy();
             break;
             case CATEGORY:
                 strategy = new CategoryStrategy();

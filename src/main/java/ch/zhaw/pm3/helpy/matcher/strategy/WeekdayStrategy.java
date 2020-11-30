@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Weekday extends MatcherStrategy {
+public class WeekdayStrategy extends MatcherStrategy {
 
     private static final int RANGE = 0;
 
