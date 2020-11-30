@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.TagMatcher;
+import ch.zhaw.pm3.helpy.matcher.strategy.TagStrategy;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -23,31 +23,31 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TagMatcherTest {
+public class TagStrategyTest {
     @Mock Job job;
 
     @Autowired
     UserRepository userRepository;
 
-    TagMatcher tagMatcher;
+    TagStrategy tagStrategy;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        tagMatcher = new TagMatcher();
-        tagMatcher.setUserRepository(userRepository);
+        tagStrategy = new TagStrategy();
+        tagStrategy.setUserRepository(userRepository);
     }
 
     @Test
     void contextLoads() {
         assertNotNull(userRepository);
-        assertNotNull(tagMatcher);
+        assertNotNull(tagStrategy);
     }
 
     @Test
     void testTagMatching() {
         when(job.getTags()).thenReturn(getJobTags());
-        Collection<User> result = tagMatcher.getPotentialHelpers(job);
+        Collection<User> result = tagStrategy.getPotentialHelpers(job);
         assertIterableEquals(getExpectedResultList(), result);
     }
 

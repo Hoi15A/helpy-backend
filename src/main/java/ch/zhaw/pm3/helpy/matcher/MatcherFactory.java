@@ -11,16 +11,16 @@ public class MatcherFactory {
         Strategy strategy;
         switch (strategyType) {
             case TAG:
-                strategy = new TagMatcher();
+                strategy = new TagStrategy();
             break;
             case RATING:
-                strategy = new Rating();
+                strategy = new RatingStrategy();
             break;
             case WEEKDAY:
                 strategy = new Weekday();
             break;
             case CATEGORY:
-                strategy = new CategoryMatcher();
+                strategy = new CategoryStrategy();
             break;
             case LOCATION:
                 strategy = new LocationStrategy();

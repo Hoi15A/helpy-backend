@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class TagMatcher extends MatcherStrategy {
+public class TagStrategy extends MatcherStrategy {
 
     private Set<User> users;
 

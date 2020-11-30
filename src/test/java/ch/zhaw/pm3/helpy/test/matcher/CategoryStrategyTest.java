@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.CategoryMatcher;
+import ch.zhaw.pm3.helpy.matcher.strategy.CategoryStrategy;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -20,18 +20,18 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CategoryMatcherTest {
+class CategoryStrategyTest {
     @Autowired
     UserRepository userRepository;
 
     @Mock Job job;
 
-    CategoryMatcher categoryMatcher;
+    CategoryStrategy categoryMatcher;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        categoryMatcher = new CategoryMatcher();
+        categoryMatcher = new CategoryStrategy();
         categoryMatcher.setUserRepository(userRepository);
     }
 

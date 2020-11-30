@@ -7,7 +7,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.Collection;
 import java.util.Set;
 
-public class Rating implements Strategy {
+public class RatingStrategy implements Strategy {
     @Override
     public Collection<User> getPotentialHelpers(Job job) {
         return null;
