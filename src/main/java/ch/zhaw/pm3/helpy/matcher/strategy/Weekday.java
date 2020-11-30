@@ -5,6 +5,7 @@ import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.Weekdays;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Weekday extends MatcherStrategy {
     private static final int RANGE = 0;
 
     @Override
-    public Set<User> getPotentialHelpers(Job job) {
+    public Collection<User> getPotentialHelpers(Job job) {
         LocalDate dueDate = job.getDueDate();
         Set<Weekdays> weekdaysInRange = getWeekdaysInRange(dueDate);
         System.out.println(weekdaysInRange);

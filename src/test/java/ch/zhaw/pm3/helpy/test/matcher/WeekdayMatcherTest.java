@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.time.LocalDate;
@@ -53,7 +54,7 @@ public class WeekdayMatcherTest {
     @Test
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
-        Set<User> result = weekdayMatcher.getPotentialHelpers(job);
+        Collection<User> result = weekdayMatcher.getPotentialHelpers(job);
         assertIterableEquals(expectedUsers, result);
     }
 

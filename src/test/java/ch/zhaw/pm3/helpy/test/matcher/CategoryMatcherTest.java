@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -47,7 +44,7 @@ class CategoryMatcherTest {
     @Test
     void testCategoryMatching() {
         when(job.getCategories()).thenReturn(getJobCategories());
-        Set<User> result = categoryMatcher.getPotentialHelpers(job);
+        Collection<User> result = categoryMatcher.getPotentialHelpers(job);
         assertIterableEquals(getExpectedResultList(), result);
     }
 

@@ -4,6 +4,7 @@ import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.UserStatus;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +14,7 @@ public class CategoryMatcher extends MatcherStrategy {
     private Set<User> users;
 
     @Override
-    public Set<User> getPotentialHelpers(Job job) {
+    public Collection<User> getPotentialHelpers(Job job) {
         users = getUserRepository().findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE);
         return getHelpersWithMatchingCategories(job);
     }

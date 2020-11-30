@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class TagMatcherTest {
     @Test
     void testTagMatching() {
         when(job.getTags()).thenReturn(getJobTags());
-        Set<User> result = tagMatcher.getPotentialHelpers(job);
+        Collection<User> result = tagMatcher.getPotentialHelpers(job);
         assertIterableEquals(getExpectedResultList(), result);
     }
 
