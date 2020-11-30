@@ -1,8 +1,8 @@
 package ch.zhaw.pm3.helpy.repository;
 
-import ch.zhaw.pm3.helpy.constant.UserStatus;
-import ch.zhaw.pm3.helpy.constant.Weekdays;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
+import ch.zhaw.pm3.helpy.model.user.Weekdays;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

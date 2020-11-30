@@ -1,7 +1,5 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import ch.zhaw.pm3.helpy.constant.UserStatus;
-import ch.zhaw.pm3.helpy.matcher.strategy.CategoryMatcher;
 import ch.zhaw.pm3.helpy.matcher.strategy.TagMatcher;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;

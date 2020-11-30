@@ -1,8 +1,8 @@
 package ch.zhaw.pm3.helpy.matcher.strategy;
 
-import ch.zhaw.pm3.helpy.constant.Weekdays;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.Weekdays;
 
 import java.time.LocalDate;
 import java.util.HashSet;
