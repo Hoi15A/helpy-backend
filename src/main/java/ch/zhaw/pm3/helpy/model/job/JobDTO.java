@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.helpy.model.job;
 
-import ch.zhaw.pm3.helpy.constant.JobStatus;
 import ch.zhaw.pm3.helpy.model.category.CategoryDTO;
 import ch.zhaw.pm3.helpy.model.category.TagDTO;
 import ch.zhaw.pm3.helpy.model.user.UserDTO;

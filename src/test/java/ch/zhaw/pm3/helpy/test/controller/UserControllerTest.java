@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.test.controller;
 
-import ch.zhaw.pm3.helpy.constant.Profiles;
+import ch.zhaw.pm3.helpy.config.Profiles;
 import ch.zhaw.pm3.helpy.controller.UserController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

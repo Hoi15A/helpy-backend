@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.constant;
+package ch.zhaw.pm3.helpy.model.user;
 
 /**
  * Enumeration of permissions for the {@link ch.zhaw.pm3.helpy.model.user.User}.

@@ -1,8 +1,5 @@
 package ch.zhaw.pm3.helpy.model.user;
 
-import ch.zhaw.pm3.helpy.constant.Permission;
-import ch.zhaw.pm3.helpy.constant.UserStatus;
-import ch.zhaw.pm3.helpy.constant.Weekdays;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;

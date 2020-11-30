@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.service;
+package ch.zhaw.pm3.helpy.service.util;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.CategoryDTO;

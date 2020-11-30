@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.service;
 
-import ch.zhaw.pm3.helpy.constant.JobStatus;
+import ch.zhaw.pm3.helpy.model.job.JobStatus;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.job.JobDTO;
@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static ch.zhaw.pm3.helpy.service.DTOMapper.*;
+import static ch.zhaw.pm3.helpy.service.util.DTOMapper.*;
 
 /**
  * Service for the jobs.
