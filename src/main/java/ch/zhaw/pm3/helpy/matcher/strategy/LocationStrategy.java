@@ -27,8 +27,8 @@ public class LocationStrategy extends MatcherStrategy {
                 .map(Location::getPlz)
                 .map(getUserRepository()::findUsersByPlz)
                 .flatMap(Set::stream)
-                .filter(User::isWantsToHelpActive)                              // TODO: auslagern in controller, wen
-                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))
+                .filter(User::isWantsToHelpActive)                              // TODO: auslagern in controller, sobald dieser implementiert ist
+                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))     // TODO: auslagern in controller, sobald dieser implementiert ist
                 .collect(Collectors.toList());
     }
 
