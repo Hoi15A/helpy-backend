@@ -23,7 +23,7 @@ public class MatcherFactory {
                 strategy = new CategoryMatcher();
             break;
             case LOCATION:
-                strategy = new Location();
+                strategy = new LocationStrategy();
             break;
             default:
                 throw new NotSupportedException("Default is not supported");
