@@ -61,4 +61,12 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Query("select u from User u join u.availableWeekDays w where w=?1")
     Set<User> findUsersByAvailability(Weekdays weekday);
 
+    /**
+     * Query to prevent lazy fetch error which gets thrown,
+     * when trying to access ratings.
+     * @return Set of all Users
+     */
+    @Query("select u from User u join fetch u.ratings")
+    Set<User> findAllByRating();
+
 }
