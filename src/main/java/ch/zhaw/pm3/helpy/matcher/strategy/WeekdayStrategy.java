@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class WeekdayStrategy extends MatcherStrategy {
 
-    private static final int RANGE = 0;
+    private static final int RANGE = 1;
 
     @Override
     public Collection<User> getPotentialHelpers(Job job) {

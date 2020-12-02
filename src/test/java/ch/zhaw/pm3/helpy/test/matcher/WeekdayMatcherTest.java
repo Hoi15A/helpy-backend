@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 public class WeekdayMatcherTest {
 
     private static final String TEST_DATE = "2020-11-28";
-    private static Weekday weekdayMatcher;
+    private static WeekdayStrategy weekdayMatcher;
     private static final Set<String> expectedUsersByEmail = new HashSet<>(Arrays.asList(
             "leandro@email.com",
             "hawkeye@email.com",
@@ -41,7 +41,7 @@ public class WeekdayMatcherTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        weekdayMatcher = new Weekday();
+        weekdayMatcher = new WeekdayStrategy();
         weekdayMatcher.setUserRepository(userRepository);
         expectedUsers = initExpectedUsers();
     }
@@ -54,7 +54,7 @@ public class WeekdayMatcherTest {
     @Test
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
-        Set<User> result = weekdayMatcher.getPotentialHelpers(job);
+        Collection<User> result = weekdayMatcher.getPotentialHelpers(job);
         assertIterableEquals(expectedUsers, result);
     }
 
