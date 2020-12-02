@@ -21,10 +21,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class WeekdayStrategyMatcherTest {
+public class WeekdayMatcherTest {
 
-    private static final String TEST_DATE = "2020-10-14";
-    private static WeekdayStrategy weekdayStrategyMatcher;
+    private static final String TEST_DATE = "2020-11-28";
+    private static Weekday weekdayMatcher;
     private static final Set<String> expectedUsersByEmail = new HashSet<>(Arrays.asList(
             "leandro@email.com",
             "hawkeye@email.com",
@@ -41,8 +41,8 @@ public class WeekdayStrategyMatcherTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        weekdayStrategyMatcher = new WeekdayStrategy();
-        weekdayStrategyMatcher.setUserRepository(userRepository);
+        weekdayMatcher = new Weekday();
+        weekdayMatcher.setUserRepository(userRepository);
         expectedUsers = initExpectedUsers();
     }
 
@@ -54,7 +54,7 @@ public class WeekdayStrategyMatcherTest {
     @Test
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
-        Collection<User> result = weekdayStrategyMatcher.getPotentialHelpers(job);
+        Set<User> result = weekdayMatcher.getPotentialHelpers(job);
         assertIterableEquals(expectedUsers, result);
     }
 
