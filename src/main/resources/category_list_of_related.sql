@@ -1,0 +1,2 @@
+insert into CATEGORY_LIST_OF_RELATED (category_name, list_of_related_name) values ('Sprache', 'Administrativ');
+insert into CATEGORY_LIST_OF_RELATED (category_name, list_of_related_name) values ('Sprache', 'Behörden');
