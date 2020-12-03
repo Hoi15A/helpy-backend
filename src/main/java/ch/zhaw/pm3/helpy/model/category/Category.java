@@ -29,7 +29,4 @@ public class Category {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> listOfRelated = new HashSet<>();
 
-    @Column(columnDefinition = "LONGTEXT")
-    private String description = "No Description has been added";
-
 }

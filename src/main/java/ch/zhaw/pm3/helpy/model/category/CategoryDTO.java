@@ -28,9 +28,6 @@ public class CategoryDTO {
 
     private Set<CategoryDTO> listOfRelated = new HashSet<>();
 
-    @NotBlank(message = "You have to provide a description for the category")
-    private String description = "No Description has been added";
-
     public boolean addToRelated(CategoryDTO category) {
         Objects.requireNonNull(category);
         return listOfRelated.add(category);

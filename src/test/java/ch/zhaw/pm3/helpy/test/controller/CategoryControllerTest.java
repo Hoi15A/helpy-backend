@@ -73,7 +73,6 @@ class CategoryControllerTest {
     @Test
     void testUpdateCategory() throws Exception {
         Category testCat = new Category(EXISTING_CATEGORY_NAME_IN_USE);
-        testCat.setDescription(RANDOM_TEST_STRING);
         mockMvc.perform(MockMvcRequestBuilders
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
