@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Service UserDetail to verify User with basic authentication
+ * @author meletela
+ */
 @RequiredArgsConstructor
 @Service
 public class HelpyUserDetailService implements UserDetailsService  {

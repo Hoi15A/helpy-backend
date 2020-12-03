@@ -90,16 +90,33 @@ public class UserController {
         return ResponseEntity.ok(userService.addRating(username, rating));
     }
 
+    /**
+     * Takes an email address and returns the last rating
+     * of the {@link UserDTO} with the provided email address.
+     * @param username string to match with {@link UserDTO} email
+     * @return ResponseEntity<Integer>
+     */
     @GetMapping("rating/latest/{username}")
     public ResponseEntity<Integer> getLatestRating(@PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.getLatestRating(username));
     }
 
+    /**
+     * Takes an email address and return the points of
+     * the {@link UserDTO} with the provided email address
+     * @param username string to match with {@link UserDTO} email
+     * @return ResponseEntity<Integer>
+     */
     @GetMapping("points/{username}")
     public ResponseEntity<Integer> getPoints(@PathVariable("username") final String username) {
         return ResponseEntity.ok(userService.getPoints(username));
     }
 
+    /**
+     * Returns a list of the top 10 {@link UserDTO} with the
+     * most points
+     * @return ResponseEntity<List<User>>
+     */
     @GetMapping("points/top-ten")
     public ResponseEntity<List<User>> getTopTenUser() {
         return ResponseEntity.ok(userService.getTopTenUser());

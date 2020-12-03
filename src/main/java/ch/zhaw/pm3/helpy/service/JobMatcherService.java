@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 /**
  * Service for the job matcher.
- * @author meletela
  */
 @RequiredArgsConstructor
 @Transactional

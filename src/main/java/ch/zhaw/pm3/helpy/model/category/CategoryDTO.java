@@ -31,11 +31,21 @@ public class CategoryDTO {
     @NotBlank(message = "You have to provide a description for the category")
     private String description = "No Description has been added";
 
+    /**
+     * Takes a category and adds it to the set of related
+     * @param category to add to related
+     * @return return boolean representing status of addition
+     */
     public boolean addToRelated(CategoryDTO category) {
         Objects.requireNonNull(category);
         return listOfRelated.add(category);
     }
 
+    /**
+     * Takes a category and removes it from the set of related
+     * @param category to add to related
+     * @return return boolean representing status of addition
+     */
     public boolean removeFromRelated(CategoryDTO category) {
         Objects.requireNonNull(category);
         return listOfRelated.remove(category);
