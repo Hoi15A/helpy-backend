@@ -4,6 +4,7 @@ import ch.zhaw.pm3.helpy.matcher.strategy.TagStrategy;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,7 +34,6 @@ public class TagStrategyTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         tagStrategy = new TagStrategy();
-        tagStrategy.setUserRepository(userRepository);
     }
 
     @Test
@@ -47,7 +45,7 @@ public class TagStrategyTest {
     @Test
     void testTagMatching() {
         when(job.getTags()).thenReturn(getJobTags());
-        Collection<User> result = tagStrategy.getPotentialHelpers(job);
+        Collection<User> result = tagStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
         assertIterableEquals(getExpectedResultList(), result);
     }
 

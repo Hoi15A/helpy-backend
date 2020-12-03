@@ -6,22 +6,16 @@ import ch.zhaw.pm3.helpy.model.user.UserStatus;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
-public class TagStrategy extends MatcherStrategy {
-
-    private Set<User> users;
+public class TagStrategy implements Strategy {
 
     @Override
-    public Collection<User> getPotentialHelpers(Job job) {
-        users = getUserRepository().findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE);
-        return getHelpersWithMatchingTags(job);
-    }
-
-    private Set<User> getHelpersWithMatchingTags(Job job) {
-        return users.stream()
+    public Collection<User> filterPotentialHelpers(Job job, List<User> userList) {
+        return userList.stream()
                 .filter(User::isWantsToHelpActive)
+                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))
                 .filter(helper -> !Collections.disjoint(helper.getTags(), job.getTags()))
                 .collect(Collectors.toSet());
     }

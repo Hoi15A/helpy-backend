@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
 import ch.zhaw.pm3.helpy.matcher.strategy.LocationStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.MatcherStrategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.LocationRepository;
@@ -12,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,7 +36,7 @@ class LocationMatcherTest {
     @Mock
     User user;
 
-    MatcherStrategy locationStrategy = new LocationStrategy();
+    LocationStrategy locationStrategy = new LocationStrategy();
 
     @BeforeEach
     void setUp() {
@@ -50,9 +54,9 @@ class LocationMatcherTest {
 
     @Test
     void testLocation() {
-        assertEquals(3, locationStrategy.getPotentialHelpers(job).size());
+        assertEquals(3, locationStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())).size());
         when(job.getAuthor().getPlz()).thenReturn(1723);
-        assertEquals(3, locationStrategy.getPotentialHelpers(job).size());
+        assertEquals(3, locationStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())).size());
     }
 
 }

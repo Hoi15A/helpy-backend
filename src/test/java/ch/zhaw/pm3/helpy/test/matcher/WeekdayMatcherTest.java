@@ -1,10 +1,9 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -21,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class WeekdayMatcherTest {
+class WeekdayMatcherTest {
 
     private static final String TEST_DATE = "2020-11-28";
     private static WeekdayStrategy weekdayMatcher;
@@ -42,7 +41,6 @@ public class WeekdayMatcherTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         weekdayMatcher = new WeekdayStrategy();
-        weekdayMatcher.setUserRepository(userRepository);
         expectedUsers = initExpectedUsers();
     }
 
@@ -54,7 +52,7 @@ public class WeekdayMatcherTest {
     @Test
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
-        Collection<User> result = weekdayMatcher.getPotentialHelpers(job);
+        Collection<User> result = weekdayMatcher.filterPotentialHelpers(job, userRepository.findAll());
         assertIterableEquals(expectedUsers, result);
     }
 

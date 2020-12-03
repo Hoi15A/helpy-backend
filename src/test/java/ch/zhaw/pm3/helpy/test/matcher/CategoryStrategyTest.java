@@ -4,6 +4,7 @@ import ch.zhaw.pm3.helpy.matcher.strategy.CategoryStrategy;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,6 @@ class CategoryStrategyTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
         categoryMatcher = new CategoryStrategy();
-        categoryMatcher.setUserRepository(userRepository);
     }
 
     @Test
@@ -44,7 +44,7 @@ class CategoryStrategyTest {
     @Test
     void testCategoryMatching() {
         when(job.getCategories()).thenReturn(getJobCategories());
-        Collection<User> result = categoryMatcher.getPotentialHelpers(job);
+        Collection<User> result = categoryMatcher.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
         assertIterableEquals(getExpectedResultList(), result);
     }
 

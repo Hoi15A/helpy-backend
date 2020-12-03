@@ -1,35 +1,46 @@
 package ch.zhaw.pm3.helpy.matcher.strategy;
 
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.location.Location;
 import ch.zhaw.pm3.helpy.model.job.Job;
-import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.location.Location;
 import ch.zhaw.pm3.helpy.model.location.LocationUtil;
+import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.UserStatus;
+import ch.zhaw.pm3.helpy.repository.LocationRepository;
+import ch.zhaw.pm3.helpy.repository.UserRepository;
+import lombok.Setter;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
-public class LocationStrategy extends MatcherStrategy {
+@Setter
+public class LocationStrategy implements Strategy {
+
+    private UserRepository userRepository;
+    private LocationRepository locationRepository;
 
     @Override
-    public Collection<User> getPotentialHelpers(Job job) {
-        Location authorLocation = getLocationRepository().getLocationByPlz(job.getAuthor().getPlz());
-        List<Location> locations = getLocationRepository().findAll();
+    public Collection<User> filterPotentialHelpers(Job job, List<User> userList) {
+        Location authorLocation = locationRepository.getLocationByPlz(job.getAuthor().getPlz());
         if(authorLocation == null) throw new RecordNotFoundException("Postleitzahl wurde nicht in unserer Datenbank gefunden.");
 
         ToDoubleFunction<Location> distanceFunktion = (location) -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
 
-        return locations.stream()
+        List<Integer> filteredPlz = locationRepository.findAll().stream()
                 .filter(location -> distanceFunktion.applyAsDouble(location) <= 10.0)
                 .sorted(Comparator.comparingDouble(distanceFunktion))
                 .map(Location::getPlz)
-                .map(getUserRepository()::findUsersByPlz)
+                .collect(Collectors.toList());
+
+        return filteredPlz.stream()
+                .map(userRepository::findUsersByPlz)
                 .flatMap(Set::stream)
-                .filter(User::isWantsToHelpActive)                              // TODO: auslagern in controller, sobald dieser implementiert ist
-                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))     // TODO: auslagern in controller, sobald dieser implementiert ist
+                .filter(User::isWantsToHelpActive)
+                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))
                 .collect(Collectors.toList());
     }
-
 }
