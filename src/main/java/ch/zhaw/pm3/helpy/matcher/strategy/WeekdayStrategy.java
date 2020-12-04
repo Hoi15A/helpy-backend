@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.matcher.strategy;
 
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
 import ch.zhaw.pm3.helpy.model.user.Weekdays;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class WeekdayStrategy implements Strategy {
 
         return userList.stream()
                 .filter(User::isWantsToHelpActive)
+                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))
                 .filter(user -> !Collections.disjoint(user.getAvailableWeekDays(), weekdaysInRange))
                 .collect(Collectors.toList());
     }

@@ -2,6 +2,7 @@ package ch.zhaw.pm3.helpy.matcher.strategy;
 
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -19,6 +20,7 @@ public class RatingStrategy implements Strategy {
 
         return userList.stream()
                 .filter(User::isWantsToHelpActive)
+                .filter(user -> user.getStatus().equals(UserStatus.ACTIVE))
                 .sorted(comparator)
                 .collect(Collectors.toList());
     }
