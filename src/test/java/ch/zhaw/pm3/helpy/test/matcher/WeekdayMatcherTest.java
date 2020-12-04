@@ -2,7 +2,6 @@ package ch.zhaw.pm3.helpy.test.matcher;
 
 import java.util.*;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
 import ch.zhaw.pm3.helpy.model.job.Job;
@@ -52,7 +51,7 @@ class WeekdayMatcherTest {
     @Test
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
-        Collection<User> result = weekdayMatcher.filterPotentialHelpers(job, userRepository.findAll());
+        Set<User> result = new HashSet<>(weekdayMatcher.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllWithAvailableWeekdays())));
         assertIterableEquals(expectedUsers, result);
     }
 
