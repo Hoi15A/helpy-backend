@@ -11,6 +11,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 
+/**
+ * Class implementing basic authentication for establishing secure sessions and
+ * granting selective account access
+ */
 @Configuration
 @EnableWebSecurity
 @Profile(Profiles.BASIC_AUTH)

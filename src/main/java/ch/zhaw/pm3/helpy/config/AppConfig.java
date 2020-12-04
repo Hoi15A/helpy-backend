@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Class to set basic configuration of App
+ */
 @Configuration
 public class AppConfig {
 

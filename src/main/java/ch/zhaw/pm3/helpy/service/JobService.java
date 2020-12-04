@@ -26,8 +26,6 @@ import static ch.zhaw.pm3.helpy.service.util.DTOMapper.*;
 
 /**
  * Service for the jobs.
- * @author meletela
- * @version 26.10.2020
  */
 @RequiredArgsConstructor
 @Transactional

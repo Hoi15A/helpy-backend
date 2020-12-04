@@ -28,11 +28,21 @@ public class CategoryDTO {
 
     private Set<CategoryDTO> listOfRelated = new HashSet<>();
 
+    /**
+     * Takes a category and adds it to the set of related
+     * @param category to add to related
+     * @return return boolean representing status of addition
+     */
     public boolean addToRelated(CategoryDTO category) {
         Objects.requireNonNull(category);
         return listOfRelated.add(category);
     }
 
+    /**
+     * Takes a category and removes it from the set of related
+     * @param category to add to related
+     * @return return boolean representing status of addition
+     */
     public boolean removeFromRelated(CategoryDTO category) {
         Objects.requireNonNull(category);
         return listOfRelated.remove(category);

@@ -88,6 +88,12 @@ public class UserService {
         if (!existingUser.getEmail().equals(user.getEmail())) {
             userRepository.updateUserEmail(existingUser.getEmail(), user.getEmail());
         }
+
+        if(user.getPassword() == null || user.getPassword().isBlank()) {
+            user.setPassword(existingUser.getPassword());
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
         return mapUserToDTO(user);
     }
