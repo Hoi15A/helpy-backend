@@ -16,8 +16,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -26,9 +25,11 @@ class WeekdayMatcherTest {
     private static final String TEST_DATE = "2020-11-28";
     private static Strategy weekdayMatcher;
     private static final Set<String> expectedUsersByEmail = new HashSet<>(Arrays.asList(
+            "dallmayr@email.com",
+            "spidey@email.com",
             "leandro@email.com",
             "hawkeye@email.com",
-            "spidey@email.com"
+            "thor@email.com"
     ));
     private Set<User> expectedUsers;
 
@@ -54,7 +55,10 @@ class WeekdayMatcherTest {
     void testMatch() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE));
         Set<User> result = new HashSet<>(weekdayMatcher.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllWithAvailableWeekdays())));
-        assertIterableEquals(expectedUsers, result);
+        assertEquals(5, result.size());
+        for(User user : result) {
+            assertTrue(expectedUsers.contains(user));
+        }
     }
 
     private Set<User> initExpectedUsers() {

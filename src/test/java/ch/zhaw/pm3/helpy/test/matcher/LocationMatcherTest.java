@@ -54,7 +54,7 @@ class LocationMatcherTest {
 
     @Test
     void testLocation() {
-        assertEquals(3, locationStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())).size());
+        assertEquals(7, locationStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())).size());
         when(job.getAuthor().getPlz()).thenReturn(1723);
         assertEquals(3, locationStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())).size());
     }
