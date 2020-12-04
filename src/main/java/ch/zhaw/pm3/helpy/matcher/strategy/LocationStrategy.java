@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Setter
 public class LocationStrategy implements Strategy {
 
+    public static final double RADIUS_IN_KM = 10.0;
     private UserRepository userRepository;
     private LocationRepository locationRepository;
 
@@ -31,7 +32,7 @@ public class LocationStrategy implements Strategy {
         ToDoubleFunction<Location> distanceFunktion = location -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
 
         List<Integer> filteredPlz = locationRepository.findAll().stream()
-                .filter(location -> distanceFunktion.applyAsDouble(location) <= 10.0)
+                .filter(location -> distanceFunktion.applyAsDouble(location) <= RADIUS_IN_KM)
                 .sorted(Comparator.comparingDouble(distanceFunktion))
                 .map(Location::getPlz)
                 .collect(Collectors.toList());
