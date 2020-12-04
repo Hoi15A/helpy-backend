@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class TagStrategyTest {
+class TagStrategyTest {
     @Mock Job job;
 
     @Autowired
