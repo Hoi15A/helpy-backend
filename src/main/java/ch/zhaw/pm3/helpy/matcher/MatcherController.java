@@ -42,9 +42,7 @@ public class MatcherController implements Matcher {
         Collection<User> resultCopy = users;
         for (StrategyType type: strategyTypes) {
             users = getStrategy(type).filterPotentialHelpers(job, new ArrayList<>(users));
-            if(!type.isMandatory()) {
-                if(users.size() < MIN_USERS) break;
-            }
+            if(!type.isMandatory() && users.size() < MIN_USERS) break;
             resultCopy = users;
         }
         return resultCopy;
