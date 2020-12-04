@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class MatcherControllerTest {
+class MatcherControllerTest {
 
     private MatcherController matcherController;
     private static final String TEST_DATE1 = "2020-12-07";
@@ -71,7 +71,7 @@ public class MatcherControllerTest {
     void testCaseBelowMinMatches() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE1));
         when(user.getPlz()).thenReturn(8409);
-        List<User> matchedUsers = new ArrayList(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
         assertEquals(1, matchedUsers.size());
         assertEquals("hulk@email.com", matchedUsers.get(0).getEmail());
     }
@@ -88,7 +88,7 @@ public class MatcherControllerTest {
         when(job.getTags()).thenReturn(tagSet);
 
 
-        List<User> matchedUsers = new ArrayList(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
         assertEquals(5, matchedUsers.size());
     }
 
@@ -100,7 +100,7 @@ public class MatcherControllerTest {
         set.add(new Category("Physisch"));
         when(job.getCategories()).thenReturn(set);
 
-        List<User> matchedUsers = new ArrayList(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
         assertEquals(5, matchedUsers.size());
     }
 }
