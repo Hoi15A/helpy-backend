@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param plz to match with a User's date attribute
      * @return set of Users with given plz
      */
-    @Query("select u from User u join fetch u.availableWeekDays left join fetch u.categories left join fetch u.tags left join fetch u.ratings where u.plz=?1")
+    @Query("select u from User u left join fetch u.availableWeekDays left join fetch u.categories left join fetch u.tags left join fetch u.ratings where u.plz=?1")
     Set<User> findUsersByPlz(int plz);
 
     /**
