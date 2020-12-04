@@ -2,7 +2,6 @@ package ch.zhaw.pm3.helpy.repository;
 
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.UserStatus;
-import ch.zhaw.pm3.helpy.model.user.Weekdays;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,24 +23,8 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param status to match with a User's status attribute
      * @return set of Users with given status
      */
-    @Query("select u from User u where u.status=?1")
-    Set<User> findUsersByStatus(UserStatus status);
-
-    /**
-     * Query to get a set of Users from the database whose status attribute is set to the given UserStatus
-     * @param status to match with a User's status attribute
-     * @return set of Users with given status
-     */
     @Query("select u from User u join fetch u.categories join fetch u.tags where u.status=?1")
     Set<User> findUsersWithCategoriesAndTagsByStatus(UserStatus status);
-
-    /**
-     * Query to get a set of Users from the database whose rating attribute is set to the given int
-     * @param rating to match with a User's rating attribute
-     * @return set of Users with given rating
-     */
-    @Query("select u from User u where u.ratings=?1")
-    Set<User> findUsersByRating(int rating);
 
     /**
      * Query to update the email of a user (id)
@@ -59,15 +42,6 @@ public interface UserRepository extends JpaRepository<User, String> {
      */
     @Query("select u from User u join fetch u.availableWeekDays")
     Set<User> findAllWithAvailableWeekdays();
-
-    /**
-     * Query to get a set of Users from the database whose availableWeekDays includes
-     * the given int representing a weekday
-     * @param weekday to match with a User's availability
-     * @return set of Users with given availability
-     */
-    @Query("select u from User u join u.availableWeekDays w where w=?1")
-    Set<User> findUsersByAvailability(Weekdays weekday);
 
     /**
      * Query to prevent lazy fetch error which gets thrown,
