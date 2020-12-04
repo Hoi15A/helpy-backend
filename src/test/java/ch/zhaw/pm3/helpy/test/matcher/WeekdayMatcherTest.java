@@ -1,8 +1,10 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import java.util.*;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
 import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;

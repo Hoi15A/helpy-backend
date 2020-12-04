@@ -1,7 +1,6 @@
 package ch.zhaw.pm3.helpy.controller;
 
 import ch.zhaw.pm3.helpy.model.category.Tag;
-import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
