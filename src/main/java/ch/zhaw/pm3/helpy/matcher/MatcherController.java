@@ -36,7 +36,7 @@ public class MatcherController implements Matcher {
         locationStrategy.setLocationRepository(locationRepository);
         locationStrategy.setUserRepository(userRepository);
 
-        Collection<User> users = locationStrategy.filterPotentialHelpers(job, null); // todo: throws currently error when plz from author not in db
+        Collection<User> users = locationStrategy.filterPotentialHelpers(job, null);
 
         Collection<User> resultCopy = users;
         for (StrategyType type: strategyTypes) {
