@@ -28,9 +28,6 @@ public class CategoryDTO {
 
     private Set<CategoryDTO> listOfRelated = new HashSet<>();
 
-    @NotBlank(message = "You have to provide a description for the category")
-    private String description = "No Description has been added";
-
     /**
      * Takes a category and adds it to the set of related
      * @param category to add to related

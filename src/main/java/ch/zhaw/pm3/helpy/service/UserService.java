@@ -138,8 +138,8 @@ public class UserService {
     public List<User> getTopTenUser() {
 
         Comparator<User> comparator = (o1, o2) -> {
-            int u1 = o1.getRatings().stream().mapToInt(Integer::valueOf).sum();
-            int u2 = o2.getRatings().stream().mapToInt(Integer::valueOf).sum();
+            int u1 = o1.getRatings().stream().reduce(0, Integer::sum);
+            int u2 = o2.getRatings().stream().reduce(0, Integer::sum);
             return u2 - u1;
         };
 

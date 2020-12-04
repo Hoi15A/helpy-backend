@@ -7,7 +7,10 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,8 +31,5 @@ public class Category {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Category> listOfRelated = new HashSet<>();
-
-    @Column(columnDefinition = "LONGTEXT")
-    private String description = "No Description has been added";
 
 }

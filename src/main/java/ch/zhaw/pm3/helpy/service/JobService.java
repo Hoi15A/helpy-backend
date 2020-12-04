@@ -1,11 +1,12 @@
 package ch.zhaw.pm3.helpy.service;
 
-import ch.zhaw.pm3.helpy.model.job.JobStatus;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.model.job.Job;
-import ch.zhaw.pm3.helpy.model.job.JobDTO;
+import ch.zhaw.pm3.helpy.matcher.MatcherController;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.job.Job;
+import ch.zhaw.pm3.helpy.model.job.JobDTO;
+import ch.zhaw.pm3.helpy.model.job.JobStatus;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.model.user.UserDTO;
 import ch.zhaw.pm3.helpy.repository.JobRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +33,8 @@ import static ch.zhaw.pm3.helpy.service.util.DTOMapper.*;
 public class JobService {
 
     private final JobRepository jobRepository;
-    private final JobMatcherService jobMatcherService;
     private final UserRepository userRepository;
+    private final MatcherController matcherController;
 
     /**
      * Get all jobs from persistence.
@@ -145,7 +147,7 @@ public class JobService {
     public List<UserDTO> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        return mapUsersToDTOs(jobMatcherService.getPotentialHelpersForJob(job.get()));
+        return mapUsersToDTOs(new ArrayList<>(matcherController.getPotentialMatches(job.get())));
     }
 
     /**

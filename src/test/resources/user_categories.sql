@@ -14,6 +14,5 @@ insert into User_Categories (user_email, categories_name) values ('captain@ameri
 insert into User_Categories (user_email, categories_name) values ('captain@america.com', 'Physisch');
 insert into User_Categories (user_email, categories_name) values ('captain@america.com', 'Freizeit');
 insert into User_Categories (user_email, categories_name) values ('spidey@email.com', 'ÖV');
-insert into User_Categories (user_email, categories_name) values ('spidey@email.com', 'Sport');
 insert into User_Categories (user_email, categories_name) values ('spidey@email.com', 'Schule');
 insert into User_Categories (user_email, categories_name) values ('iamironman@email.com', 'Administrativ');
