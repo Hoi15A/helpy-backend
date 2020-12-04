@@ -19,7 +19,7 @@ public class MatcherController implements Matcher {
 
     private UserRepository userRepository;
     private LocationRepository locationRepository;
-    private static final int MIN_USERS = 20;
+    private static final int MIN_USERS = 5;
 
     @Override
     public Collection<User> getPotentialMatches(Job job) {

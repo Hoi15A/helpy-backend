@@ -69,7 +69,7 @@ class CategoryStrategyTest {
     void testNoCategoryButTwoRelatedCategories() {
         when(job.getCategories()).thenReturn(getCategoriesByName("Behörden"));
         Collection<User> result = categoryMatcher.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
-        assertIterableEquals(getExpectedHelperWithBehörden(), result);
+        assertIterableEquals(getExpectedHelperWithBehoerden(), result);
     }
 
     @Test
@@ -94,7 +94,7 @@ class CategoryStrategyTest {
         return expectedList;
     }
 
-    private List<User> getExpectedHelperWithBehörden() {
+    private List<User> getExpectedHelperWithBehoerden() {
         List<User> expectedList = new ArrayList<>();
         expectedList.add(userRepository.findById("spidey@email.com").get());
         expectedList.add(userRepository.findById("leandro@email.com").get());

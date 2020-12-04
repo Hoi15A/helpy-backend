@@ -2,7 +2,9 @@ package ch.zhaw.pm3.helpy.test.matcher;
 
 import java.util.*;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
+import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
 import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -22,7 +24,7 @@ import static org.mockito.Mockito.when;
 class WeekdayMatcherTest {
 
     private static final String TEST_DATE = "2020-11-28";
-    private static WeekdayStrategy weekdayMatcher;
+    private static Strategy weekdayMatcher;
     private static final Set<String> expectedUsersByEmail = new HashSet<>(Arrays.asList(
             "leandro@email.com",
             "hawkeye@email.com",
