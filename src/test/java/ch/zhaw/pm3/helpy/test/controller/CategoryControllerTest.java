@@ -77,9 +77,7 @@ class CategoryControllerTest {
                 .put(REQUEST_MAPPING + "/update")
                 .content(asJsonString(testCat))
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.description")
-                        .value(RANDOM_TEST_STRING));
+                .andExpect(status().isOk());
     }
 
     @Test
