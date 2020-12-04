@@ -1,6 +1,6 @@
-package ch.zhaw.pm3.helpy.test.matcher;
+package ch.zhaw.pm3.helpy.test.matcher.filter;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.TagStrategy;
+import ch.zhaw.pm3.helpy.matcher.filter.TagFilter;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -24,30 +24,30 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class TagStrategyTest {
+class TagFilterTest {
     @Mock Job job;
 
     @Autowired
     UserRepository userRepository;
 
-    TagStrategy tagStrategy;
+    TagFilter tagFilter;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        tagStrategy = new TagStrategy();
+        tagFilter = new TagFilter();
     }
 
     @Test
     void contextLoads() {
         assertNotNull(userRepository);
-        assertNotNull(tagStrategy);
+        assertNotNull(tagFilter);
     }
 
     @Test
     void testTagMatching() {
         when(job.getTags()).thenReturn(getJobTags());
-        Collection<User> result = tagStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
+        Collection<User> result = tagFilter.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
         assertIterableEquals(getExpectedResultList(), result);
     }
 

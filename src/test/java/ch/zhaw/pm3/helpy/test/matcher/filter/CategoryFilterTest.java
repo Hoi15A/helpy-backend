@@ -1,6 +1,6 @@
-package ch.zhaw.pm3.helpy.test.matcher;
+package ch.zhaw.pm3.helpy.test.matcher.filter;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.CategoryStrategy;
+import ch.zhaw.pm3.helpy.matcher.filter.CategoryFilter;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
-class CategoryStrategyTest {
+class CategoryFilterTest {
     @Autowired
     UserRepository userRepository;
 
@@ -33,12 +33,12 @@ class CategoryStrategyTest {
 
     @Mock Job job;
 
-    CategoryStrategy categoryMatcher;
+    CategoryFilter categoryMatcher;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        categoryMatcher = new CategoryStrategy();
+        categoryMatcher = new CategoryFilter();
     }
 
     @Test

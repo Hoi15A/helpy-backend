@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.matcher.strategy;
+package ch.zhaw.pm3.helpy.matcher.filter;
 
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.model.job.Job;
@@ -18,7 +18,7 @@ import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
 @Setter
-public class LocationStrategy implements Strategy {
+public class LocationFilter implements Filter {
 
     public static final double RADIUS_IN_KM = 10.0;
     private UserRepository userRepository;
@@ -29,11 +29,11 @@ public class LocationStrategy implements Strategy {
         Location authorLocation = locationRepository.getLocationByPlz(job.getAuthor().getPlz());
         if(authorLocation == null) throw new RecordNotFoundException("Postleitzahl wurde nicht in unserer Datenbank gefunden.");
 
-        ToDoubleFunction<Location> distanceFunktion = location -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
+        ToDoubleFunction<Location> distanceFunction = location -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
 
         List<Integer> filteredPlz = locationRepository.findAll().stream()
-                .filter(location -> distanceFunktion.applyAsDouble(location) <= RADIUS_IN_KM)
-                .sorted(Comparator.comparingDouble(distanceFunktion))
+                .filter(location -> distanceFunction.applyAsDouble(location) <= RADIUS_IN_KM)
+                .sorted(Comparator.comparingDouble(distanceFunction))
                 .map(Location::getPlz)
                 .collect(Collectors.toList());
 

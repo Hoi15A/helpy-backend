@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.matcher.strategy;
+package ch.zhaw.pm3.helpy.matcher.filter;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.job.Job;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class CategoryStrategy implements Strategy {
+public class CategoryFilter implements Filter {
 
     @Override
     public Collection<User> filterPotentialHelpers(Job job, List<User> userList) {

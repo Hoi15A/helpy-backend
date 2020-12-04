@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.test.matcher;
+package ch.zhaw.pm3.helpy.test.matcher.filter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,8 +6,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
+import ch.zhaw.pm3.helpy.matcher.filter.Filter;
+import ch.zhaw.pm3.helpy.matcher.filter.WeekdayFilter;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
@@ -22,10 +22,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class WeekdayMatcherTest {
+class WeekdayFilterTest {
 
     private static final String TEST_DATE = "2020-11-28";
-    private static Strategy weekdayMatcher;
+    private static Filter weekdayMatcher;
     private static final Set<String> expectedUsersByEmail = new HashSet<>(Arrays.asList(
             "dallmayr@email.com",
             "spidey@email.com",
@@ -44,7 +44,7 @@ class WeekdayMatcherTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        weekdayMatcher = new WeekdayStrategy();
+        weekdayMatcher = new WeekdayFilter();
         expectedUsers = initExpectedUsers();
     }
 

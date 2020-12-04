@@ -1,39 +1,39 @@
 package ch.zhaw.pm3.helpy.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.CategoryStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.LocationStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.RatingStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.StrategyType;
-import ch.zhaw.pm3.helpy.matcher.strategy.TagStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
+import ch.zhaw.pm3.helpy.matcher.filter.CategoryFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.LocationFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.RatingFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.Filter;
+import ch.zhaw.pm3.helpy.matcher.filter.FilterType;
+import ch.zhaw.pm3.helpy.matcher.filter.TagFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.WeekdayFilter;
 import lombok.experimental.UtilityClass;
 
 import javax.transaction.NotSupportedException;
 
 @UtilityClass
 public class MatcherFactory {
-    public Strategy getMatcher(StrategyType strategyType) throws NotSupportedException {
-        Strategy strategy;
-        switch (strategyType) {
+    public Filter getMatcher(FilterType filterType) throws NotSupportedException {
+        Filter filter;
+        switch (filterType) {
             case TAG:
-                strategy = new TagStrategy();
+                filter = new TagFilter();
             break;
             case RATING:
-                strategy = new RatingStrategy();
+                filter = new RatingFilter();
             break;
             case WEEKDAY:
-                strategy = new WeekdayStrategy();
+                filter = new WeekdayFilter();
             break;
             case CATEGORY:
-                strategy = new CategoryStrategy();
+                filter = new CategoryFilter();
             break;
             case LOCATION:
-                strategy = new LocationStrategy();
+                filter = new LocationFilter();
             break;
             default:
                 throw new NotSupportedException("Default is not supported");
         }
-        return strategy;
+        return filter;
     }
 }

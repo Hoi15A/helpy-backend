@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.helpy.service;
 
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
-import ch.zhaw.pm3.helpy.matcher.MatcherController;
+import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;
@@ -34,7 +34,7 @@ public class JobService {
 
     private final JobRepository jobRepository;
     private final UserRepository userRepository;
-    private final MatcherController matcherController;
+    private final JobMatcher jobMatcher;
 
     /**
      * Get all jobs from persistence.
@@ -147,7 +147,7 @@ public class JobService {
     public List<UserDTO> getPotentialHelpersForJob(long id) {
         Optional<Job> job = jobRepository.findById(id);
         if (job.isEmpty()) throw new RecordNotFoundException(String.valueOf(id));
-        return mapUsersToDTOs(new ArrayList<>(matcherController.getPotentialMatches(job.get())));
+        return mapUsersToDTOs(new ArrayList<>(jobMatcher.getPotentialMatches(job.get())));
     }
 
     /**

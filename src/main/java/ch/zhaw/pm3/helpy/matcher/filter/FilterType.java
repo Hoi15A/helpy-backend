@@ -1,11 +1,11 @@
-package ch.zhaw.pm3.helpy.matcher.strategy;
+package ch.zhaw.pm3.helpy.matcher.filter;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum StrategyType {
+public enum FilterType {
     CATEGORY(3, false),
     LOCATION(1, true),
     RATING(4, false),

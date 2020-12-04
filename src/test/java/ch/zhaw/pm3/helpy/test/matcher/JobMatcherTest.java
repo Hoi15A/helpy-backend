@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.helpy.test.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.MatcherController;
+import ch.zhaw.pm3.helpy.matcher.JobMatcher;
 import ch.zhaw.pm3.helpy.model.category.Category;
 import ch.zhaw.pm3.helpy.model.category.Tag;
 import ch.zhaw.pm3.helpy.model.job.Job;
@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class MatcherControllerTest {
+class JobMatcherTest {
 
-    private MatcherController matcherController;
+    private JobMatcher jobMatcher;
     private static final String TEST_DATE1 = "2020-12-07";
     private static final String TEST_DATE2 = "2020-12-11";
 
@@ -47,9 +47,9 @@ class MatcherControllerTest {
     @BeforeEach
     void beforeSetup() {
         MockitoAnnotations.initMocks(this);
-        matcherController = new MatcherController();
-        matcherController.setUserRepository(userRepository);
-        matcherController.setLocationRepository(locationRepository);
+        jobMatcher = new JobMatcher();
+        jobMatcher.setUserRepository(userRepository);
+        jobMatcher.setLocationRepository(locationRepository);
         when(job.getAuthor()).thenReturn(user);
     }
 
@@ -58,7 +58,7 @@ class MatcherControllerTest {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE1));
         when(user.getPlz()).thenReturn(8409);
         when(user.getEmail()).thenReturn("hulk@email.com");
-        Collection<User> matchedUsers = matcherController.getPotentialMatches(job);
+        Collection<User> matchedUsers = jobMatcher.getPotentialMatches(job);
         assertEquals(0, matchedUsers.size());
     }
 
@@ -71,7 +71,7 @@ class MatcherControllerTest {
     void testCaseBelowMinMatches() {
         when(job.getDueDate()).thenReturn(LocalDate.parse(TEST_DATE1));
         when(user.getPlz()).thenReturn(8409);
-        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(jobMatcher.getPotentialMatches(job));
         assertEquals(1, matchedUsers.size());
         assertEquals("hulk@email.com", matchedUsers.get(0).getEmail());
     }
@@ -88,7 +88,7 @@ class MatcherControllerTest {
         when(job.getTags()).thenReturn(tagSet);
 
 
-        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(jobMatcher.getPotentialMatches(job));
         assertEquals(5, matchedUsers.size());
     }
 
@@ -100,7 +100,7 @@ class MatcherControllerTest {
         set.add(new Category("Physisch"));
         when(job.getCategories()).thenReturn(set);
 
-        List<User> matchedUsers = new ArrayList<>(matcherController.getPotentialMatches(job));
+        List<User> matchedUsers = new ArrayList<>(jobMatcher.getPotentialMatches(job));
         assertEquals(5, matchedUsers.size());
     }
 }

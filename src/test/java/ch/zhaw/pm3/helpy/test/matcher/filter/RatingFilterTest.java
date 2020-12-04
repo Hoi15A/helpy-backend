@@ -1,7 +1,7 @@
-package ch.zhaw.pm3.helpy.test.matcher;
+package ch.zhaw.pm3.helpy.test.matcher.filter;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.RatingStrategy;
-import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
+import ch.zhaw.pm3.helpy.matcher.filter.RatingFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.Filter;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 import ch.zhaw.pm3.helpy.repository.UserRepository;
@@ -18,7 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-class RatingMatcherTest {
+class RatingFilterTest {
 
     @Autowired
     UserRepository userRepository;
@@ -26,7 +26,7 @@ class RatingMatcherTest {
     @Mock
     Job job;
 
-    final Strategy ratingStrategy = new RatingStrategy();
+    final Filter ratingFilter = new RatingFilter();
 
     @BeforeEach
     void beforeSetup() {
@@ -40,7 +40,7 @@ class RatingMatcherTest {
 
     @Test
     void testRating() {
-        List<User> ratings = new ArrayList<>(ratingStrategy.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())));
+        List<User> ratings = new ArrayList<>(ratingFilter.filterPotentialHelpers(job, new ArrayList<>(userRepository.findAllByRating())));
         assertNotEquals(0, ratings.size());
         assertEquals("leandro@email.com", ratings.get(0).getEmail());
         assertEquals("spidey@email.com", ratings.get(1).getEmail());

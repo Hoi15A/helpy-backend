@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.helpy.matcher.strategy;
+package ch.zhaw.pm3.helpy.matcher.filter;
 
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class WeekdayStrategy implements Strategy {
+public class WeekdayFilter implements Filter {
 
     private static final int RANGE = 1;
     private static final Weekdays[] weekdaysArray = Weekdays.values();
