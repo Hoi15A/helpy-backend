@@ -1,6 +1,12 @@
 package ch.zhaw.pm3.helpy.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.*;
+import ch.zhaw.pm3.helpy.matcher.strategy.CategoryStrategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.LocationStrategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.RatingStrategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.Strategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.StrategyType;
+import ch.zhaw.pm3.helpy.matcher.strategy.TagStrategy;
+import ch.zhaw.pm3.helpy.matcher.strategy.WeekdayStrategy;
 import lombok.experimental.UtilityClass;
 
 import javax.transaction.NotSupportedException;

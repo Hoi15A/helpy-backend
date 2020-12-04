@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.helpy.service;
 
-import ch.zhaw.pm3.helpy.config.AppConfig;
 import ch.zhaw.pm3.helpy.exception.RecordNotFoundException;
 import ch.zhaw.pm3.helpy.matcher.MatcherController;
 import ch.zhaw.pm3.helpy.model.category.Category;
@@ -17,7 +16,11 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import static ch.zhaw.pm3.helpy.service.util.DTOMapper.*;
 
