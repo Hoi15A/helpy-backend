@@ -28,7 +28,7 @@ public class LocationStrategy implements Strategy {
         Location authorLocation = locationRepository.getLocationByPlz(job.getAuthor().getPlz());
         if(authorLocation == null) throw new RecordNotFoundException("Postleitzahl wurde nicht in unserer Datenbank gefunden.");
 
-        ToDoubleFunction<Location> distanceFunktion = (location) -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
+        ToDoubleFunction<Location> distanceFunktion = location -> LocationUtil.calcDistance(authorLocation.getGeolocation(), location.getGeolocation());
 
         List<Integer> filteredPlz = locationRepository.findAll().stream()
                 .filter(location -> distanceFunktion.applyAsDouble(location) <= 10.0)
