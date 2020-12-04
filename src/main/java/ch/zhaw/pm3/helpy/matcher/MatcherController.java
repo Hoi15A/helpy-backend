@@ -38,13 +38,14 @@ public class MatcherController implements Matcher {
 
         Collection<User> users = locationStrategy.filterPotentialHelpers(job, null);
 
+        users  = users.stream().filter(user -> !user.getEmail().equals(job.getAuthor().getEmail())).collect(Collectors.toList());
         Collection<User> resultCopy = users;
         for (StrategyType type: strategyTypes) {
+            users = getStrategy(type).filterPotentialHelpers(job, new ArrayList<>(users));
             if(!type.isMandatory()) {
                 if(users.size() < MIN_USERS) break;
-                resultCopy = users;
             }
-            users = getStrategy(type).filterPotentialHelpers(job, new ArrayList<>(users));
+            resultCopy = users;
         }
         return resultCopy;
     }
