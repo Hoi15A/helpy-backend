@@ -32,7 +32,7 @@ class LocationMatcherTest {
     @Mock
     User user;
 
-    LocationStrategy locationStrategy = new LocationStrategy();
+    final LocationStrategy locationStrategy = new LocationStrategy();
 
     @BeforeEach
     void setUp() {

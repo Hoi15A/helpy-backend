@@ -26,7 +26,7 @@ class RatingMatcherTest {
     @Mock
     Job job;
 
-    Strategy ratingStrategy = new RatingStrategy();
+    final Strategy ratingStrategy = new RatingStrategy();
 
     @BeforeEach
     void beforeSetup() {
