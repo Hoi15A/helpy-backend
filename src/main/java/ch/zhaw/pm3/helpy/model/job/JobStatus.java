@@ -1,7 +1,5 @@
 package ch.zhaw.pm3.helpy.model.job;
 
-import ch.zhaw.pm3.helpy.model.job.Job;
-
 /**
  * Enumeration of different statuses for the {@link Job} class.
  */

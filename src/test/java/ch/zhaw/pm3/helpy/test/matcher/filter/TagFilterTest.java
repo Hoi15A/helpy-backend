@@ -1,0 +1,70 @@
+package ch.zhaw.pm3.helpy.test.matcher.filter;
+
+import ch.zhaw.pm3.helpy.matcher.filter.TagFilter;
+import ch.zhaw.pm3.helpy.model.category.Tag;
+import ch.zhaw.pm3.helpy.model.job.Job;
+import ch.zhaw.pm3.helpy.model.user.User;
+import ch.zhaw.pm3.helpy.model.user.UserStatus;
+import ch.zhaw.pm3.helpy.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class TagFilterTest {
+    @Mock Job job;
+
+    @Autowired
+    UserRepository userRepository;
+
+    TagFilter tagFilter;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+        tagFilter = new TagFilter();
+    }
+
+    @Test
+    void contextLoads() {
+        assertNotNull(userRepository);
+        assertNotNull(tagFilter);
+    }
+
+    @Test
+    void testTagMatching() {
+        when(job.getTags()).thenReturn(getJobTags());
+        Collection<User> result = tagFilter.filterPotentialHelpers(job, new ArrayList<>(userRepository.findUsersWithCategoriesAndTagsByStatus(UserStatus.ACTIVE)));
+        assertIterableEquals(getExpectedResultList(), result);
+    }
+
+    private Set<Tag> getJobTags() {
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(new Tag("Winterthur"));
+        tagSet.add(new Tag("Zürich"));
+        tagSet.add(new Tag("Abonnement"));
+        tagSet.add(new Tag("Swisspass"));
+        return tagSet;
+    }
+
+    private Set<User> getExpectedResultList() {
+        Set<User> expectedResult = new HashSet<>();
+        expectedResult.add(userRepository.findById("leandro@email.com").get());
+        expectedResult.add(userRepository.findById("spidey@email.com").get());
+        expectedResult.add(userRepository.findById("hawkeye@email.com").get());
+        return expectedResult;
+    }
+}

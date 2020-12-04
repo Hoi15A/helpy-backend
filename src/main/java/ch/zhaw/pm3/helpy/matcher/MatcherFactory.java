@@ -1,33 +1,39 @@
 package ch.zhaw.pm3.helpy.matcher;
 
-import ch.zhaw.pm3.helpy.matcher.strategy.*;
+import ch.zhaw.pm3.helpy.matcher.filter.CategoryFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.LocationFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.RatingFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.Filter;
+import ch.zhaw.pm3.helpy.matcher.filter.FilterType;
+import ch.zhaw.pm3.helpy.matcher.filter.TagFilter;
+import ch.zhaw.pm3.helpy.matcher.filter.WeekdayFilter;
 import lombok.experimental.UtilityClass;
 
 import javax.transaction.NotSupportedException;
 
 @UtilityClass
 public class MatcherFactory {
-    public MatcherStrategy getMatcher(StrategyType strategyType) throws NotSupportedException {
-        MatcherStrategy strategy;
-        switch (strategyType) {
+    public Filter getMatcher(FilterType filterType) throws NotSupportedException {
+        Filter filter;
+        switch (filterType) {
             case TAG:
-                strategy = new TagMatcher();
+                filter = new TagFilter();
             break;
             case RATING:
-                strategy = new RatingMatcher();
+                filter = new RatingFilter();
             break;
             case WEEKDAY:
-                strategy = new WeekdayMatcher();
+                filter = new WeekdayFilter();
             break;
             case CATEGORY:
-                strategy = new CategoryMatcher();
+                filter = new CategoryFilter();
             break;
             case LOCATION:
-                strategy = new LocationMatcher();
+                filter = new LocationFilter();
             break;
             default:
                 throw new NotSupportedException("Default is not supported");
         }
-        return strategy;
+        return filter;
     }
 }

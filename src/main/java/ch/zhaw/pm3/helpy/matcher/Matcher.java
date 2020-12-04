@@ -3,8 +3,8 @@ package ch.zhaw.pm3.helpy.matcher;
 import ch.zhaw.pm3.helpy.model.job.Job;
 import ch.zhaw.pm3.helpy.model.user.User;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface Matcher {
-    Set<User> potentialMatches(Job job);
+    Collection<User> getPotentialMatches(Job job);
 }

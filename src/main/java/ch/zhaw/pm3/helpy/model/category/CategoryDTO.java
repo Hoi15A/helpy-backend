@@ -9,7 +9,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -27,28 +26,5 @@ public class CategoryDTO {
     private String name;
 
     private Set<CategoryDTO> listOfRelated = new HashSet<>();
-
-    @NotBlank(message = "You have to provide a description for the category")
-    private String description = "No Description has been added";
-
-    /**
-     * Takes a category and adds it to the set of related
-     * @param category to add to related
-     * @return return boolean representing status of addition
-     */
-    public boolean addToRelated(CategoryDTO category) {
-        Objects.requireNonNull(category);
-        return listOfRelated.add(category);
-    }
-
-    /**
-     * Takes a category and removes it from the set of related
-     * @param category to add to related
-     * @return return boolean representing status of addition
-     */
-    public boolean removeFromRelated(CategoryDTO category) {
-        Objects.requireNonNull(category);
-        return listOfRelated.remove(category);
-    }
 
 }
