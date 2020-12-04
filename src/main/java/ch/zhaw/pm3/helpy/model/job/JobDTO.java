@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -27,10 +28,10 @@ public class JobDTO {
     @Setter(onMethod_=@JsonIgnore)
     private long id;
 
-    @NotBlank(message = "You have to enter a title")
+    @NotBlank(message = "Der Titel des Jobs fehlt")
     private String title;
 
-    @NotBlank(message = "You have to provide a description")
+    @NotBlank(message = "Die Beschreibung des Jobs fehlt")
     private String description;
 
     //@NotNull(message = "You have to provide an author")
@@ -50,6 +51,7 @@ public class JobDTO {
 
     private Set<TagDTO> tags;
 
+    @NotNull(message = "Sie müssen ein Abschlussdatum definieren")
     private LocalDate dueDate;
 
 }

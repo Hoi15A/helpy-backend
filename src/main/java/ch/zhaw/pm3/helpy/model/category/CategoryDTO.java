@@ -21,7 +21,7 @@ import java.util.Set;
 public class CategoryDTO {
 
     @EqualsAndHashCode.Include
-    @NotBlank(message = "You have to provide a name for the category")
+    @NotBlank(message = "Der Name der Kategorie wurde nicht gesetzt")
     @NonNull
     private String name;
 

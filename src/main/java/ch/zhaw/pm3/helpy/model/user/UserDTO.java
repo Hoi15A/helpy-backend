@@ -31,35 +31,35 @@ public class UserDTO {
     //----------------------------------------------------------------
     // general user
     //----------------------------------------------------------------
-    @Email(message = "You have to enter a valid email address")
+    @Email(message = "Die E-Mail Adresse ist ungültig")
     private String email;
 
-    @NotBlank(message = "You have to enter your first name")
+    @NotBlank(message = "Es wurde kein Vorname angegeben")
     private String firstname;
 
-    @NotBlank(message = "You have to enter your last name")
+    @NotBlank(message = "Es wurde kein Nachname angegeben")
     private String lastname;
 
-    @NotNull(message = "You have to enter your sex")
+    @NotNull(message = "Ihr Geschlecht wurde nicht angegeben")
     private char sex;
 
-    @NotNull(message = "You have to enter the postcode")
+    @NotNull(message = "Ihre Postleitzahl wurde nicht angegeben")
     private int plz;
 
-    @NotNull(message = "You have to enter your birthdate")
+    @NotNull(message = "Ihr Geburtsdatum wurde nicht angegeben")
     private LocalDate birthdate;
 
     @Getter(onMethod_=@JsonIgnore)
     @Setter(onMethod_=@JsonProperty)
     private String password;
 
-    @NotEmpty(message = "You have to enter your biographie")
+    @NotEmpty(message = "Ihre Biographie wurde nicht ausgefüllt")
     private String biographie;
 
-    @NotNull(message = "You have to enter a status")
+    @NotNull(message = "Ihnen wurde leider keinen Status für ihr Profil gesetzt")
     private UserStatus status;
 
-    @NotNull(message = "You have to enter a permission type")
+    @NotNull(message = "Ihnen wurde leider keine Berechtigung erteilt")
     private Permission permission;
 
     @ToString.Exclude
