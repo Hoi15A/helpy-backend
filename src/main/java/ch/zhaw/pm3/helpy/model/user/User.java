@@ -19,7 +19,9 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.time.LocalDate;
@@ -59,6 +61,11 @@ public class User {
 
     @ToString.Exclude
     @ElementCollection
+    @JoinColumn(
+            foreignKey = @ForeignKey(
+                    foreignKeyDefinition = "FOREIGN KEY (user_email) REFERENCES user ON UPDATE CASCADE"
+            )
+    )
     private Set<Weekdays> availableWeekDays;
 
     private boolean wantsToHelpActive;
