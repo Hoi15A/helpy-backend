@@ -34,7 +34,6 @@ public class JobDTO {
     @NotBlank(message = "Die Beschreibung des Jobs fehlt")
     private String description;
 
-    //@NotNull(message = "You have to provide an author")
     private UserDTO author;
 
     @Getter(onMethod_=@JsonProperty)
