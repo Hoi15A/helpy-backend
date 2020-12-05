@@ -24,7 +24,7 @@ public class HelpyUserDetailService implements UserDetailsService  {
     public UserDetails loadUserByUsername(String username) {
         Optional<User> helpyUser = userRepository.findById(username);
         if (helpyUser.isEmpty()) {
-            String message = String.format("Username %s not found", username);
+            String message = String.format("Benutzername %s nicht gefunden", username);
             throw new UsernameNotFoundException(message);
         }
         return org.springframework.security.core.userdetails.User

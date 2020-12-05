@@ -57,7 +57,7 @@ public class UserService {
         User user = mapDTOToUser(dto);
         Optional<User> optionalUser = userRepository.findById(user.getEmail());
         if (optionalUser.isPresent()) {
-            String message = String.format("User with the id: %s already exists", user.getEmail());
+            String message = String.format("Benutzer mit der E-mail Addresse %s existiert schon", user.getEmail());
             throw new RecordAlreadyExistsException(message);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -106,7 +106,7 @@ public class UserService {
      */
     public UserDTO addRating(String email, int rating) {
         if (rating > 10 || rating < 0) {
-            String message = String.format("Rating \"%s\" is out of bounds of range 0 to 10", rating);
+            String message = String.format("Bewertung \"%s\" ist nicht zwischen 0 und 10", rating);
             throw new IllegalArgumentException(message);
         }
         User user = getExistingUser(email);
@@ -129,7 +129,7 @@ public class UserService {
     private User getExistingUser(String email) {
         Optional<User> optionalUser = userRepository.findById(email);
         if (optionalUser.isEmpty()) {
-            String message = String.format("Could not find user with the mail address: %s", email);
+            String message = String.format("Benutzer mit der E-mail Addresse %s konnte nicht gefunden werden", email);
             throw new RecordNotFoundException(message);
         }
         return optionalUser.get();

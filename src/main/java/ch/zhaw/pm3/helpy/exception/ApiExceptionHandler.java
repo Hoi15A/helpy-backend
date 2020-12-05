@@ -46,7 +46,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("Record Not Found", details);
+        ErrorResponse error = new ErrorResponse("Eintrag nicht gefunden", details);
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -57,7 +57,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         for(ObjectError error : ex.getBindingResult().getAllErrors()) {
             details.add(error.getDefaultMessage());
         }
-        ErrorResponse error = new ErrorResponse("Validation Failed", details);
+        ErrorResponse error = new ErrorResponse("Validierung fehlgeschlagen", details);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
