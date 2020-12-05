@@ -40,26 +40,26 @@ public class UserDTO {
     @NotBlank(message = "Es wurde kein Nachname angegeben")
     private String lastname;
 
-    @NotNull(message = "Ihr Geschlecht wurde nicht angegeben")
+    @NotNull(message = "Dein Geschlecht wurde nicht angegeben")
     private char sex;
 
-    @NotNull(message = "Ihre Postleitzahl wurde nicht angegeben")
+    @NotNull(message = "Deine Postleitzahl wurde nicht angegeben")
     private int plz;
 
-    @NotNull(message = "Ihr Geburtsdatum wurde nicht angegeben")
+    @NotNull(message = "Dein Geburtsdatum wurde nicht angegeben")
     private LocalDate birthdate;
 
     @Getter(onMethod_=@JsonIgnore)
     @Setter(onMethod_=@JsonProperty)
     private String password;
 
-    @NotEmpty(message = "Ihre Biographie wurde nicht ausgefüllt")
+    @NotEmpty(message = "Deine Biographie wurde nicht ausgefüllt")
     private String biographie;
 
-    @NotNull(message = "Ihnen wurde leider keinen Status für ihr Profil gesetzt")
+    @NotNull(message = "Dir wurde leider keinen Status für dein Profil gesetzt")
     private UserStatus status;
 
-    @NotNull(message = "Ihnen wurde leider keine Berechtigung erteilt")
+    @NotNull(message = "Dir wurde leider keine Berechtigung erteilt")
     private Permission permission;
 
     @ToString.Exclude

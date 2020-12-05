@@ -51,7 +51,7 @@ public class JobDTO {
 
     private Set<TagDTO> tags;
 
-    @NotNull(message = "Sie müssen ein Abschlussdatum definieren")
+    @NotNull(message = "Du musst ein Abschlussdatum definieren")
     private LocalDate dueDate;
 
 }
