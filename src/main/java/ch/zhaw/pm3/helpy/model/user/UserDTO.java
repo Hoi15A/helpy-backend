@@ -32,6 +32,7 @@ public class UserDTO {
     // general user
     //----------------------------------------------------------------
     @Email(message = "Die E-Mail Adresse ist ungültig")
+    @NotBlank(message = "Es wurde keine E-Mail angegeben")
     private String email;
 
     @NotBlank(message = "Es wurde kein Vorname angegeben")
@@ -49,6 +50,7 @@ public class UserDTO {
     @NotNull(message = "Dein Geburtsdatum wurde nicht angegeben")
     private LocalDate birthdate;
 
+    @NotBlank(message = "Es wurde kein Passwort angegeben")
     @Getter(onMethod_=@JsonIgnore)
     @Setter(onMethod_=@JsonProperty)
     private String password;
