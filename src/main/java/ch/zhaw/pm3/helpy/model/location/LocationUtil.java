@@ -2,9 +2,18 @@ package ch.zhaw.pm3.helpy.model.location;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * Utilities for working with Locations
+ */
 @UtilityClass
 public class LocationUtil {
 
+    /**
+     * Calculates the distance between two locations
+     * @param geolocation1 Coordinates of a location
+     * @param geolocation2 Coordinates of a location
+     * @return approximate distance in km
+     */
     public double calcDistance(String geolocation1, String geolocation2) {
         double lat1 = Double.parseDouble(geolocation1.split(",")[0]);
         double long1 = Double.parseDouble(geolocation1.split(",")[1]);

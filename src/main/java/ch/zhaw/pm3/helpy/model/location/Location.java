@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * Model which holds information for location data in Helpy
+ */
 @Data
 @Entity
 public class Location {
