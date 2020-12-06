@@ -8,6 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Set;
 
+/**
+ * Repository for the {@link User} entity.
+ */
 public interface UserRepository extends JpaRepository<User, String> {
 
     /**

@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Filter users by categories.
+ */
 public class CategoryFilter implements Filter {
 
     @Override

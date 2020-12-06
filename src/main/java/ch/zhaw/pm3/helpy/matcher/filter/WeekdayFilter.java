@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Filter users by available weekdays.
+ */
 public class WeekdayFilter implements Filter {
 
     private static final int RANGE = 1;

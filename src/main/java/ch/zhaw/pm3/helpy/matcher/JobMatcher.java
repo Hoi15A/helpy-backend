@@ -18,6 +18,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This matcher loads active helpers near the helpseeker and filters them out.
+ * The filters are divided in mandatory and not mandatory.
+ * The mandatory filter must be applied the others only when there are a lot of potential helper.
+ */
 @Component("jobMatcher")
 public class JobMatcher implements Matcher {
 

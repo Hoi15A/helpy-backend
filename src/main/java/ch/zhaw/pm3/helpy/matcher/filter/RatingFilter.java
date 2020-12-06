@@ -9,6 +9,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Filter users by rating.
+ */
 public class RatingFilter implements Filter {
     @Override
     public Collection<User> filterPotentialHelpers(Job job, List<User> userList) {

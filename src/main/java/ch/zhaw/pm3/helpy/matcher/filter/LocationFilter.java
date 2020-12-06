@@ -17,6 +17,9 @@ import java.util.Set;
 import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
+/**
+ * Filter users by distance.
+ */
 @Setter
 public class LocationFilter implements Filter {
 

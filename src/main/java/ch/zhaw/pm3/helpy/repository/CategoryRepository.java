@@ -1,11 +1,15 @@
 package ch.zhaw.pm3.helpy.repository;
 
 import ch.zhaw.pm3.helpy.model.category.Category;
+import ch.zhaw.pm3.helpy.model.category.Tag;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Set;
 
+/**
+ * Repository for the {@link Tag} entity.
+ */
 public interface CategoryRepository extends JpaRepository<Category, String> {
     /**
      * Query to get the set of related categories attribute from the given category

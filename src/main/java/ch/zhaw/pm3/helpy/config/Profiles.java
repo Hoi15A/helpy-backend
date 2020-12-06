@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Class describing the possible athenticatio levels
+ * Class describing the possible authentication levels
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Profiles {

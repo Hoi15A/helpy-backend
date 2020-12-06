@@ -17,6 +17,10 @@ import java.util.List;
 public class TagService {
     private final TagRepository tagRepository;
 
+    /**
+     * Get a list of all tags in the database
+     * @return a list of {@link Tag}
+     */
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
     }

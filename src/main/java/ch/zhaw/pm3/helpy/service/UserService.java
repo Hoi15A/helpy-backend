@@ -57,7 +57,7 @@ public class UserService {
         User user = mapDTOToUser(dto);
         Optional<User> optionalUser = userRepository.findById(user.getEmail());
         if (optionalUser.isPresent()) {
-            String message = String.format("Benutzer mit der E-mail Addresse %s existiert schon", user.getEmail());
+            String message = String.format("Benutzer mit der E-mail Adresse %s existiert schon", user.getEmail());
             throw new RecordAlreadyExistsException(message);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -115,12 +115,22 @@ public class UserService {
         return mapUserToDTO(user);
     }
 
+    /**
+     * Gets the latest rating from the user
+     * @param email of the user
+     * @return his latest rating
+     */
     public int getLatestRating(String email) {
         User user = getExistingUser(email);
         List<Integer> ratings = user.getRatings();
         return ratings.size() > 0 ? ratings.get(ratings.size() - 1) : -1;
     }
 
+    /**
+     * Calculates and gets the points form the user
+     * @param email of the user
+     * @return the users points
+     */
     public int getPoints(String email) {
         User user = getExistingUser(email);
         return user.getRatings().stream().reduce(0, Integer::sum);
@@ -129,12 +139,16 @@ public class UserService {
     private User getExistingUser(String email) {
         Optional<User> optionalUser = userRepository.findById(email);
         if (optionalUser.isEmpty()) {
-            String message = String.format("Benutzer mit der E-mail Addresse %s konnte nicht gefunden werden", email);
+            String message = String.format("Benutzer mit der E-mail Adresse %s konnte nicht gefunden werden", email);
             throw new RecordNotFoundException(message);
         }
         return optionalUser.get();
     }
 
+    /**
+     * Get a list of the best ten users
+     * @return a list of the best ten user sorted by their rating. Best rating first worst rating last
+     */
     public List<User> getTopTenUser() {
 
         Comparator<User> comparator = (o1, o2) -> {

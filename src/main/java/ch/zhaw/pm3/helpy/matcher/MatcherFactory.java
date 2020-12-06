@@ -11,8 +11,18 @@ import lombok.experimental.UtilityClass;
 
 import javax.transaction.NotSupportedException;
 
+/**
+ * Utility class to create a filter.
+ */
 @UtilityClass
 public class MatcherFactory {
+
+    /**
+     * Create and get the filter from the given type
+     * @param filterType as {@link FilterType}
+     * @return the created filter
+     * @throws NotSupportedException if the given type does not exist
+     */
     public Filter getMatcher(FilterType filterType) throws NotSupportedException {
         Filter filter;
         switch (filterType) {

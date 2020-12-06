@@ -3,6 +3,9 @@ package ch.zhaw.pm3.helpy.matcher.filter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Filter type enumeration.
+ */
 @RequiredArgsConstructor
 @Getter
 public enum FilterType {

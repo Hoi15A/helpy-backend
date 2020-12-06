@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Filter users by tags.
+ */
 public class TagFilter implements Filter {
 
     @Override

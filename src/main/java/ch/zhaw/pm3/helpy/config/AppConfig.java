@@ -11,6 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AppConfig {
 
+    /**
+     * Gets the {@link PasswordEncoder} to be used on login and register.
+     * @return the {@link PasswordEncoder}
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
